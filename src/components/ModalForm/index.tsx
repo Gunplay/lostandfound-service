@@ -1,35 +1,36 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Modal } from "antd";
 
-export const ModalForm: React.FC = () => {
-    const [open, setOpen] = useState(false);
+interface ModalFormProps {
+    openModal: boolean;
+    setOpenModal: (open: boolean) => void;
+}
+export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal }) => {
+    // const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+    console.log("confirmLoading", confirmLoading);
     const [modalText, setModalText] = useState("Your form has been sent, we’ll send you soon!");
 
-    const showModal = () => {
-        setOpen(true);
-    };
+    // const showModal = () => {
+    //     setOpen && setOpen(true);
+    // };
 
     const handleOk = () => {
-        setModalText("The modal will be closed after two seconds");
         setConfirmLoading(true);
+        setModalText("The modal will be closed after two seconds");
         setTimeout(() => {
-            setOpen(false);
+            setOpenModal(false);
             setConfirmLoading(false);
         }, 2000);
     };
 
     const handleCancel = () => {
         console.log("Clicked cancel button");
-        setOpen(false);
+        setOpenModal(false);
     };
-
     return (
         <>
-            <Button type="primary" onClick={showModal}>
-                Confrim sending form
-            </Button>
-            <Modal title="LOST THINGS" open={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+            <Modal title="LOST THINGS" open={openModal} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
                 <p style={{ fontSize: "23px" }}>{modalText}</p>
             </Modal>
         </>
