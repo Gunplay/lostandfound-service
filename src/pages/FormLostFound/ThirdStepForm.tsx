@@ -7,7 +7,6 @@ import { UpLoadImage } from "../../components";
 import { ModalForm } from "../../components";
 import { type } from "os";
 
-const { Title, Paragraph, Text, Link } = Typography;
 const { Option } = Select;
 
 const tailFormItemLayout = {

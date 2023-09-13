@@ -35,6 +35,7 @@ const CardNewItem: React.FC<CardProps> = ({ checked, cardInfo }) => {
         >
             <Space direction="vertical" size="middle">
                 <Meta title={title} description="This is the description" />
+
                 {checked && (
                     <>
                         <Text type="danger">{categoryName}</Text>

@@ -5,11 +5,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 import cardReducer from "./card/slice";
+import formReducer from "./form/slice";
+
+// import formCategoriesReducers from "./form/slice";
 
 export const store = configureStore({
     reducer: {
         card: cardReducer,
-        // filter,
+        form: formReducer,
+        // categories: formCategoriesReducers,
+
         // cart,
         // pizza,
     },

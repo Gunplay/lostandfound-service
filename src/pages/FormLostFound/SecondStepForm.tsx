@@ -1,6 +1,8 @@
 import { Form, Input, DatePicker, Button } from "antd";
 
 import { UpLoadImage } from "../../components";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const SecondStepFrom = () => {
     return (

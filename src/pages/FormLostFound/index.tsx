@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 
 import { AutoComplete, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select, DatePicker, Button, Steps, message } from "antd";
 
@@ -82,6 +82,12 @@ const FormLostFound: React.FC = () => {
         const data = new FormData(event.target);
         console.log("data", data);
     };
+
+    // function onSubmit(e: FormEvent) {
+    //     e.preventDefault();
+
+    //     alert("Successful Account Creation");
+    // }
     return (
         <Form
             {...formItemLayout}
@@ -128,10 +134,23 @@ const FormLostFound: React.FC = () => {
     );
 };
 
+// const updateFields = (fields: Partial<FormData>) => {
+//     setData((prev) => {
+//         return {
+//             ...prev,
+//             adData: {
+//                 ...prev.adData,
+//                 ...fields.adData,
+//             },
+//         };
+//     });
+// };
+
 const steps = [
     {
         title: "First",
         content: <FirstStepForm />,
+        //  content: <FirstStepForm data={data} setData={setData} updateFields={updateFields} />,
     },
     {
         title: "Second",

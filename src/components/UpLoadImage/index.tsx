@@ -3,6 +3,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Modal, Upload } from "antd";
 import type { RcFile, UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { RootState } from "../../redux/store";
 
 const getBase64 = (file: RcFile): Promise<string> =>
     new Promise((resolve, reject) => {
@@ -13,6 +15,8 @@ const getBase64 = (file: RcFile): Promise<string> =>
     });
 
 export const UpLoadImage: React.FC = () => {
+    const photos = useSelector((store: RootState) => store.form.adData.photos);
+
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState("");
     const [previewTitle, setPreviewTitle] = useState("");

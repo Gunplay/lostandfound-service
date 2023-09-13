@@ -14,7 +14,7 @@ const cardSlice = createSlice({
         // actions
         setItems(state, action: PayloadAction<CardData[]>) {
             // card/setItems
-            state.items = action.payload;
+            // state.items = action.payload;
         },
     },
     extraReducers: (builder) => {

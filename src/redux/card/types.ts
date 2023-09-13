@@ -7,6 +7,7 @@ export interface CardData {
     typeId: number;
     _id: string;
     checked: boolean;
+    subName: string;
 }
 
 // export interface CardProps<S, N> {
