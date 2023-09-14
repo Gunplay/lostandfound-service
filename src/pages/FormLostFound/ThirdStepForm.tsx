@@ -6,7 +6,10 @@ import { Divider, Typography } from "antd";
 import { UpLoadImage } from "../../components";
 import { ModalForm } from "../../components";
 import { type } from "os";
+import { setAdataFirstName, setAdataLastName, setAdataEmail, setAdataPhone } from "../../redux/form/slice";
 
+import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 const { Option } = Select;
 
 const tailFormItemLayout = {
@@ -29,13 +32,16 @@ const tailFormItemLayout = {
 // }
 
 const ThirdStepForm: React.FC = () => {
+    const dispatch = useDispatch();
+    const { firstname, lastname, email, phone } = useSelector((store: RootState) => store.form.adData.user);
+
     const [openModal, setOpenModal] = useState(false);
 
     console.log("openModal", openModal);
 
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
-            <Select style={{ width: 70 }}>
+            <Select style={{ width: 70 }} onChange={(defaultValue) => dispatch(setAdataPhone(defaultValue))}>
                 <Option value="050">+050</Option>
                 <Option value="068">+068</Option>
             </Select>
@@ -54,7 +60,7 @@ const ThirdStepForm: React.FC = () => {
                 tooltip="What do you want others to call you?"
                 rules={[{ required: true, message: "Please input your nickname!", whitespace: true }]}
             >
-                <Input />
+                <Input value={firstname} onChange={(e) => dispatch(setAdataFirstName(e.target.value))} />
             </Form.Item>
 
             <Form.Item
@@ -63,11 +69,11 @@ const ThirdStepForm: React.FC = () => {
                 tooltip="What do you want others to call you?"
                 rules={[{ required: true, message: "Please input your nickname!", whitespace: true }]}
             >
-                <Input />
+                <Input value={lastname} onChange={(e) => dispatch(setAdataLastName(e.target.value))} />
             </Form.Item>
 
             <Form.Item name="phone" label="Phone Number" rules={[{ required: true, message: "Please input your phone number!" }]}>
-                <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
+                <Input addonBefore={prefixSelector} style={{ width: "100%" }} value={phone} onChange={(e) => dispatch(setAdataPhone(e.target.value))} />
             </Form.Item>
 
             <Form.Item
@@ -83,6 +89,7 @@ const ThirdStepForm: React.FC = () => {
                         message: "Please input your E-mail!",
                     },
                 ]}
+                // valuePropName = {email}
             >
                 <Input />
             </Form.Item>

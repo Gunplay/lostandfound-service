@@ -5,6 +5,7 @@ export interface FormData {
         title: string;
         description: string;
         photos: UploadFile[];
+        dateLostOrFound: string;
         typeId: string;
         categories: string;
         // location: {

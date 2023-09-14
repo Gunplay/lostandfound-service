@@ -1,6 +1,7 @@
 import { CreateSliceOptions, PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { FormData, Status } from "./types";
 import { fetchFormCategories } from "./asyncActions";
+import type { UploadFile } from "antd/es/upload/interface";
 
 const initialState: FormData = {
     adData: {
@@ -8,6 +9,7 @@ const initialState: FormData = {
         title: "",
         description: "",
         photos: [],
+        dateLostOrFound: "",
         typeId: "",
         categories: "",
         // location: {
@@ -42,18 +44,41 @@ const formSlice = createSlice({
             // card/setItems
             state.adData.description = action.payload;
         },
-        setAdataPhoto(state, action: PayloadAction<string>) {
+        setAdataPhotos(state, action: PayloadAction<[]>) {
             // card/setItems
             state.adData.photos = action.payload;
         },
-        setAdataTypeId(state, action: PayloadAction<string>) {
+
+        setAdataDataLostOrFound(state, action: PayloadAction<string>) {
             // card/setItems
-            state.adData.typeId = action.payload;
+            state.adData.lostOrFoundAt = action.payload;
         },
-        setAdataCategories(state, action: PayloadAction<string>) {
+
+        setAdataFirstName(state, action: PayloadAction<string>) {
             // card/setItems
-            state.adData.categories = action.payload;
+            state.adData.user.firstname = action.payload;
         },
+        setAdataLastName(state, action: PayloadAction<string>) {
+            // card/setItems
+            state.adData.user.lastname = action.payload;
+        },
+        setAdataEmail(state, action: PayloadAction<string>) {
+            // card/setItems
+            state.adData.user.email = action.payload;
+        },
+        setAdataPhone(state, action: PayloadAction<string>) {
+            // card/setItems
+            state.adData.user.phone = action.payload;
+        },
+
+        // setAdataTypeId(state, action: PayloadAction<string>) {
+        //     // card/setItems
+        //     state.adData.typeId = action.payload;
+        // },
+        // setAdataCategories(state, action: PayloadAction<string>) {
+        //     // card/setItems
+        //     state.adData.categories = action.payload;
+        // },
         setAdataLostOrFoundAt(state, action: PayloadAction<string>) {
             // card/setItems
             state.adData.lostOrFoundAt = action.payload;
@@ -67,24 +92,34 @@ const formSlice = createSlice({
         //     state.adData.form = action.payload;
         // },
     },
-    extraReducers: (builder) => {
-        builder.addCase(fetchFormCategories.pending, (state, action) => {
-            state.status = Status.LOADING;
-            state.items = [];
-        });
+    // extraReducers: (builder) => {
+    //     builder.addCase(fetchFormCategories.pending, (state, action) => {
+    //         state.status = Status.LOADING;
+    //         state.items = [];
+    //     });
 
-        builder.addCase(fetchFormCategories.fulfilled, (state, action) => {
-            state.items = action.payload;
-            state.status = Status.SUCCESS;
-        });
+    //     builder.addCase(fetchFormCategories.fulfilled, (state, action) => {
+    //         state.items = action.payload;
+    //         state.status = Status.SUCCESS;
+    //     });
 
-        builder.addCase(fetchFormCategories.rejected, (state, action) => {
-            state.status = Status.ERROR;
-            state.items = [];
-        });
-    },
+    //     builder.addCase(fetchFormCategories.rejected, (state, action) => {
+    //         state.status = Status.ERROR;
+    //         state.items = [];
+    //     });
+    // },
 });
 
-export const { setAdataTitle, setAdataCategories, setAdataLostOrFoundAt, setAdataPhoto } = formSlice.actions;
+export const {
+    setAdataTitle,
+    setAdataLostOrFoundAt,
+    setAdataPhotos,
+    setAdataDescription,
+    setAdataDataLostOrFound,
+    setAdataFirstName,
+    setAdataLastName,
+    setAdataEmail,
+    setAdataPhone,
+} = formSlice.actions;
 
 export default formSlice.reducer; // pass to store
