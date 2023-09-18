@@ -2,11 +2,11 @@ import React, { FormEvent, useState } from "react";
 
 import { AutoComplete, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select, DatePicker, Button, Steps, message } from "antd";
 
-import { ModalForm } from "../../components";
 import { type } from "os";
 import FirstStepForm from "./FirstStepForm";
 import SecondStepFrom from "./SecondStepForm";
 import ThirdStepForm from "./ThirdStepForm";
+import { ModalForm } from "../../components";
 
 // interface ModalFormProps {
 //     visible: boolean;
@@ -40,7 +40,24 @@ const FormLostFound: React.FC = () => {
     };
 
     const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
+    const [openModal, setOpenModal] = useState(false);
 
+    const tailFormItemLayout = {
+        wrapperCol: {
+            xs: {
+                span: 24,
+                offset: 0,
+            },
+            sm: {
+                span: 16,
+                offset: 8,
+            },
+        },
+    };
+
+    const showModal = () => {
+        setOpenModal(true);
+    };
     const onWebsiteChange = (value: string) => {
         if (!value) {
             setAutoCompleteResult([]);
@@ -125,6 +142,15 @@ const FormLostFound: React.FC = () => {
                             Next
                         </Button>
                     )}
+                    {formState.current === steps.length - 1 && (
+                        <>
+                            <Button type="primary" htmlType="submit" onClick={showModal}>
+                                Register
+                            </Button>
+                            <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
+                        </>
+                    )}
+
                     {/* {formState.current === steps.length - 1 && (
                         <ModalForm /> // Pass the required props to ModalForm
                     )} */}

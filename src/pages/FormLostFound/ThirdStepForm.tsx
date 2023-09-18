@@ -6,9 +6,17 @@ import { Divider, Typography } from "antd";
 import { UpLoadImage } from "../../components";
 import { ModalForm } from "../../components";
 import { type } from "os";
-import { setAdataFirstName, setAdataLastName, setAdataEmail, setAdataPhone } from "../../redux/form/slice";
+import {
+    setAdataFirstName,
+    setAdataLastName,
+    setAdataEmail,
+    setAdataPhonePrefix,
+    setAdataPhonePrefixUpdate,
+    setAdataPhoneMainUpdate,
+    setAdataChecked,
+} from "../../redux/form/slice";
 
-import { RootState } from "../../redux/store";
+import { RootState, store } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 const { Option } = Select;
 
@@ -34,23 +42,35 @@ const tailFormItemLayout = {
 const ThirdStepForm: React.FC = () => {
     const dispatch = useDispatch();
     const { firstname, lastname, email, phone } = useSelector((store: RootState) => store.form.adData.user);
+    const aDataChecked = useSelector((store: RootState) => store.form.adData.checked);
 
-    const [openModal, setOpenModal] = useState(false);
+    // const [openModal, setOpenModal] = useState(false);
 
-    console.log("openModal", openModal);
+    // const showModal = () => {
+    //     setOpenModal(true);
+    // };
+    const handlePhonePrefixChange = (value: string) => {
+        if (/^[+]?\d*$/.test(value)) {
+            // Проверка, что value содержит только положительные числа
+            dispatch(setAdataPhonePrefixUpdate(value));
+        }
+    };
 
+    const handlePhoneMainChange = (event: any) => {
+        const value = event.target.value;
+        if (/^[+]?\d*$/.test(value)) {
+            // Проверка, что value содержит только положительные числа
+            dispatch(setAdataPhoneMainUpdate(value));
+        }
+    };
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
-            <Select style={{ width: 70 }} onChange={(defaultValue) => dispatch(setAdataPhone(defaultValue))}>
+            <Select style={{ width: 70 }} onChange={handlePhonePrefixChange}>
                 <Option value="050">+050</Option>
                 <Option value="068">+068</Option>
             </Select>
         </Form.Item>
     );
-
-    const showModal = () => {
-        setOpenModal(true);
-    };
 
     return (
         <>
@@ -73,7 +93,7 @@ const ThirdStepForm: React.FC = () => {
             </Form.Item>
 
             <Form.Item name="phone" label="Phone Number" rules={[{ required: true, message: "Please input your phone number!" }]}>
-                <Input addonBefore={prefixSelector} style={{ width: "100%" }} value={phone} onChange={(e) => dispatch(setAdataPhone(e.target.value))} />
+                <Input addonBefore={prefixSelector} style={{ width: "100%" }} value={phone} onChange={handlePhoneMainChange} type="number" />
             </Form.Item>
 
             <Form.Item
@@ -91,7 +111,7 @@ const ThirdStepForm: React.FC = () => {
                 ]}
                 // valuePropName = {email}
             >
-                <Input />
+                <Input value={email} onChange={(e) => dispatch(setAdataEmail(e.target.value))} />
             </Form.Item>
 
             <Form.Item
@@ -104,16 +124,16 @@ const ThirdStepForm: React.FC = () => {
                 ]}
                 {...tailFormItemLayout}
             >
-                <Checkbox>
+                <Checkbox value={aDataChecked} onChange={(e) => dispatch(setAdataChecked(e.target.checked))}>
                     I have read the <a href="">agreement</a>
                 </Checkbox>
             </Form.Item>
-            <Form.Item {...tailFormItemLayout}>
+            {/* <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit" onClick={showModal}>
                     Register
                 </Button>
                 <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
-            </Form.Item>
+            </Form.Item> */}
         </>
     );
 };
