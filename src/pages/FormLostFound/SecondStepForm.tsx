@@ -1,42 +1,70 @@
-import { Form, Input, DatePicker, Button } from "antd";
-import type { DatePickerProps } from "antd";
-import { UpLoadImage } from "../../components";
+import React from "react";
+import { Form, Input, DatePicker, Tooltip, Upload } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import type { DatePickerProps } from "antd";
+import type { Dayjs } from "dayjs";
+import { UpLoadImage } from "../../components";
 import { RootState } from "../../redux/store";
-import { setAdataDataLostOrFound, setAdataDescription } from "../../redux/form/slice";
+import { setAdataDataLostOrFound, setAdataDescription, setAdataLocation } from "../../redux/form/slice";
+import { PlusOutlined } from "@ant-design/icons";
 
-const SecondStepFrom = () => {
+const SecondStepFrom: React.FC = () => {
+    // Define the component as a React functional component.
     const dispatch = useDispatch();
-    const { description, dateLostOrFound, switcherLostOrFound } = useSelector((store: RootState) => store.form.adData);
-    console.log("title", setAdataDescription);
-    const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-        dispatch(setAdataDataLostOrFound(date, dateString));
+
+    // Use the RootState type to define the types of the Redux store values.
+    const {
+        description,
+        lostOrFoundAt,
+        switcherLostOrFound,
+        location: { address },
+    } = useSelector((store: RootState) => store.form.adData);
+
+    const onHandleDatePicker: DatePickerProps["onChange"] = (value, dateString) => {
+        if (value === null) {
+            // Обработка случая, когда дата равна null (если необходимо)
+        } else {
+            const date = dateString || ""; // Убедитесь, что dateString не равен null или undefined
+            dispatch(setAdataDataLostOrFound(date));
+        }
     };
 
     return (
-        <>
+        <Form>
+            {/* Form.Item for Description */}
             <Form.Item name="description" label="Description" rules={[{ required: true, message: "Please input Description" }]}>
                 <Input.TextArea
                     showCount
                     maxLength={100}
-                    value={description}
+                    defaultValue={description}
                     onChange={(e) => dispatch(setAdataDescription(e.target.value))}
                     placeholder={
                         switcherLostOrFound === "LOST"
-                            ? "Tell us more about your LOST For Ex: Special sings of your loss"
-                            : "Tell us more about your FOUND For Ex: How much money do you want to recive as a reward..."
+                            ? "Tell us more about your LOST For Ex: Special signs of your loss"
+                            : "Tell us more about your FOUND For Ex: How much reward money you want to receive..."
                     }
                 />
             </Form.Item>
 
-            <Form.Item label="Choose photos of your lost:">
+            <Form.Item label={switcherLostOrFound === "FOUND" ? "Choose photos of your found:" : "Choose photos of your lost:"}>
                 <UpLoadImage />
             </Form.Item>
 
-            <Form.Item name="time" label="Date when it was lost:">
-                <DatePicker value={dateLostOrFound} onChange={onChange} />
+            <Tooltip title="(Choose it on the map above and change it if it is not correct):">
+                <Form.Item
+                    name="place"
+                    label={switcherLostOrFound === "LOST" ? "Place where it was lost:" : "Place where it was found:"}
+                    rules={[{ required: true, message: "Please input the location!" }]}
+                >
+                    <Input type="text" value={address} onChange={(e) => dispatch(setAdataLocation(e.target.value))} placeholder="Choose it on the map above..." />
+                </Form.Item>
+            </Tooltip>
+
+            {/* Form.Item for Date */}
+            <Form.Item name="date" label={switcherLostOrFound === "LOST" ? "Date when it was lost:" : "Date when it was found:"}>
+                <DatePicker value={lostOrFoundAt} onChange={onHandleDatePicker} />
             </Form.Item>
-        </>
+        </Form>
     );
 };
 

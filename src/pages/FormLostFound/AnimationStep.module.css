@@ -1,0 +1,13 @@
+.highlight {
+    animation: highlight 4s ease-in-out;
+}
+
+@keyframes highlight {
+    0%,
+    100% {
+        background-color: inherit;
+    }
+    50% {
+        background-color: #ffff66; /* Цвет подсветки */
+    }
+}

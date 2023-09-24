@@ -2,6 +2,8 @@ import { CreateSliceOptions, PayloadAction, createSlice } from "@reduxjs/toolkit
 import { FormData, Status } from "./types";
 import { fetchFormCategories } from "./asyncActions";
 import type { UploadFile } from "antd/es/upload/interface";
+import type { Dayjs } from "dayjs";
+import { act } from "react-dom/test-utils";
 
 // interface PhotoInfo {
 //     uid: string;
@@ -20,9 +22,9 @@ const initialState: FormData = {
         categories: "",
         location: {
             _id: "",
-            address: "",
-            lat: "",
-            lng: "",
+            address: "Default",
+            lat: "333",
+            lng: "777",
         },
         user: {
             firstname: "",
@@ -32,9 +34,9 @@ const initialState: FormData = {
             phonePrefix: "",
             phoneMain: "",
         },
-        switcherLostOrFound: "",
+        switcherLostOrFound: "LOST",
         categoryId: "",
-        lostOrFoundAt: "Choose the time",
+        lostOrFoundAt: "",
         checked: false,
         createdAt: "",
         secretQuestion: "",
@@ -54,12 +56,19 @@ const formSlice = createSlice({
         setAdataDescription(state, action: PayloadAction<string>) {
             state.adData.description = action.payload;
         },
+        //PayloadAction<Record<string, string>[]>
+        setAdataPhotos(state, action: PayloadAction<UploadFile[]>) {
+            //state.adData.photos = [...state.adData.photos, ...action.payload];
+            //state.adData.photos = JSON.stringify(action.payload);
+            //tate.adData.photos.push(action.payload);
+            var tempProps = Object.create(action.payload); // create copy - without link
 
-        setAdataPhotos(state, action: PayloadAction<Record<string, string>[]>) {
-            console.log("fileList", action.payload);
-            state.adData.photos = [...state.adData.photos, ...action.payload];
+            console.log("tempProps", tempProps);
+            state.adData.photos = tempProps; // new Array
         },
-
+        setAdataLocation(state, action: PayloadAction<string>) {
+            state.adData.location.address = action.payload;
+        },
         setAdataDataLostOrFound(state, action: PayloadAction<string>) {
             state.adData.lostOrFoundAt = action.payload;
         },
@@ -133,6 +142,7 @@ export const {
     setAdataCategories,
 
     setAdataPhotos,
+    setAdataLocation,
     setAdataDescription,
     setAdataDataLostOrFound,
     setAdataFirstName,

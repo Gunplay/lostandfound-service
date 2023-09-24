@@ -1,25 +1,16 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 
-import { AutoComplete, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select, DatePicker, Button, Steps, message } from "antd";
+import { AutoComplete, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select, DatePicker, Button, Steps, message, UploadFile, UploadProps } from "antd";
 
 import { type } from "os";
 import FirstStepForm from "./FirstStepForm";
 import SecondStepFrom from "./SecondStepForm";
 import ThirdStepForm from "./ThirdStepForm";
 import { ModalForm } from "../../components";
-
-// interface ModalFormProps {
-//     visible: boolean;
-//     onClose: () => void;
-//     onClick?: () => void;
-//     children?: React.ReactNode;
-// }
-
-// interface DataNodeType {
-//     value: string;
-//     label: string;
-//     children?: DataNodeType[];
-// }
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { FormData } from "../../redux/form/types";
+import { setAdataPhotos } from "../../redux/form/slice";
 
 const formItemLayout = {
     labelCol: {
@@ -34,6 +25,9 @@ const formItemLayout = {
 
 const FormLostFound: React.FC = () => {
     const [form] = Form.useForm();
+
+    // const formDataFromInitialState = useSelector((store: RootState) => store.form.adData);
+    // const newdata = { ...formDataFromInitialState };
 
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values);
@@ -94,11 +88,12 @@ const FormLostFound: React.FC = () => {
         marginTop: 16,
     };
 
-    const handle = (event: any) => {
-        event.preventDefault();
-        const data = new FormData(event.target);
-        console.log("data", data);
-    };
+    // const handle = (event: any) => {
+    //     event.preventDefault();
+    //     const data = new FormData(newdata);
+    //     console.log("dataFull", data);
+    //     return data;
+    // };
 
     // function onSubmit(e: FormEvent) {
     //     e.preventDefault();
@@ -150,10 +145,6 @@ const FormLostFound: React.FC = () => {
                             <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
                         </>
                     )}
-
-                    {/* {formState.current === steps.length - 1 && (
-                        <ModalForm /> // Pass the required props to ModalForm
-                    )} */}
                 </div>
             </div>
         </Form>

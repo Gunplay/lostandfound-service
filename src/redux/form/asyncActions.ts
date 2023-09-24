@@ -7,7 +7,7 @@ import axios from "axios";
 export const fetchFormCategories = createAsyncThunk<FormData[]>("form/fetchFormCategories", async () => {
     // (params)
     //const { sortBy, order, category, search, currentPage } = params;
-    //console.log(params, 4444);
+
     const { data } = await axios.get<FormData[]>(`http://localhost:3001/ads/categories`, {
         //   params: pickBy(
         //     {
@@ -21,6 +21,6 @@ export const fetchFormCategories = createAsyncThunk<FormData[]>("form/fetchFormC
         //     identity,
         //   ),
     });
-    console.log("categories", data);
+
     return data;
 });

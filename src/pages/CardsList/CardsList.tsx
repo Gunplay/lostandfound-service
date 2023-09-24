@@ -18,7 +18,7 @@ interface CardsPageProps {
 export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
     const dispatch = useAppDispatch();
     const { items, status } = useSelector(selectCardData);
-    console.log("card", items);
+
     const [switcher, setSwitcher] = useState(false);
 
     const onChange = (checked: boolean) => {

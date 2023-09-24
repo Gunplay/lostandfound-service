@@ -1,11 +1,14 @@
 import type { UploadFile } from "antd/es/upload/interface";
+import type { DatePickerProps } from "antd";
+import type { Dayjs } from "dayjs";
+
 // import { type } from "os";
 export interface FormData {
     adData: {
         _id: string;
         title: string;
         description: string;
-        photos: Record<string, string>[];
+        photos: UploadFile[];
         // dateLostOrFound: string;
         typeId: string;
         categories: string;

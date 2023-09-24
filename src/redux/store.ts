@@ -13,11 +13,21 @@ export const store = configureStore({
     reducer: {
         card: cardReducer,
         form: formReducer,
+
         // categories: formCategoriesReducers,
 
         // cart,
         // pizza,
     },
+
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                // Ignore these paths in the state
+                ignoredActions: ["form/setAdataPhotos", "form/setAdataDataLostOrFound"],
+                ignoredPaths: ["form.adData.photos", "form.adData.lostOrFoundAt"],
+            },
+        }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -66,8 +66,8 @@ const ThirdStepForm: React.FC = () => {
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
             <Select style={{ width: 70 }} onChange={handlePhonePrefixChange}>
-                <Option value="050">+050</Option>
-                <Option value="068">+068</Option>
+                <Option value="+380">+380</Option>
+                <Option value="+360">+360</Option>
             </Select>
         </Form.Item>
     );

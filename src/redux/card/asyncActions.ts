@@ -21,6 +21,6 @@ export const fetchCards = createAsyncThunk<CardData[]>("card/fetchCards", async 
         //     identity,
         //   ),
     });
-    console.log("data", data);
+
     return data;
 });

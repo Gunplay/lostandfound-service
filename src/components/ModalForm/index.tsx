@@ -8,7 +8,7 @@ interface ModalFormProps {
 export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal }) => {
     // const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    console.log("confirmLoading", confirmLoading);
+
     const [modalText, setModalText] = useState("Your form has been sent, we’ll send you soon!");
 
     // const showModal = () => {
