@@ -25,9 +25,21 @@ const formItemLayout = {
 
 const FormLostFound: React.FC = () => {
     const [form] = Form.useForm();
+    const {
+        _id,
+        title,
+        description,
+        photosData,
+        categories,
+        location: { address, lat, lng },
+        user: { firstname, lastname, email, phone },
+        categoryId,
+        lostOrFoundAt,
+        createdAt,
+        secretQuestion,
+    } = useSelector((store: RootState) => store.form.adData);
 
-    // const formDataFromInitialState = useSelector((store: RootState) => store.form.adData);
-    // const newdata = { ...formDataFromInitialState };
+    let photos = photosData.map((item) => item.originFileObj);
 
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values);
@@ -88,18 +100,6 @@ const FormLostFound: React.FC = () => {
         marginTop: 16,
     };
 
-    // const handle = (event: any) => {
-    //     event.preventDefault();
-    //     const data = new FormData(newdata);
-    //     console.log("dataFull", data);
-    //     return data;
-    // };
-
-    // function onSubmit(e: FormEvent) {
-    //     e.preventDefault();
-
-    //     alert("Successful Account Creation");
-    // }
     return (
         <Form
             {...formItemLayout}
@@ -107,6 +107,25 @@ const FormLostFound: React.FC = () => {
             name="register"
             onFinish={onFinish}
             //initialValues={{ residence: ["zhejiang", "hangzhou", "xihu"], prefix: "86" }}
+            initialValues={{
+                title: title || "",
+                description: description || "",
+                mainPhoto: photos[0] || [],
+                subPhotoOne: photos[1] || [],
+                subPhotoTwo: photos[2] || [],
+                categories: categories || "",
+                address: address || "",
+                lat: lat || "",
+                lng: lng || "",
+                firstname: firstname || "",
+                lastname: lastname || "",
+                email: email || "",
+                phone: phone || "",
+                categoryId: categoryId || "",
+                lostOrFoundAt: lostOrFoundAt || "",
+                createdAt: createdAt || "",
+                secretQuestion: secretQuestion || "",
+            }}
             style={{
                 position: "absolute",
                 top: 100,
@@ -151,23 +170,10 @@ const FormLostFound: React.FC = () => {
     );
 };
 
-// const updateFields = (fields: Partial<FormData>) => {
-//     setData((prev) => {
-//         return {
-//             ...prev,
-//             adData: {
-//                 ...prev.adData,
-//                 ...fields.adData,
-//             },
-//         };
-//     });
-// };
-
 const steps = [
     {
         title: "First",
         content: <FirstStepForm />,
-        //  content: <FirstStepForm data={data} setData={setData} updateFields={updateFields} />,
     },
     {
         title: "Second",
@@ -175,8 +181,7 @@ const steps = [
     },
     {
         title: "Last",
-        content: <ThirdStepForm />, // Pass the required props to ModalForm
-        //content: <ModalForm visible={visible} onClose={onClose} />,
+        content: <ThirdStepForm />,
     },
 ];
 

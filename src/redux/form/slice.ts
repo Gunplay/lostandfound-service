@@ -16,7 +16,7 @@ const initialState: FormData = {
         _id: "",
         title: "",
         description: "",
-        photos: [],
+        photosData: [],
         ///dateLostOrFound: "",
         typeId: "",
         categories: "",
@@ -64,7 +64,7 @@ const formSlice = createSlice({
             var tempProps = Object.create(action.payload); // create copy - without link
 
             console.log("tempProps", tempProps);
-            state.adData.photos = tempProps; // new Array
+            state.adData.photosData = tempProps; // new Array
         },
         setAdataLocation(state, action: PayloadAction<string>) {
             state.adData.location.address = action.payload;

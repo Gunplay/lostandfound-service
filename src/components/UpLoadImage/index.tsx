@@ -17,11 +17,8 @@ const getBase64 = (file: RcFile): Promise<string> =>
 
 export const UpLoadImage: React.FC = () => {
     const dispatch = useDispatch();
-    const { photos } = useSelector((store: RootState) => store.form.adData);
-    console.log(
-        "photos",
-        photos.map((item) => item.originFileObj)
-    );
+    const { photosData } = useSelector((store: RootState) => store.form.adData);
+
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState("");
     const [previewTitle, setPreviewTitle] = useState("");
@@ -53,11 +50,11 @@ export const UpLoadImage: React.FC = () => {
             <Upload
                 // action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
                 listType="picture-circle"
-                fileList={photos}
+                fileList={photosData}
                 onPreview={handlePreview}
                 onChange={handleChange}
             >
-                {photos.length >= 8 ? null : uploadButton}
+                {photosData.length >= 8 ? null : uploadButton}
             </Upload>
             <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img alt="example" style={{ width: "100%" }} src={previewImage} />

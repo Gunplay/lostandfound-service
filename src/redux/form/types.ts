@@ -8,7 +8,7 @@ export interface FormData {
         _id: string;
         title: string;
         description: string;
-        photos: UploadFile[];
+        photosData: UploadFile[];
         // dateLostOrFound: string;
         typeId: string;
         categories: string;

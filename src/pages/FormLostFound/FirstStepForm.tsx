@@ -10,7 +10,10 @@ const { Title, Paragraph, Text, Link } = Typography;
 
 const typeItems = ["Mobile Devices", "Keys", "Bags and purses", "Clothes", "Jewelry"];
 
-const FirstStepForm: React.FC = () => {
+const FirstStepForm: React.FC = ({ onNext, formValues }) => {
+    const onFinish = (values) => {
+        onNext(values); // Pass the form values to the parent component
+    };
     const dispatch = useDispatch();
     const { title, categories, switcherLostOrFound, createdAt, secretQuestion } = useSelector((store: RootState) => store.form.adData);
 
