@@ -36,7 +36,7 @@ export const UpLoadImage: React.FC = () => {
 
     const handleChange: UploadProps["onChange"] = ({ fileList }: { fileList: UploadFile[] }) => {
         dispatch(setAdataPhotos(fileList));
-        console.log("fileList", fileList);
+      
     };
 
     const uploadButton = (

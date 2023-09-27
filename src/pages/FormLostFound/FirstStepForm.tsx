@@ -10,10 +10,10 @@ const { Title, Paragraph, Text, Link } = Typography;
 
 const typeItems = ["Mobile Devices", "Keys", "Bags and purses", "Clothes", "Jewelry"];
 
-const FirstStepForm: React.FC = ({ onNext, formValues }) => {
-    const onFinish = (values) => {
-        onNext(values); // Pass the form values to the parent component
-    };
+const FirstStepForm: React.FC = () => {
+    // const onFinish = (values) => {
+    //     onNext(values); // Pass the form values to the parent component
+    // };
     const dispatch = useDispatch();
     const { title, categories, switcherLostOrFound, createdAt, secretQuestion } = useSelector((store: RootState) => store.form.adData);
 
@@ -42,9 +42,16 @@ const FirstStepForm: React.FC = ({ onNext, formValues }) => {
                         message: `Please input your ${switcherLostOrFound.toLowerCase()} item`,
                     },
                 ]}
-                className={highlightFields ? styles.highlight : ""} // Apply the animation class
+                // Apply the animation class
             >
-                <Input size="large" type="text" value={title} onChange={(e) => dispatch(setAdataTitle(e.target.value))} placeholder={"INPUT YOUR TITLE".toLocaleLowerCase()} />
+                <Input
+                    className={highlightFields ? styles.highlight : ""}
+                    size="large"
+                    type="text"
+                    value={title}
+                    onChange={(e) => dispatch(setAdataTitle(e.target.value))}
+                    placeholder={"INPUT YOUR TITLE".toLocaleLowerCase()}
+                />
             </Form.Item>
 
             <Form.Item
@@ -69,24 +76,26 @@ const FirstStepForm: React.FC = ({ onNext, formValues }) => {
             {switcherLostOrFound === "FOUND" ? (
                 <>
                     <Tooltip title="Secret question (A person who will want to receive your contact information will have to give an answer to this. If you leave this field empty your contact details will be available to all users.): ">
-                        <Form.Item name="secret question" label={`Secret question`} rules={[{ required: true, message: `` }]} className={highlightFields ? styles.highlight : ""}>
+                        <Form.Item name="secret question" label={`Secret question`} rules={[{ required: true, message: `` }]}>
                             <Input
                                 value={createdAt}
                                 onChange={(e) => dispatch(setAdataCreatedAt(e.target.value))}
                                 size="large"
                                 type="text"
                                 placeholder="For Ex: Input ID number of passport..."
+                                className={highlightFields ? styles.highlight : ""}
                             />
                         </Form.Item>
                     </Tooltip>
                     <Tooltip title="Secret answer (If a person answers exactly your question, how did you answer him, he will immediately receive your contact details. If not, you can check his answer in your account and give it if you want.):">
-                        <Form.Item name="secret answer" label={`Secret answer`} rules={[{ required: true, message: `` }]} className={highlightFields ? styles.highlight : ""}>
+                        <Form.Item name="secret answer" label={`Secret answer`} rules={[{ required: true, message: `` }]}>
                             <Input
                                 value={secretQuestion}
                                 onChange={(e) => dispatch(setAdataSecretQuestion(e.target.value))}
                                 size="large"
                                 type="text"
                                 placeholder="Your secret answer"
+                                className={highlightFields ? styles.highlight : ""}
                             />
                         </Form.Item>
                     </Tooltip>

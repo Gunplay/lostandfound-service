@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface ModalFormProps {
     openModal: boolean;
@@ -7,6 +9,35 @@ interface ModalFormProps {
 }
 export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal }) => {
     // const [open, setOpen] = useState(false);
+
+    const {
+        _id,
+        title,
+        description,
+        photosData,
+        location: { address, lat, lng },
+        user: { firstname, lastname, email, phone },
+        categoryId,
+        lostOrFoundAt,
+        createdAt,
+        secretQuestion,
+    } = useSelector((store: RootState) => store.form.adData);
+
+    let photos = photosData.map((item) => item.originFileObj);
+
+    const adDAta = {
+        _id,
+        title,
+        description,
+        photos,
+        location: { address, lat, lng },
+        user: { firstname, lastname, email, phone },
+        categoryId,
+        lostOrFoundAt,
+        createdAt,
+        secretQuestion,
+    };
+
     const [confirmLoading, setConfirmLoading] = useState(false);
 
     const [modalText, setModalText] = useState("Your form has been sent, we’ll send you soon!");
@@ -22,6 +53,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
             setOpenModal(false);
             setConfirmLoading(false);
         }, 2000);
+        console.log("formDataSend", adDAta);
     };
 
     const handleCancel = () => {

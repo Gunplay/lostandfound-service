@@ -2,14 +2,7 @@ import { CreateSliceOptions, PayloadAction, createSlice } from "@reduxjs/toolkit
 import { FormData, Status } from "./types";
 import { fetchFormCategories } from "./asyncActions";
 import type { UploadFile } from "antd/es/upload/interface";
-import type { Dayjs } from "dayjs";
-import { act } from "react-dom/test-utils";
 
-// interface PhotoInfo {
-//     uid: string;
-//     name: string;
-//     thumbUrl?: string; // thumbUrl является необязательным полем
-// }
 
 const initialState: FormData = {
     adData: {

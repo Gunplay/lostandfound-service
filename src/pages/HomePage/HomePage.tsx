@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import FormLostFound from "../FormLostFound";
 
 import { MainManualLostAndFound } from "../MainManualLostAndFound";
-import { CardsPage } from "../CardsList/CardsList";
+import { CardsPage } from "../CardsPage/CardPage";
 import FloatingButtonHelpInfo from "../../components/FloatingButtonHelpInfo";
 
 const overlayStyle: React.CSSProperties = {

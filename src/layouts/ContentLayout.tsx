@@ -5,10 +5,11 @@ import { HeaderPanel, FooterPanel } from "../components";
 import HomePage from "../pages/HomePage/HomePage";
 import FormLostFound from "../pages/FormLostFound";
 import { MainManualLostAndFound } from "../pages/MainManualLostAndFound";
-import { CardsPage } from "../pages/CardsList/CardsList";
+import { CardsPage } from "../pages/CardsPage/CardPage";
 
 import { Routes, Route } from "react-router";
 import TestForm from "../pages/FormLostFound/test";
+import ListSearchAds from "../pages/ListSearchAds";
 
 const contentStyle: React.CSSProperties = {
     textAlign: "center",
@@ -51,6 +52,7 @@ const ContentLayout: React.FC = () => {
                 <Route path="/manual" element={<MainManualLostAndFound />} />
 
                 <Route path="/cards" element={<CardsPage />} />
+                <Route path="/list" element={<ListSearchAds />} />
             </Routes>
 
             <FooterPanel />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
+import { Link as LinkRout } from "react-router-dom";
 import { Card, Pagination, Button, Row, Col, Space, Typography, Switch } from "antd";
 import CardNewItem from "../../components/CardNewItem";
 
@@ -20,49 +21,44 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
     const { items, status } = useSelector(selectCardData);
 
     const [switcher, setSwitcher] = useState(false);
+    const [showMore, setShowMore] = useState(false);
+    const [listSearchAds, setListSearchAds] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const cardsPerPage = 6;
 
     const onChange = (checked: boolean) => {
         setSwitcher(checked);
     };
 
-    // const [card, setCard] = useState([]);
-    //console.log("card:", card);
-    const { id } = useParams();
-    const navigate = useNavigate();
-
     useEffect(() => {
         dispatch(fetchCards());
-        // async function fetchAds() {
-        //     try {
-        //         const { data } = await axios.get(`http://localhost:3001/ads/new`);
-        //         setCard(data);
-        //         // await dispatch(fetchCards());
-        //     } catch (error) {
-        //         alert("Помилка при отриманні card!");
-        //         navigate("/");
-        //     }
-        // }
-
-        // fetchAds();
     }, []);
+
+    const onChangeComponent = () => {
+        setShowMore(true);
+    };
+
+    const indexOfLastCard = currentPage * cardsPerPage;
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    const currentCards = items?.slice(indexOfFirstCard, indexOfLastCard);
 
     return (
         <div ref={move} id="viewrecentitems">
             <Space size="middle">
                 <h1 style={{ color: "black" }}>RECENTLY LOST THINGS</h1>
                 <Switch checked={switcher} onChange={onChange}></Switch>
-                <Text type="success">Open more inforamtion</Text>
+                <Text type="success">Open more information</Text>
             </Space>
 
             <Row gutter={[0, 32]}>
                 <Col span={24} />
-                {items?.map((item) => (
+                {currentCards?.map((item) => (
                     <Col key={item["_id"]} xl={6} md={8} sm={12} xs={24}>
                         <Row justify="center">
                             <Row>
                                 <Col>
                                     {" "}
-                                    <Button type="link">ALert Owner</Button>
+                                    <Button type="link">Alert Owner</Button>
                                 </Col>
                                 <Col>
                                     {" "}
@@ -75,7 +71,14 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
                 ))}
                 <Col span={24} />
             </Row>
-            <Pagination />
+
+            {listSearchAds === false ? (
+                <LinkRout to="/list">
+                    <Button onClick={() => setListSearchAds(true)}>SHOW MORE</Button>
+                </LinkRout>
+            ) : (
+                <Pagination current={currentPage} total={items?.length || 0} pageSize={cardsPerPage} onChange={(page) => setCurrentPage(page)} />
+            )}
         </div>
     );
 };

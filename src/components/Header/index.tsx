@@ -1,8 +1,8 @@
 import React from "react";
 import "antd/dist/antd";
 import { Layout, Space, Row, Col, Divider, Button } from "antd";
-import { AppstoreAddOutlined } from "@ant-design/icons";
-
+import { AppstoreAddOutlined, HomeOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 //import AccountBtn from './AccountBtn';
 import ButtonSubmit from "../ButtonSubmit";
 //import LogginAccBtn from './LogginAccBtn';
@@ -33,12 +33,16 @@ export const HeaderPanel: React.FC = () => {
     return (
         <Header style={headerStyle}>
             <Row justify="space-around" align={"middle"}>
+                <Link to="/">
+                    <Button icon={<HomeOutlined />} type="default">
+                        HOME
+                    </Button>
+                </Link>
                 <ButtonLog />
 
                 <Col>
                     <ButtonSubmit size="large" />
                 </Col>
-
                 <Row align="middle">
                     <SearchItemsInput />
                     <Button icon={<AppstoreAddOutlined rotate={5} spin />} type="primary" danger size="large" style={{ borderRadius: "0px 10px 10px 0px", fontSize: "17px" }}>

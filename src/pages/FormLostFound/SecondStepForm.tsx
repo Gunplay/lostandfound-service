@@ -2,17 +2,17 @@ import React from "react";
 import { Form, Input, DatePicker, Tooltip, Upload } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import type { DatePickerProps } from "antd";
+import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import { UpLoadImage } from "../../components";
 import { RootState } from "../../redux/store";
 import { setAdataDataLostOrFound, setAdataDescription, setAdataLocation } from "../../redux/form/slice";
 import { PlusOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const SecondStepFrom: React.FC = () => {
-    // Define the component as a React functional component.
     const dispatch = useDispatch();
 
-    // Use the RootState type to define the types of the Redux store values.
     const {
         description,
         lostOrFoundAt,
@@ -20,12 +20,17 @@ const SecondStepFrom: React.FC = () => {
         location: { address },
     } = useSelector((store: RootState) => store.form.adData);
 
-    const onHandleDatePicker: DatePickerProps["onChange"] = (value, dateString) => {
-        if (value === null) {
-            // Обработка случая, когда дата равна null (если необходимо)
-        } else {
-            const date = dateString || ""; // Убедитесь, что dateString не равен null или undefined
-            dispatch(setAdataDataLostOrFound(date));
+    let dateValue;
+    if (lostOrFoundAt === "") {
+        dateValue = dayjs();
+    } else {
+        dateValue = dayjs(lostOrFoundAt);
+    }
+
+    const onHandleDatePicker: DatePickerProps["onChange"] = (e: Dayjs | null) => {
+        if (e) {
+            // !!!
+            dispatch(setAdataDataLostOrFound(e.toString()));
         }
     };
 
@@ -62,7 +67,7 @@ const SecondStepFrom: React.FC = () => {
 
             {/* Form.Item for Date */}
             <Form.Item name="date" label={switcherLostOrFound === "LOST" ? "Date when it was lost:" : "Date when it was found:"}>
-                <DatePicker value={lostOrFoundAt} onChange={onHandleDatePicker} />
+                <DatePicker defaultValue={dateValue} onChange={onHandleDatePicker} />
             </Form.Item>
         </Form>
     );

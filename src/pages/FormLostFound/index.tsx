@@ -9,8 +9,6 @@ import ThirdStepForm from "./ThirdStepForm";
 import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { FormData } from "../../redux/form/types";
-import { setAdataPhotos } from "../../redux/form/slice";
 
 const formItemLayout = {
     labelCol: {
@@ -25,24 +23,9 @@ const formItemLayout = {
 
 const FormLostFound: React.FC = () => {
     const [form] = Form.useForm();
-    const {
-        _id,
-        title,
-        description,
-        photosData,
-        categories,
-        location: { address, lat, lng },
-        user: { firstname, lastname, email, phone },
-        categoryId,
-        lostOrFoundAt,
-        createdAt,
-        secretQuestion,
-    } = useSelector((store: RootState) => store.form.adData);
 
-    let photos = photosData.map((item) => item.originFileObj);
-
-    const onFinish = (values: any) => {
-        console.log("Received values of form: ", values);
+    const onFinish = (title: any) => {
+        console.log("Received values of form: ", title);
     };
 
     const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
@@ -107,25 +90,25 @@ const FormLostFound: React.FC = () => {
             name="register"
             onFinish={onFinish}
             //initialValues={{ residence: ["zhejiang", "hangzhou", "xihu"], prefix: "86" }}
-            initialValues={{
-                title: title || "",
-                description: description || "",
-                mainPhoto: photos[0] || [],
-                subPhotoOne: photos[1] || [],
-                subPhotoTwo: photos[2] || [],
-                categories: categories || "",
-                address: address || "",
-                lat: lat || "",
-                lng: lng || "",
-                firstname: firstname || "",
-                lastname: lastname || "",
-                email: email || "",
-                phone: phone || "",
-                categoryId: categoryId || "",
-                lostOrFoundAt: lostOrFoundAt || "",
-                createdAt: createdAt || "",
-                secretQuestion: secretQuestion || "",
-            }}
+            // initialValues={{
+            //     title: title || "",
+            //     description: description || "",
+            //     mainPhoto: photos[0] || [],
+            //     subPhotoOne: photos[1] || [],
+            //     subPhotoTwo: photos[2] || [],
+            //     categories: categories || "",
+            //     address: address || "",
+            //     lat: lat || "",
+            //     lng: lng || "",
+            //     firstname: firstname || "",
+            //     lastname: lastname || "",
+            //     email: email || "",
+            //     phone: phone || "",
+            //     categoryId: categoryId || "",
+            //     lostOrFoundAt: lostOrFoundAt || "",
+            //     createdAt: createdAt || "",
+            //     secretQuestion: secretQuestion || "",
+            // }}
             style={{
                 position: "absolute",
                 top: 100,
