@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
+import { FormResetData } from "../../redux/form/types";
+import { setClearFormData } from "../../redux/form/slice";
 interface ModalFormProps {
     openModal: boolean;
     setOpenModal: (open: boolean) => void;
 }
 export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal }) => {
+    //const [resetForm, setResetForm] = useState<FormResetData>(initialFormDataSend);
+
+    const dispatch = useDispatch();
+    const initialStateEmptyForm = useSelector((store: RootState) => store.form.adData);
     // const [open, setOpen] = useState(false);
 
     const {
@@ -52,8 +58,9 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
         setTimeout(() => {
             setOpenModal(false);
             setConfirmLoading(false);
+            console.log("formDataSend", adDAta);
+            dispatch(setClearFormData(initialStateEmptyForm));
         }, 2000);
-        console.log("formDataSend", adDAta);
     };
 
     const handleCancel = () => {

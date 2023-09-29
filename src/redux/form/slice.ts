@@ -1,8 +1,7 @@
 import { CreateSliceOptions, PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { FormData, Status } from "./types";
+import { FormData, Status, FormResetData } from "./types";
 import { fetchFormCategories } from "./asyncActions";
 import type { UploadFile } from "antd/es/upload/interface";
-
 
 const initialState: FormData = {
     adData: {
@@ -40,6 +39,9 @@ const formSlice = createSlice({
     name: "form", // type and payload
     initialState,
     reducers: {
+        setClearFormData: (state, action) => {
+            state.adData = initialState.adData;
+        },
         setAdataTitle(state, action: PayloadAction<string>) {
             state.adData.title = action.payload;
         },
@@ -131,6 +133,7 @@ const formSlice = createSlice({
 });
 
 export const {
+    setClearFormData,
     setAdataTitle,
     setAdataCategories,
 

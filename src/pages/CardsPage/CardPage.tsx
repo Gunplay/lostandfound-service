@@ -39,8 +39,12 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
     };
 
     const indexOfLastCard = currentPage * cardsPerPage;
+    console.log("indexOfLastCard", indexOfLastCard);
+
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    console.log("indexOfFirstCard", indexOfFirstCard);
     const currentCards = items?.slice(indexOfFirstCard, indexOfLastCard);
+    console.log("currentCards", currentCards);
 
     return (
         <div ref={move} id="viewrecentitems">
@@ -71,14 +75,6 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
                 ))}
                 <Col span={24} />
             </Row>
-
-            {listSearchAds === false ? (
-                <LinkRout to="/list">
-                    <Button onClick={() => setListSearchAds(true)}>SHOW MORE</Button>
-                </LinkRout>
-            ) : (
-                <Pagination current={currentPage} total={items?.length || 0} pageSize={cardsPerPage} onChange={(page) => setCurrentPage(page)} />
-            )}
         </div>
     );
 };

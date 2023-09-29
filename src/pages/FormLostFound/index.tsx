@@ -9,6 +9,7 @@ import ThirdStepForm from "./ThirdStepForm";
 import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { setClearFormData } from "../../redux/form/slice";
 
 const formItemLayout = {
     labelCol: {
@@ -23,6 +24,7 @@ const formItemLayout = {
 
 const FormLostFound: React.FC = () => {
     const [form] = Form.useForm();
+    const dispatch = useDispatch();
 
     const onFinish = (title: any) => {
         console.log("Received values of form: ", title);
@@ -89,26 +91,6 @@ const FormLostFound: React.FC = () => {
             form={form}
             name="register"
             onFinish={onFinish}
-            //initialValues={{ residence: ["zhejiang", "hangzhou", "xihu"], prefix: "86" }}
-            // initialValues={{
-            //     title: title || "",
-            //     description: description || "",
-            //     mainPhoto: photos[0] || [],
-            //     subPhotoOne: photos[1] || [],
-            //     subPhotoTwo: photos[2] || [],
-            //     categories: categories || "",
-            //     address: address || "",
-            //     lat: lat || "",
-            //     lng: lng || "",
-            //     firstname: firstname || "",
-            //     lastname: lastname || "",
-            //     email: email || "",
-            //     phone: phone || "",
-            //     categoryId: categoryId || "",
-            //     lostOrFoundAt: lostOrFoundAt || "",
-            //     createdAt: createdAt || "",
-            //     secretQuestion: secretQuestion || "",
-            // }}
             style={{
                 position: "absolute",
                 top: 100,

@@ -1,6 +1,6 @@
 export * from "./Header/index";
 export * from "./Slider";
-export * from "./Pagination";
+
 export * from "./ButtonSubmit";
 export * from "./ButttonLog";
 export * from "./FooterPanel";

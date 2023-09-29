@@ -44,3 +44,25 @@ export enum Status {
     SUCCESS = "completed",
     ERROR = "error",
 }
+
+export interface FormResetData {
+    _id: string;
+    title: string;
+    description: string;
+    photosData: any[]; // Здесь замените any на более конкретный тип, если это возможно
+    location: {
+        address: string;
+        lat: number;
+        lng: number;
+    };
+    user: {
+        firstname: string;
+        lastname: string;
+        email: string;
+        phone: string;
+    };
+    categoryId: string;
+    lostOrFoundAt: string;
+    createdAt: string;
+    secretQuestion: string;
+}
