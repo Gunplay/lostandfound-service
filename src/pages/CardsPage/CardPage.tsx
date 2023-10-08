@@ -39,12 +39,10 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
     };
 
     const indexOfLastCard = currentPage * cardsPerPage;
-    console.log("indexOfLastCard", indexOfLastCard);
 
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    console.log("indexOfFirstCard", indexOfFirstCard);
+
     const currentCards = items?.slice(indexOfFirstCard, indexOfLastCard);
-    console.log("currentCards", currentCards);
 
     return (
         <div ref={move} id="viewrecentitems">

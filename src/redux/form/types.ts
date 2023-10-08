@@ -3,6 +3,10 @@ import type { DatePickerProps } from "antd";
 import type { Dayjs } from "dayjs";
 
 // import { type } from "os";
+export interface UserIdCategory {
+    _id: string;
+    category: string;
+}
 export interface FormData {
     adData: {
         _id: string;
@@ -10,21 +14,22 @@ export interface FormData {
         description: string;
         photosData: UploadFile[];
         // dateLostOrFound: string;
-        typeId: string;
-        categories: string;
-        location: Location;
+        typeId: number;
         user: User;
-        switcherLostOrFound: string;
+        categories: UserIdCategory[];
         categoryId: string;
+        location: Location;
+        switcherLostOrFound: string;
         lostOrFoundAt: string;
         checked: boolean;
         createdAt: string;
         secretQuestion: string;
+        status: string;
     };
 }
 
 interface Location {
-    _id: string;
+    //_id: string;
     address: string;
     lat: string;
     lng: string;
@@ -45,24 +50,24 @@ export enum Status {
     ERROR = "error",
 }
 
-export interface FormResetData {
-    _id: string;
-    title: string;
-    description: string;
-    photosData: any[]; // Здесь замените any на более конкретный тип, если это возможно
-    location: {
-        address: string;
-        lat: number;
-        lng: number;
-    };
-    user: {
-        firstname: string;
-        lastname: string;
-        email: string;
-        phone: string;
-    };
-    categoryId: string;
-    lostOrFoundAt: string;
-    createdAt: string;
-    secretQuestion: string;
-}
+// export interface FormResetData {
+//     _id: string;
+//     title: string;
+//     description: string;
+//     photosData: any[]; // Здесь замените any на более конкретный тип, если это возможно
+//     location: {
+//         address: string;
+//         lat: number;
+//         lng: number;
+//     };
+//     user: {
+//         firstname: string;
+//         lastname: string;
+//         email: string;
+//         phone: string;
+//     };
+//     categoryId: string;
+//     lostOrFoundAt: string;
+//     createdAt: string;
+//     secretQuestion: string;
+// }

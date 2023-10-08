@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 import cardReducer from "./card/slice";
 import formReducer from "./form/slice";
-
+import formCategoriesReducer from "./form/slice";
 // import formCategoriesReducers from "./form/slice";
 
 export const store = configureStore({
@@ -25,7 +25,8 @@ export const store = configureStore({
             serializableCheck: {
                 // Ignore these paths in the state
                 ignoredActions: ["form/setAdataPhotos", "form/setAdataDataLostOrFound"],
-                ignoredPaths: ["form.adData.photos", "form.adData.lostOrFoundAt"],
+                ignoredPaths: ["form.adData.photos", "form.adData.lostOrFoundAt", "form.adData.photosData"],
+                serializableCheck: false,
             },
         }),
 });

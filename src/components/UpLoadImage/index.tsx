@@ -35,8 +35,8 @@ export const UpLoadImage: React.FC = () => {
     };
 
     const handleChange: UploadProps["onChange"] = ({ fileList }: { fileList: UploadFile[] }) => {
+        //console.log("fileList", fileList);
         dispatch(setAdataPhotos(fileList));
-      
     };
 
     const uploadButton = (
@@ -45,17 +45,22 @@ export const UpLoadImage: React.FC = () => {
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
+
+    const TextUpload = <div>Five photos are maximum</div>;
     return (
         <>
             <Upload
                 // action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                type="select"
                 listType="picture-circle"
+                maxCount={5}
                 fileList={photosData}
                 onPreview={handlePreview}
                 onChange={handleChange}
             >
-                {photosData.length >= 8 ? null : uploadButton}
+                {photosData.length >= 5 ? null : uploadButton}
             </Upload>
+            {photosData.length >= 5 ? TextUpload : null}
             <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                 <img alt="example" style={{ width: "100%" }} src={previewImage} />
             </Modal>

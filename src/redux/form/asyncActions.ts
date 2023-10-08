@@ -1,26 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { UserIdCategory } from "./types";
+// Remove the import of useDispatch from this file
 
-// import pickBy from 'lodash/pickBy';
-// import identity from 'lodash/identity';
-
-export const fetchFormCategories = createAsyncThunk<FormData[]>("form/fetchFormCategories", async () => {
-    // (params)
-    //const { sortBy, order, category, search, currentPage } = params;
-
-    const { data } = await axios.get<FormData[]>(`http://localhost:3001/ads/categories`, {
-        //   params: pickBy(
-        //     {
-        //       page: currentPage,
-        //       limit: 4,
-        //       category,
-        //       sortBy,
-        //       order,
-        //       search,
-        //     },
-        //     identity,
-        //   ),
-    });
-
-    return data;
+export const fetchFormCategories = createAsyncThunk<UserIdCategory[]>("form/fetchFormCategories", async () => {
+    try {
+        const { data } = await axios.get<UserIdCategory[]>(`http://127.0.0.1:3001/ads/categories`);
+        // Dispatch actions here if needed
+        // dispatch(setAdsCategories(transformedCategories));
+        return data;
+    } catch (error) {
+        // Handle errors here if necessary
+        throw error;
+    }
 });

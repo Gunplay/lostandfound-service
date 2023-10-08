@@ -1,7 +1,8 @@
 import { CreateSliceOptions, PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { FormData, Status, FormResetData } from "./types";
+import { FormData, Status, UserIdCategory } from "./types";
 import { fetchFormCategories } from "./asyncActions";
 import type { UploadFile } from "antd/es/upload/interface";
+//const { ObjectId } = require("mongodb");
 
 const initialState: FormData = {
     adData: {
@@ -10,13 +11,14 @@ const initialState: FormData = {
         description: "",
         photosData: [],
         ///dateLostOrFound: "",
-        typeId: "",
-        categories: "",
+        typeId: 1,
+        categories: [],
+        categoryId: "",
         location: {
-            _id: "",
+            //_id: "AIzaSyBwagwxR6PPGzFqcl-NG4FPVextZr1Nsds",
             address: "Default",
-            lat: "333",
-            lng: "777",
+            lat: "46.6349450987773",
+            lng: "2.8480490000000103",
         },
         user: {
             firstname: "",
@@ -27,11 +29,11 @@ const initialState: FormData = {
             phoneMain: "",
         },
         switcherLostOrFound: "LOST",
-        categoryId: "",
         lostOrFoundAt: "",
         checked: false,
         createdAt: "",
         secretQuestion: "",
+        status: Status.LOADING,
     },
 };
 
@@ -45,8 +47,11 @@ const formSlice = createSlice({
         setAdataTitle(state, action: PayloadAction<string>) {
             state.adData.title = action.payload;
         },
-        setAdataCategories(state, action: PayloadAction<string>) {
+        setAdataCategories(state, action: PayloadAction<UserIdCategory[]>) {
             state.adData.categories = action.payload;
+        },
+        setAdataCategoryId(state, action: PayloadAction<string>) {
+            state.adData.categoryId = action.payload;
         },
         setAdataDescription(state, action: PayloadAction<string>) {
             state.adData.description = action.payload;
@@ -56,9 +61,10 @@ const formSlice = createSlice({
             //state.adData.photos = [...state.adData.photos, ...action.payload];
             //state.adData.photos = JSON.stringify(action.payload);
             //tate.adData.photos.push(action.payload);
+            //  state.adData.photosData = [...action.payload];
             var tempProps = Object.create(action.payload); // create copy - without link
 
-            console.log("tempProps", tempProps);
+            // console.log("tempProps", tempProps);
             state.adData.photosData = tempProps; // new Array
         },
         setAdataLocation(state, action: PayloadAction<string>) {
@@ -96,46 +102,43 @@ const formSlice = createSlice({
         setAdataChecked(state, action: PayloadAction<boolean>) {
             state.adData.checked = action.payload;
         },
-        // setAdataTypeId(state, action: PayloadAction<string>) {
-        //     // card/setItems
-        //     state.adData.typeId = action.payload;
-        // },
 
-        setAdataSwitcherLostOrFoundt(state, action: PayloadAction<string>) {
-            // card/setItems
-            state.adData.switcherLostOrFound = action.payload;
+        setAdataSwitcherLostOrFound(state, action: PayloadAction<number>) {
+            state.adData.typeId = action.payload;
         },
         setAdataCreatedAt(state, action: PayloadAction<string>) {
-            // card/setItems
             state.adData.createdAt = action.payload;
         },
         setAdataSecretQuestion(state, action: PayloadAction<string>) {
-            // card/setItems
             state.adData.secretQuestion = action.payload;
         },
+        // setAdsCategories(state, action: PayloadAction<string>) {
+        //     state.adData.categoryId = action.payload;
+        // },
     },
-    // extraReducers: (builder) => {
-    //     builder.addCase(fetchFormCategories.pending, (state, action) => {
-    //         state.status = Status.LOADING;
-    //         state.items = [];
-    //     });
+    extraReducers: (builder) => {
+        builder.addCase(fetchFormCategories.pending, (state, action) => {
+            state.adData.status = Status.LOADING;
+            state.adData.categories = [];
+        });
 
-    //     builder.addCase(fetchFormCategories.fulfilled, (state, action) => {
-    //         state.items = action.payload;
-    //         state.status = Status.SUCCESS;
-    //     });
+        builder.addCase(fetchFormCategories.fulfilled, (state, action) => {
+            state.adData.status = Status.SUCCESS;
+            state.adData.categories = action.payload;
+        });
 
-    //     builder.addCase(fetchFormCategories.rejected, (state, action) => {
-    //         state.status = Status.ERROR;
-    //         state.items = [];
-    //     });
-    // },
+        builder.addCase(fetchFormCategories.rejected, (state, action) => {
+            state.adData.status = Status.ERROR;
+            state.adData.categories = [];
+        });
+    },
 });
 
 export const {
     setClearFormData,
     setAdataTitle,
     setAdataCategories,
+    setAdataCategoryId,
 
     setAdataPhotos,
     setAdataLocation,
@@ -147,7 +150,7 @@ export const {
     setAdataPhonePrefix,
     setAdataPhoneMain,
 
-    setAdataSwitcherLostOrFoundt,
+    setAdataSwitcherLostOrFound,
     setAdataPhonePrefixUpdate,
     setAdataPhoneMainUpdate,
     setAdataChecked,

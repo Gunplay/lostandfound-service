@@ -1,14 +1,14 @@
 import React from "react";
-import { Form, Input, DatePicker, Tooltip, Upload } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import type { DatePickerProps } from "antd";
-import dayjs from "dayjs";
-import type { Dayjs } from "dayjs";
-import { UpLoadImage } from "../../components";
+import { Form, Input, DatePicker, Tooltip } from "antd";
+import dayjs, { Dayjs } from "dayjs";
 import { RootState } from "../../redux/store";
-import { setAdataDataLostOrFound, setAdataDescription, setAdataLocation } from "../../redux/form/slice";
-import { PlusOutlined } from "@ant-design/icons";
-import moment from "moment";
+import { setAdataDescription, setAdataLocation, setAdataDataLostOrFound } from "../../redux/form/slice";
+import { UpLoadImage } from "../../components";
+import * as yup from "yup";
+import { yupSyncStepSecond } from "./validatorForm";
+
+const { TextArea } = Input;
 
 const SecondStepFrom: React.FC = () => {
     const dispatch = useDispatch();
@@ -16,60 +16,54 @@ const SecondStepFrom: React.FC = () => {
     const {
         description,
         lostOrFoundAt,
-        switcherLostOrFound,
+        typeId,
         location: { address },
     } = useSelector((store: RootState) => store.form.adData);
 
-    let dateValue;
-    if (lostOrFoundAt === "") {
-        dateValue = dayjs();
-    } else {
-        dateValue = dayjs(lostOrFoundAt);
-    }
+    //let dateValue: Dayjs | null = null;
+    const dateValue: Dayjs | undefined = lostOrFoundAt ? dayjs(lostOrFoundAt) : undefined;
 
-    const onHandleDatePicker: DatePickerProps["onChange"] = (e: Dayjs | null) => {
-        if (e) {
-            // !!!
-            dispatch(setAdataDataLostOrFound(e.toString()));
+    // if (lostOrFoundAt) {
+    //     dateValue = dayjs(lostOrFoundAt);
+    // }
+
+    const onHandleDatePicker = (date: Dayjs | null) => {
+        if (date) {
+            dispatch(setAdataDataLostOrFound(date.toISOString()));
         }
     };
 
     return (
-        <Form>
-            {/* Form.Item for Description */}
-            <Form.Item name="description" label="Description" rules={[{ required: true, message: "Please input Description" }]}>
-                <Input.TextArea
+        <>
+            <Form.Item name="description" label="Description" rules={[yupSyncStepSecond]}>
+                <TextArea
+                    style={{ resize: "none" }}
                     showCount
-                    maxLength={100}
-                    defaultValue={description}
+                    maxLength={200}
+                    value={description}
                     onChange={(e) => dispatch(setAdataDescription(e.target.value))}
-                    placeholder={
-                        switcherLostOrFound === "LOST"
-                            ? "Tell us more about your LOST For Ex: Special signs of your loss"
-                            : "Tell us more about your FOUND For Ex: How much reward money you want to receive..."
-                    }
+                    placeholder={typeId === 1 ? "Tell us more about your LOST..." : "Tell us more about your FOUND..."}
                 />
             </Form.Item>
 
-            <Form.Item label={switcherLostOrFound === "FOUND" ? "Choose photos of your found:" : "Choose photos of your lost:"}>
+            <Form.Item name="photos" label={typeId === 2 ? "Choose photos of your found:" : "Choose photos of your lost:"}>
                 <UpLoadImage />
             </Form.Item>
 
-            <Tooltip title="(Choose it on the map above and change it if it is not correct):">
+            <Tooltip title="Choose it on the map above and change it if it is not correct:">
                 <Form.Item
                     name="place"
-                    label={switcherLostOrFound === "LOST" ? "Place where it was lost:" : "Place where it was found:"}
-                    rules={[{ required: true, message: "Please input the location!" }]}
+                    label={typeId === 1 ? "Place where it was lost:" : "Place where it was found:"}
+                    // rules={[{ required: true, message: "Please input the location!" }]}
                 >
                     <Input type="text" value={address} onChange={(e) => dispatch(setAdataLocation(e.target.value))} placeholder="Choose it on the map above..." />
                 </Form.Item>
             </Tooltip>
 
-            {/* Form.Item for Date */}
-            <Form.Item name="date" label={switcherLostOrFound === "LOST" ? "Date when it was lost:" : "Date when it was found:"}>
-                <DatePicker defaultValue={dateValue} onChange={onHandleDatePicker} />
+            <Form.Item name="date" rules={[yupSyncStepSecond]} label={typeId === 1 ? "Date when it was lost:" : "Date when it was found:"}>
+                <DatePicker value={dateValue} onChange={onHandleDatePicker} />
             </Form.Item>
-        </Form>
+        </>
     );
 };
 

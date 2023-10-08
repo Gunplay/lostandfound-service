@@ -19,7 +19,6 @@ const TestForm: React.FC = () => {
     const handle = (event: any) => {
         event.preventDefault();
         const data = new FormData(event.target);
-        console.log("data", data);
     };
     return (
         <Form

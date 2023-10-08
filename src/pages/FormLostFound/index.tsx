@@ -1,6 +1,6 @@
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { AutoComplete, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select, DatePicker, Button, Steps, message, UploadFile, UploadProps } from "antd";
+import { Form, Button, Steps } from "antd";
 
 import { type } from "os";
 import FirstStepForm from "./FirstStepForm";
@@ -10,6 +10,8 @@ import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setClearFormData } from "../../redux/form/slice";
+import * as yup from "yup";
+import { firstStepSchemaLost, firstStepSchemaFound, yupSyncStepFirstFound, secondStepSchema, thirdStepSchema } from "./validatorForm";
 
 const formItemLayout = {
     labelCol: {
@@ -26,12 +28,11 @@ const FormLostFound: React.FC = () => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
 
-    const onFinish = (title: any) => {
-        console.log("Received values of form: ", title);
-    };
+    const { title, categories } = useSelector((store: RootState) => store.form.adData);
 
     const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
     const [openModal, setOpenModal] = useState(false);
+    const [allFieldsFilled, setAllFieldsFilled] = useState(false);
 
     const tailFormItemLayout = {
         wrapperCol: {
@@ -47,7 +48,15 @@ const FormLostFound: React.FC = () => {
     };
 
     const showModal = () => {
-        setOpenModal(true);
+        const schemas = [firstStepSchemaLost, firstStepSchemaFound, secondStepSchema, thirdStepSchema];
+        const allFieldsFilled = schemas.every((schema) => schema.fields && Object.keys(schema.fields).length > 0);
+
+        if (allFieldsFilled) {
+            setOpenModal(true);
+        }
+        // } else {
+        //     alert("Please fill in all fields.");
+        // }
     };
     const onWebsiteChange = (value: string) => {
         if (!value) {
@@ -65,14 +74,25 @@ const FormLostFound: React.FC = () => {
     // STEP
     const [formState, setFormState] = useState(initialState);
 
-    const next = () => {
-        setFormState({ ...formState, current: formState.current + 1 });
+    const next = async () => {
+        try {
+            const schemas = [firstStepSchemaLost, secondStepSchema, thirdStepSchema, firstStepSchemaFound];
+            const currentSchema = schemas[formState.current];
+            if (currentSchema) {
+                const values = await form.validateFields();
+                await currentSchema.validate(values, { abortEarly: false });
+                setAllFieldsFilled(true); // Установите состояние, если все поля заполнены
+                setFormState({ ...formState, current: formState.current + 1 });
+            }
+        } catch (errorInfo) {
+            console.error("Error during validation:", errorInfo);
+        }
     };
 
     const prev = () => {
+        setAllFieldsFilled(false); // Сброс состояния при переходе на предыдущий этап
         setFormState({ ...formState, current: formState.current - 1 });
     };
-
     const resetForm = () => {
         setFormState(initialState);
     };
@@ -90,7 +110,6 @@ const FormLostFound: React.FC = () => {
             {...formItemLayout}
             form={form}
             name="register"
-            onFinish={onFinish}
             style={{
                 position: "absolute",
                 top: 100,
@@ -101,7 +120,7 @@ const FormLostFound: React.FC = () => {
                 maxWidth: 680,
                 maxHeight: 550,
                 backgroundColor: "white",
-                marginLeft: "15px",
+                margin: "0 auto",
                 borderRadius: "15px",
                 padding: "40px",
             }}
@@ -117,7 +136,13 @@ const FormLostFound: React.FC = () => {
                         </Button>
                     )}
                     {formState.current < steps.length - 1 && (
-                        <Button type="primary" onClick={() => next()}>
+                        <Button
+                            type="primary"
+                            onClick={(e) => {
+                                next();
+                                console.log("formState.current", formState.current);
+                            }}
+                        >
                             Next
                         </Button>
                     )}
