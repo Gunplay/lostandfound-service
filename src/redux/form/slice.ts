@@ -15,7 +15,7 @@ const initialState: FormData = {
         categories: [],
         categoryId: "",
         location: {
-            //_id: "AIzaSyBwagwxR6PPGzFqcl-NG4FPVextZr1Nsds",
+            // !!!
             address: "Default",
             lat: "46.6349450987773",
             lng: "2.8480490000000103",
@@ -33,6 +33,7 @@ const initialState: FormData = {
         checked: false,
         createdAt: "",
         secretQuestion: "",
+        secretAnswer: "",
         status: Status.LOADING,
     },
 };
@@ -106,8 +107,8 @@ const formSlice = createSlice({
         setAdataSwitcherLostOrFound(state, action: PayloadAction<number>) {
             state.adData.typeId = action.payload;
         },
-        setAdataCreatedAt(state, action: PayloadAction<string>) {
-            state.adData.createdAt = action.payload;
+        setAdataSecretAnswer(state, action: PayloadAction<string>) {
+            state.adData.secretAnswer = action.payload;
         },
         setAdataSecretQuestion(state, action: PayloadAction<string>) {
             state.adData.secretQuestion = action.payload;
@@ -154,7 +155,7 @@ export const {
     setAdataPhonePrefixUpdate,
     setAdataPhoneMainUpdate,
     setAdataChecked,
-    setAdataCreatedAt,
+    setAdataSecretAnswer,
     setAdataSecretQuestion,
 } = formSlice.actions;
 

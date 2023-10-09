@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-
 import { Form, Button, Steps } from "antd";
-
-import { type } from "os";
 import FirstStepForm from "./FirstStepForm";
 import SecondStepFrom from "./SecondStepForm";
 import ThirdStepForm from "./ThirdStepForm";
 import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { setClearFormData } from "../../redux/form/slice";
-import * as yup from "yup";
+
 import { firstStepSchemaLost, firstStepSchemaFound, yupSyncStepFirstFound, secondStepSchema, thirdStepSchema } from "./validatorForm";
 
 const formItemLayout = {
@@ -32,7 +28,6 @@ const FormLostFound: React.FC = () => {
 
     const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
     const [openModal, setOpenModal] = useState(false);
-    const [allFieldsFilled, setAllFieldsFilled] = useState(false);
 
     const tailFormItemLayout = {
         wrapperCol: {
@@ -47,17 +42,22 @@ const FormLostFound: React.FC = () => {
         },
     };
 
-    const showModal = () => {
-        const schemas = [firstStepSchemaLost, firstStepSchemaFound, secondStepSchema, thirdStepSchema];
-        const allFieldsFilled = schemas.every((schema) => schema.fields && Object.keys(schema.fields).length > 0);
-
-        if (allFieldsFilled) {
-            setOpenModal(true);
+    const showModal = async () => {
+        try {
+            const schemas = [firstStepSchemaLost, firstStepSchemaFound, secondStepSchema, thirdStepSchema];
+            await form.validateFields();
+            const allFieldsFilled = schemas.every((schema) => schema.fields && Object.keys(schema.fields).length > 0);
+            console.log("allFieldsFilled", allFieldsFilled);
+            if (allFieldsFilled) {
+                setOpenModal(true);
+            } else {
+                alert("Please fill in all fields.");
+            }
+        } catch (error) {
+            console.error("Error during validation:", error);
         }
-        // } else {
-        //     alert("Please fill in all fields.");
-        // }
     };
+
     const onWebsiteChange = (value: string) => {
         if (!value) {
             setAutoCompleteResult([]);
@@ -81,7 +81,6 @@ const FormLostFound: React.FC = () => {
             if (currentSchema) {
                 const values = await form.validateFields();
                 await currentSchema.validate(values, { abortEarly: false });
-                setAllFieldsFilled(true); // Установите состояние, если все поля заполнены
                 setFormState({ ...formState, current: formState.current + 1 });
             }
         } catch (errorInfo) {
@@ -90,7 +89,6 @@ const FormLostFound: React.FC = () => {
     };
 
     const prev = () => {
-        setAllFieldsFilled(false); // Сброс состояния при переходе на предыдущий этап
         setFormState({ ...formState, current: formState.current - 1 });
     };
     const resetForm = () => {

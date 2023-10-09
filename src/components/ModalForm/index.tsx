@@ -13,11 +13,12 @@ interface ModalFormProps {
 }
 export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal }) => {
     //const [resetForm, setResetForm] = useState<FormResetData>(initialFormDataSend);
-
     const dispatch = useDispatch();
     const initialStateEmptyForm = useSelector((store: RootState) => store.form.adData);
     // const [open, setOpen] = useState(false);
+    const [responseData, setResponseData] = useState<any>(null);
 
+    console.log("dataRes", responseData);
     const {
         // _id,
         title,
@@ -31,48 +32,46 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
         lostOrFoundAt,
         createdAt,
         secretQuestion,
+        secretAnswer,
+        switcherLostOrFound,
     } = useSelector((store: RootState) => store.form.adData);
-    // console.log("photosData", photosData);
+
     let photos = photosData.map((item) => {
         if (item.originFileObj) {
             return item.originFileObj;
         }
     });
-    // if (item.originFileObj) {
-    //     const { lastModified, lastModifiedDate, name, size, type, webkitRelativePath } = item.originFileObj;
-    //     return {
-    //         lastModified,
-    //         lastModifiedDate,
-    //         name,
-    //         size,
-    //         type,
-    //         webkitRelativePath,
-    //     };
-    // }
-    //return URL.createObjectURL(item.originFileObj);
-    //});
-    // if (photos[0]) {
-    // console.log("photos", photos);
-    // }
-    // const transformedCategoriesId = categoryId.map((category) => category._id);
 
-    const adFormData = {
-        // _id,
-        title,
-        description,
-        photos,
-        typeId: String(typeId),
-        location: { address, lat, lng },
-        user: { firstname, lastname, email, phone },
-        categoryId, // id!!
-        lostOrFoundAt,
-        createdAt,
-        secretQuestion,
-    };
-    console.log("adFormData!!!!!!!!!!!!!!!!!!!!!!!!!", adFormData.photos);
+    const adFormData = new FormData();
+    adFormData.append("title", title);
+    adFormData.append("description", description);
+
+    adFormData.append("typeId", String(typeId));
+    console.log("categoryId", categoryId);
+    adFormData.append("categoryId", categoryId);
+
+    adFormData.append("location[address]", address);
+    adFormData.append("location[lat]", lat);
+    adFormData.append("location[lng]", lng);
+
+    adFormData.append("user[firstname]", firstname);
+    adFormData.append("user[lastname]", lastname);
+    adFormData.append("user[email]", email);
+    adFormData.append("user[phone]", phone);
+
+    adFormData.append("lostOrFoundAt", lostOrFoundAt);
+
+    photos.forEach((photo) => {
+        adFormData.append("photos", photo as Blob);
+    });
+    if (secretQuestion && secretQuestion.length && secretAnswer && secretAnswer.length) {
+        adFormData.append("secretQuestion", secretQuestion);
+        adFormData.append("secretAnswer", secretAnswer);
+    }
+
     const [confirmLoading, setConfirmLoading] = useState(false);
 
-    const [modalText, setModalText] = useState("Your form has been sent, we’ll send you soon!");
+    const [modalText, setModalText] = useState("If you are sure that your completed data is correct, then press the 'OK' button and the form will go!!");
 
     // const showModal = () => {
     //     setOpen && setOpen(true);
@@ -80,26 +79,47 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
 
     const handleOk = () => {
         setConfirmLoading(true);
-        setModalText("The modal will be closed after two seconds");
+        setModalText("Your data was sent");
         setTimeout(() => {
             setOpenModal(false);
             setConfirmLoading(false);
-            console.log("formDataSend", adFormData);
             dispatch(setClearFormData(initialStateEmptyForm));
-        }, 2000);
-        API.post("/ads", adFormData).then((res) => {
-            console.log("formDataSend", res);
-        });
+        }, 6000);
+
+        API.post("/ads", adFormData)
+            .then((res) => {
+                setResponseData(res);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     };
 
     const handleCancel = () => {
         console.log("Clicked cancel button");
         setOpenModal(false);
     };
+
     return (
         <>
-            <Modal title="LOST THINGS" open={openModal} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+            <Modal title={typeId === 1 ? "LOST THING" : "FOUND THING"} visible={openModal} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
                 <p style={{ fontSize: "23px" }}>{modalText}</p>
+                {/* Display the response data in the modal */}
+                {responseData && responseData.data && responseData.data.user && responseData.data.token && (
+                    <div>
+                        <h3>Response Data: </h3>
+                        <ul>
+                            {Object.keys(responseData.data.user).map((key) => (
+                                <li key={key}>
+                                    <strong>{key}: </strong> {responseData.data.user[key]}
+                                </li>
+                            ))}
+                        </ul>
+                        <div>
+                            <strong>token: </strong> {responseData.data.token}
+                        </div>
+                    </div>
+                )}
             </Modal>
         </>
     );

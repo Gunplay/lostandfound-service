@@ -46,7 +46,7 @@ const SecondStepFrom: React.FC = () => {
                 />
             </Form.Item>
 
-            <Form.Item name="photos" label={typeId === 2 ? "Choose photos of your found:" : "Choose photos of your lost:"}>
+            <Form.Item name="photos" rules={[]} label={typeId === 2 ? "Choose photos of your found:" : "Choose photos of your lost:"}>
                 <UpLoadImage />
             </Form.Item>
 

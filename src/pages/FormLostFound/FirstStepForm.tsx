@@ -3,7 +3,7 @@ import { Form, Input, Select, Button, Tooltip } from "antd";
 import { object, string, number, date, InferType, ObjectSchema } from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { setAdataTitle, setAdataCreatedAt, setAdataSecretQuestion, setAdataCategoryId } from "../../redux/form/slice";
+import { setAdataTitle, setAdataSecretAnswer, setAdataSecretQuestion, setAdataCategoryId } from "../../redux/form/slice";
 import ChooseTypeAd from "./ChooseTypeAd";
 import styles from "./AnimationStep.module.css";
 import { fetchFormCategories } from "../../redux/form/asyncActions";
@@ -21,6 +21,7 @@ const FirstStepForm: React.FC = () => {
         secretQuestion,
     } = useSelector((store: RootState) => store.form.adData);
 
+    console.log("categories", categories);
     const [highlightFields, setHighlightFields] = useState(false);
 
     useEffect(() => {
@@ -100,7 +101,7 @@ const FirstStepForm: React.FC = () => {
                         >
                             <Input
                                 value={createdAt}
-                                onChange={(e) => dispatch(setAdataCreatedAt(e.target.value))}
+                                onChange={(e) => dispatch(setAdataSecretAnswer(e.target.value))}
                                 size="large"
                                 type="text"
                                 placeholder="Your secret answer"

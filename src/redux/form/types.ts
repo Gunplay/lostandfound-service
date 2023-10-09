@@ -24,6 +24,7 @@ export interface FormData {
         checked: boolean;
         createdAt: string;
         secretQuestion: string;
+        secretAnswer: string;
         status: string;
     };
 }
