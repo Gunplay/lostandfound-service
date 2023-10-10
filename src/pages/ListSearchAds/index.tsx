@@ -43,7 +43,7 @@ const ListSearchAds = () => {
 
     return (
         <>
-            <Row gutter={[0, 32]} style={{ backgroundColor: "grey" }}>
+            <Row gutter={[0, 32]} style={{ backgroundColor: "green", color: "red" }}>
                 <Col span={24} />
                 <Col span={24} />
 
