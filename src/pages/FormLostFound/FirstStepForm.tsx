@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Select, Button, Tooltip } from "antd";
-import { object, string, number, date, InferType, ObjectSchema } from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setAdataTitle, setAdataSecretAnswer, setAdataSecretQuestion, setAdataCategoryId } from "../../redux/form/slice";
@@ -9,23 +8,14 @@ import styles from "./AnimationStep.module.css";
 import { fetchFormCategories } from "../../redux/form/asyncActions";
 import { yupSyncStepFirstLost, yupSyncStepFirstFound } from "./validatorForm";
 import { UserIdCategory } from "../../redux/form/types";
+
 const FirstStepForm: React.FC = () => {
     const dispatch = useDispatch();
-    const {
-        title,
-        categories,
-        categoryId, // Use categoryId instead of transformedCategories
-        switcherLostOrFound,
-        typeId,
-        createdAt,
-        secretQuestion,
-    } = useSelector((store: RootState) => store.form.adData);
+    const { title, categories, categoryId, switcherLostOrFound, typeId, createdAt, secretQuestion } = useSelector((store: RootState) => store.form.adData);
 
-    console.log("categories", categories);
     const [highlightFields, setHighlightFields] = useState(false);
 
     useEffect(() => {
-        // Fetch categories when the component mounts
         dispatch(fetchFormCategories() as any);
     }, [dispatch]);
 
@@ -37,6 +27,14 @@ const FirstStepForm: React.FC = () => {
             }, 4000);
         }
     }, [typeId]);
+
+    // Define a static array of categories in case categories are not available
+    const staticCategories = [
+        { _id: "1", category: "Category 1" },
+        { _id: "2", category: "Category 2" },
+        { _id: "3", category: "Category 3" },
+        // Add more categories as needed
+    ];
 
     return (
         <>
@@ -59,29 +57,30 @@ const FirstStepForm: React.FC = () => {
                         const selectedCategory = categories.find((category) => category.category === value);
                         if (selectedCategory) {
                             const selectedCategoryId = selectedCategory._id;
-                            // Dispatch the action to set the categoryId
                             dispatch(setAdataCategoryId(selectedCategoryId));
                         }
                     }}
                     placeholder="Choose category..."
                 >
-                    {categories.map((category) => (
-                        <Select.Option key={category._id} value={category.category}>
-                            {category.category}
-                        </Select.Option>
-                    ))}
+                    {categories.length > 0
+                        ? categories.map((category) => (
+                              <Select.Option key={category._id} value={category.category}>
+                                  {category.category}
+                              </Select.Option>
+                          ))
+                        : // Use the static categories array if categories are not available
+                          staticCategories.map((category) => (
+                              <Select.Option key={category._id} value={category.category}>
+                                  {category.category}
+                              </Select.Option>
+                          ))}
                 </Select>
             </Form.Item>
 
             {typeId === 2 ? (
                 <>
-                    <Tooltip title="Secret question (A person who will want to receive your contact information will have to give an answer to this. If you leave this field empty your contact details will be available to all users.): ">
-                        <Form.Item
-                            rules={[yupSyncStepFirstFound]}
-                            name="secretquestion"
-                            label={`Secret question`}
-                            // rules = {[{ required: true, message: `Please enter a secret question` }]}
-                        >
+                    <Tooltip title="Secret question (A person who will want to receive your contact information will have to give an answer to this. If you leave this field empty, your contact details will be available to all users.):">
+                        <Form.Item rules={[yupSyncStepFirstFound]} name="secretquestion" label={`Secret question`}>
                             <Input
                                 value={secretQuestion}
                                 onChange={(e) => dispatch(setAdataSecretQuestion(e.target.value))}
@@ -93,12 +92,7 @@ const FirstStepForm: React.FC = () => {
                         </Form.Item>
                     </Tooltip>
                     <Tooltip title="Secret answer (If a person answers exactly your question, how did you answer him, he will immediately receive your contact details. If not, you can check his answer in your account and give it if you want.):">
-                        <Form.Item
-                            rules={[yupSyncStepFirstFound]}
-                            name="secretanswer"
-                            label={`Secret answer`}
-                            // rules = {[{ required: true, message: `Please enter a secret answer` }]}
-                        >
+                        <Form.Item rules={[yupSyncStepFirstFound]} name="secretanswer" label={`Secret answer`}>
                             <Input
                                 value={createdAt}
                                 onChange={(e) => dispatch(setAdataSecretAnswer(e.target.value))}
