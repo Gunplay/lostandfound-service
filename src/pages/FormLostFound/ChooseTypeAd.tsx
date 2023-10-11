@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Typography } from "antd";
+import { Button, Space, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { setAdataSwitcherLostOrFound } from "../../redux/form/slice";
 import { RootState } from "../../redux/store";
@@ -22,8 +22,10 @@ const ChooseTypeAd = () => {
         <>
             <Typography>
                 <Title level={2}>REGISTRATION AD</Title>
-                <div style={{ display: "flex", justifyContent: "center", margin: "20px" }}>
-                    <Text>Choose the type of ad: </Text>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center", margin: "20px" }}>
+                    <Space>
+                        <Text style={{ fontSize: "25px", marginRight: "5px" }}>Choose the type of ad: </Text>
+                    </Space>
                     <Button
                         size="large"
                         value={typeId}

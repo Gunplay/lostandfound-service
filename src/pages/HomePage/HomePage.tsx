@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
                 {/* <div style={{ display: "flex", position: "absolute", top: 100, left: 0, right: 0, bottom: 0, zIndex: 50 }}> */}
                 <FormLostFound />
             </div>
-            {/* </div> */}
+
             <MainManualLostAndFound />
             <CardsPage />
             <LinkRout to="/list">SHOW MORE</LinkRout>

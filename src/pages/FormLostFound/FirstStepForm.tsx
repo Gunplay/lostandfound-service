@@ -12,7 +12,7 @@ import { UserIdCategory } from "../../redux/form/types";
 const FirstStepForm: React.FC = () => {
     const dispatch = useDispatch();
     const { title, categories, categoryId, switcherLostOrFound, typeId, createdAt, secretQuestion } = useSelector((store: RootState) => store.form.adData);
-
+    console.log("categories", categories);
     const [highlightFields, setHighlightFields] = useState(false);
 
     useEffect(() => {
@@ -30,10 +30,21 @@ const FirstStepForm: React.FC = () => {
 
     // Define a static array of categories in case categories are not available
     const staticCategories = [
-        { _id: "1", category: "Category 1" },
-        { _id: "2", category: "Category 2" },
-        { _id: "3", category: "Category 3" },
-        // Add more categories as needed
+        { _id: "5e9d95cecdf17e644462d631", category: "Documents" },
+
+        { _id: "5e9d95cecdf17e644462d632", category: "Keys" },
+
+        { _id: "5e9d95cecdf17e644462d633", category: "Mobile devices" },
+
+        { _id: "5e9d95cecdf17e644462d634", category: "Bags and purses" },
+
+        { _id: "5e9d95cecdf17e644462d635", category: "Сlothes" },
+
+        { _id: "5e9d95cecdf17e644462d636", category: "Jewelry" },
+
+        { _id: "5e9d95cecdf17e644462d637", category: "Others" },
+
+        { _id: "5ea42acc45a99866a4578fc9", category: "Pets" },
     ];
 
     return (

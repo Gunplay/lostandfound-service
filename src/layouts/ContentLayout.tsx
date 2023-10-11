@@ -54,8 +54,8 @@ const ContentLayout: React.FC = () => {
                 <Route path="/cards" element={<CardsPage />} />
                 <Route path="/list" element={<ListSearchAds />} />
             </Routes>
-
-            <FooterPanel />
+            {/* 
+            // <FooterPanel /> */}
         </Content>
     );
 };

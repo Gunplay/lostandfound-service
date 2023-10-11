@@ -124,7 +124,7 @@ const FormLostFound: React.FC = () => {
             }}
             scrollToFirstError
         >
-            <Steps current={formState.current} items={items} style={{ width: "500px", marginLeft: "40px" }} />
+            <Steps current={formState.current} items={items} style={{ marginLeft: "40px" }} />
             <div style={contentStyle}>{steps[formState.current].content}</div>
             <div style={{ display: "flex", justifyContent: "left", flexDirection: "column", padding: "25px" }}>
                 <div>
