@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Form, Button, Steps } from "antd";
+import React, { useState, useEffect } from "react";
+import { Form, Button, Steps, Row, Col } from "antd";
 import FirstStepForm from "./FirstStepForm";
 import SecondStepFrom from "./SecondStepForm";
 import ThirdStepForm from "./ThirdStepForm";
 import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import styles from "./AnimationStep.module.css";
 
 import { firstStepSchemaLost, firstStepSchemaFound, yupSyncStepFirstFound, secondStepSchema, thirdStepSchema } from "./validatorForm";
 
@@ -28,6 +29,30 @@ const FormLostFound: React.FC = () => {
 
     const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
     const [openModal, setOpenModal] = useState(false);
+    const [formHeight, setFormHeight] = useState(40);
+    const [formInnerHeightForm, setFormInnerHeightForm] = useState(0);
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth <= 1038) {
+                setFormHeight(150);
+                setFormInnerHeightForm(600);
+            } else if (window.innerWidth <= 598) {
+                setFormHeight(250);
+                setFormInnerHeightForm(700);
+            } else if (window.innerWidth <= 559) {
+                setFormHeight(250);
+                setFormInnerHeightForm(750);
+            } else {
+                setFormHeight(100); // Default height for larger screens
+                setFormInnerHeightForm(550);
+            }
+        }
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const tailFormItemLayout = {
         wrapperCol: {
@@ -51,7 +76,7 @@ const FormLostFound: React.FC = () => {
             if (allFieldsFilled) {
                 setOpenModal(true);
             } else {
-                alert("Please fill in all fields.");
+                console.log("Please fill in all fields.");
             }
         } catch (error) {
             console.error("Error during validation:", error);
@@ -107,16 +132,17 @@ const FormLostFound: React.FC = () => {
         <Form
             {...formItemLayout}
             form={form}
+            //className={styles.formPosition}
             name="register"
             style={{
                 position: "absolute",
-                top: 100,
+                top: `${formHeight}px`,
                 left: 0,
                 right: 0,
                 bottom: 0,
                 zIndex: 50,
                 maxWidth: 680,
-                maxHeight: 550,
+                maxHeight: `${formInnerHeightForm}px`,
                 backgroundColor: "white",
                 margin: "0 auto",
                 borderRadius: "15px",
@@ -124,9 +150,9 @@ const FormLostFound: React.FC = () => {
             }}
             scrollToFirstError
         >
-            <Steps current={formState.current} items={items} style={{ marginLeft: "40px" }} />
-            <div style={contentStyle}>{steps[formState.current].content}</div>
-            <div style={{ display: "flex", justifyContent: "left", flexDirection: "column", padding: "25px" }}>
+            <Steps current={formState.current} items={items} style={{ marginLeft: "20px" }} />
+            <div style={{ textAlign: "center", marginTop: "16px" }}>{steps[formState.current].content}</div>
+            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", padding: "15px" }}>
                 <div>
                     {formState.current > 0 && (
                         <Button style={{ margin: "0 8px" }} onClick={() => prev()}>

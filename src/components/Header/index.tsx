@@ -31,10 +31,10 @@ const logoStyle: React.CSSProperties = {
 
 export const HeaderPanel: React.FC = () => {
     return (
-        <Header style={headerStyle}>
-            <Row justify="space-between" align={"middle"}>
-                <Link to="/">
-                    <Button icon={<HomeOutlined />} type="default">
+        <Header style   = {headerStyle}>
+        <Row    justify = "space-between" align   = {"middle"}>
+        <Link   to      = "/">
+        <Button icon    = {<HomeOutlined />} type = "default">
                         HOME
                     </Button>
                 </Link>
