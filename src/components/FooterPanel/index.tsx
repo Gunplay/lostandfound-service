@@ -4,17 +4,17 @@ import { Footer } from "antd/es/layout/layout";
 import { Button } from "antd";
 import { InstagramFilled, FacebookFilled } from "@ant-design/icons";
 
-const leftColStyle: React.CSSProperties = {
-    display: "flex",
-    justifyContent: "start",
-    alignItems: "flex-start",
-    color: "black",
-    fontSize: "50px",
-};
+// const leftColStyle: React.CSSProperties = {
+//     display: "flex",
+//     justifyContent: "start",
+//     alignItems: "flex-start",
+//     color: "black",
+//     fontSize: "50px",
+// };
 
 const rightColStyle: React.CSSProperties = {
     display: "flex",
-    flexDirection: "column",
+    //flexDirection: "column",
     justifyContent: "end",
     alignItems: "flex-end",
     color: "black",
@@ -30,53 +30,53 @@ const logoStyle: React.CSSProperties = {
 export const FooterPanel: React.FC = () => {
     return (
         <Footer style={{ backgroundColor: "#464947" }}>
-            <Row style={leftColStyle}>
-                <Space size="middle">
-                    <Col>
-                        <Button type="dashed" ghost size="large">
-                            Missing{" "}
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="dashed" ghost size="large">
-                            Finds
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="dashed" ghost size="large">
-                            Register ADD
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="dashed" ghost size="large">
-                            LOGIN
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="dashed" ghost size="large">
-                            SING UP
-                        </Button>
-                    </Col>
-                </Space>
+            <Row wrap justify="start" gutter={[8, 8]} align="stretch">
+                <Col xs={24} md={24} lg={24} xl={32} flex="auto">
+                    {/* <Space align="start"> */}
+                    <Button type="dashed" ghost size="large">
+                        Missing{" "}
+                    </Button>
+
+                    <Button type="dashed" ghost size="large">
+                        Finds
+                    </Button>
+
+                    <Button type="dashed" ghost size="large">
+                        Register ADD
+                    </Button>
+                    <Button type="dashed" ghost size="large">
+                        LOGIN
+                    </Button>
+                    <Button type="dashed" ghost size="large">
+                        SING UP
+                    </Button>
+                    {/* </Space> */}
+                </Col>
             </Row>
-            <div style={logoStyle}>LOST & FOUND</div>
-            <Row style={rightColStyle}>
-                <Space size="middle">
+            <Row>
+                <Col xs={24} md={24} lg={24} xl={32} flex="auto">
+                    <div style={logoStyle}>LOST & FOUND</div>
+                </Col>
+            </Row>
+            <Col xs={4} sm={16} md={16} lg={16} xl={32}></Col>
+            <Col xs={4} sm={16} md={16} lg={16} xl={32}></Col>
+            <Col></Col>
+            <Row wrap justify="end" gutter={[8, 8]} align="stretch">
+                <Col xs={6} sm={6} md={18} lg={24} xl={32} flex="auto">
                     <Button icon={<InstagramFilled spin={true} />} size="large"></Button>
                     <Button icon={<FacebookFilled spin={true} />} size="large"></Button>
-                </Space>
-                <Space size="middle" style={{ marginTop: "15px" }}>
-                    <Col>
-                        <Button type="default" ghost size="large">
-                            Thefinds4seekers@gmail.com
-                        </Button>
-                    </Col>
-                    <Col>
-                        <Button type="default" ghost size="large">
-                            2027 TheFinds4Seekers, Inc. All rights reserved.
-                        </Button>
-                    </Col>
-                </Space>
+                </Col>
+            </Row>
+            <Row wrap justify="start" align="middle">
+                <Col xs={4} sm={16} md={16} lg={16} xl={32} flex="auto">
+                    <Button type="default" ghost size="middle">
+                        Thefinds4seekers@gmail.com
+                    </Button>
+
+                    <Button type="default" ghost size="middle">
+                        2027 TheFinds4Seekers, Inc. All rights reserved.
+                    </Button>
+                </Col>
             </Row>
         </Footer>
     );
