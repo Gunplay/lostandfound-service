@@ -8,6 +8,7 @@ import ButtonSubmit from "../ButtonSubmit";
 //import LogginAccBtn from './LogginAccBtn';
 import ButtonLog from "../ButttonLog";
 import SearchItemsInput from "../SearchItemsInput";
+import styles from "./header.module.scss";
 const { Header } = Layout;
 // import styles from './Header.module.scss'
 
@@ -31,26 +32,28 @@ const logoStyle: React.CSSProperties = {
 
 export const HeaderPanel: React.FC = () => {
     return (
-        <Header style   = {headerStyle}>
-        <Row    justify = "space-between" align   = {"middle"}>
-        <Link   to      = "/">
-        <Button icon    = {<HomeOutlined />} type = "default">
-                        HOME
-                    </Button>
-                </Link>
-                <ButtonLog />
+        <Row>
+            <Header style={headerStyle}>
+                <Row justify="space-around" align={"middle"}>
+                    <Link to="/">
+                        <Button icon={<HomeOutlined />} type="default">
+                            HOME
+                        </Button>
+                    </Link>
+                    <ButtonLog />
 
-                <Col>
-                    <ButtonSubmit size="large" />
-                </Col>
-                <Row align="middle">
-                    <SearchItemsInput />
-                    <Button icon={<AppstoreAddOutlined rotate={5} spin />} type="primary" danger size="large" style={{ borderRadius: "0px 10px 10px 0px", fontSize: "17px" }}>
-                        CREATE AD
-                    </Button>
-                    {/* <div style={logoStyle}>LOST & FOUND</div> */}
+                    <Col>
+                        <ButtonSubmit size="large" />
+                    </Col>
+                    <Row align="middle">
+                        <SearchItemsInput />
+                        <Button icon={<AppstoreAddOutlined rotate={5} spin />} type="primary" danger className={styles.buttonCreateAdd}>
+                            CREATE AD
+                        </Button>
+                        {/* <div style={logoStyle}>LOST & FOUND</div> */}
+                    </Row>
                 </Row>
-            </Row>
-        </Header>
+            </Header>
+        </Row>
     );
 };

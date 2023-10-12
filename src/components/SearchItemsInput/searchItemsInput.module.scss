@@ -1,0 +1,33 @@
+.searchInput {
+    width: 300px;
+    height: 40px;
+    font-size: 16px; /* Specify a valid font size value */
+    font-weight: bold; /* Specify the font weight */
+    color: black;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Media query for screen widths up to 768px */
+@media screen and (max-width: 768px) {
+    .searchInput {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 562px) {
+    .searchInput {
+        width: 250px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .searchInput {
+        width: 130px;
+    }
+}
+
+@media screen and (max-width: 389px) {
+    .searchInput {
+        width: 100px;
+    }
+}

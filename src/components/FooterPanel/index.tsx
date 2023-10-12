@@ -58,8 +58,8 @@ export const FooterPanel: React.FC = () => {
                     <div style={logoStyle}>LOST & FOUND</div>
                 </Col>
             </Row>
-            <Col xs={4} sm={16} md={16} lg={16} xl={32}></Col>
-            <Col xs={4} sm={16} md={16} lg={16} xl={32}></Col>
+            {/* <Col xs = {4} sm = {16} md = {16} lg = {16} xl = {32}></Col>
+            <Col xs = {4} sm = {16} md = {16} lg = {16} xl = {32}></Col> */}
             <Col></Col>
             <Row wrap justify="end" gutter={[8, 8]} align="stretch">
                 <Col xs={6} sm={6} md={18} lg={24} xl={32} flex="auto">
