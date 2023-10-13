@@ -10,7 +10,6 @@ import ButtonLog from "../ButttonLog";
 import SearchItemsInput from "../SearchItemsInput";
 import styles from "./header.module.scss";
 const { Header } = Layout;
-// import styles from './Header.module.scss'
 
 const headerStyle: React.CSSProperties = {
     backgroundColor: "transparent",
