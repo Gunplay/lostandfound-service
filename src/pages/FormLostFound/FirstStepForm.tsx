@@ -27,7 +27,7 @@ const FirstStepForm: React.FC = () => {
             }, 4000);
         }
     }, [typeId]);
-
+    // new
     // Define a static array of categories in case categories are not available
     const staticCategories = [
         { _id: "5e9d95cecdf17e644462d631", category: "Documents" },
