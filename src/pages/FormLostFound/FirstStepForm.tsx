@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setAdataTitle, setAdataSecretAnswer, setAdataSecretQuestion, setAdataCategoryId } from "../../redux/form/slice";
 import ChooseTypeAd from "./ChooseTypeAd";
-import styles from "./AnimationStep.module.css";
+import styles from "./animationStep.module.css";
 import { fetchFormCategories } from "../../redux/form/asyncActions";
 import { yupSyncStepFirstLost, yupSyncStepFirstFound } from "./validatorForm";
 import { UserIdCategory } from "../../redux/form/types";
