@@ -5,10 +5,10 @@ import SecondStepFrom from "./SecondStepForm";
 import ThirdStepForm from "./ThirdStepForm";
 import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./animationStep.module.scss";
 import { RootState } from "../../redux/store";
-import styles from "./AnimationStep.module.css";
-
 import { firstStepSchemaLost, firstStepSchemaFound, yupSyncStepFirstFound, secondStepSchema, thirdStepSchema } from "./validatorForm";
+console.log("styles", styles);
 
 const formItemLayout = {
     labelCol: {
@@ -25,34 +25,35 @@ const FormLostFound: React.FC = () => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
 
-    const { title, categories } = useSelector((store: RootState) => store.form.adData);
+    const { title, categories, switcherLostOrFound } = useSelector((store: RootState) => store.form.adData);
 
     const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
     const [openModal, setOpenModal] = useState(false);
     const [formHeight, setFormHeight] = useState(40);
     const [formInnerHeightForm, setFormInnerHeightForm] = useState(0);
-    useEffect(() => {
-        function handleResize() {
-            if (window.innerWidth <= 1038) {
-                setFormHeight(150);
-                setFormInnerHeightForm(600);
-            } else if (window.innerWidth <= 598) {
-                setFormHeight(250);
-                setFormInnerHeightForm(700);
-            } else if (window.innerWidth <= 559) {
-                setFormHeight(250);
-                setFormInnerHeightForm(750);
-            } else {
-                setFormHeight(100); // Default height for larger screens
-                setFormInnerHeightForm(550);
-            }
-        }
 
-        handleResize();
+    // useEffect(() => {
+    //     function handleResize() {
+    //         if (window.innerWidth <= 1038) {
+    //             setFormHeight(150);
+    //             setFormInnerHeightForm(600);
+    //         } else if (window.innerWidth <= 598) {
+    //             setFormHeight(250);
+    //             setFormInnerHeightForm(700);
+    //         } else if (window.innerWidth <= 559) {
+    //             setFormHeight(250);
+    //             setFormInnerHeightForm(750);
+    //         } else {
+    //             setFormHeight(100); // Default height for larger screens
+    //             setFormInnerHeightForm(550);
+    //         }
+    //     }
 
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    //     handleResize();
+
+    //     window.addEventListener("resize", handleResize);
+    //     return () => window.removeEventListener("resize", handleResize);
+    // }, []);
 
     const tailFormItemLayout = {
         wrapperCol: {
@@ -129,30 +130,15 @@ const FormLostFound: React.FC = () => {
     };
 
     return (
-        <Form
-            {...formItemLayout}
-            form={form}
-            //className={styles.formPosition}
-            name="register"
-            style={{
-                position: "absolute",
-                top: `${formHeight}px`,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: 50,
-                maxWidth: 680,
-                maxHeight: `${formInnerHeightForm}px`,
-                backgroundColor: "white",
-                margin: "0 auto",
-                borderRadius: "15px",
-                padding: "40px",
-            }}
-            scrollToFirstError
-        >
-            <Steps current={formState.current} items={items} style={{ marginLeft: "20px" }} />
+        // <div className={styles.formWrap}>
+        <Form {...formItemLayout} form={form} className={`${styles.formWrap} ${switcherLostOrFound === "FOUND" ? styles.found : ""}`} name="register" scrollToFirstError>
+            <Steps
+                current={formState.current}
+                items={items}
+                style={{ display: "flex", justifyContent: "center", flexDirection: "inherit", maxWidth: "600px", margin: "15px auto" }}
+            />
             <div style={{ textAlign: "center", marginTop: "16px" }}>{steps[formState.current].content}</div>
-            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", padding: "15px" }}>
+            <div>
                 <div>
                     {formState.current > 0 && (
                         <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
@@ -181,6 +167,7 @@ const FormLostFound: React.FC = () => {
                 </div>
             </div>
         </Form>
+        // </div>
     );
 };
 

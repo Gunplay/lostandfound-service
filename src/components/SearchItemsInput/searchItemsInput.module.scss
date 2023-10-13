@@ -1,6 +1,6 @@
 .searchInput {
     width: 300px;
-    height: 40px;
+    height: 39px;
     font-size: 16px; /* Specify a valid font size value */
     font-weight: bold; /* Specify the font weight */
     color: black;
@@ -16,18 +16,18 @@
 
 @media screen and (max-width: 562px) {
     .searchInput {
-        width: 250px;
+        width: 240px;
     }
 }
 
 @media screen and (max-width: 510px) {
     .searchInput {
-        width: 130px;
+        width: 240px;
     }
 }
 
 @media screen and (max-width: 389px) {
     .searchInput {
-        width: 100px;
+        width: 220;
     }
 }

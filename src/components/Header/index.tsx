@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "antd/dist/antd";
 import { Layout, Space, Row, Col, Divider, Button } from "antd";
 import { AppstoreAddOutlined, HomeOutlined } from "@ant-design/icons";
@@ -32,28 +32,27 @@ const logoStyle: React.CSSProperties = {
 
 export const HeaderPanel: React.FC = () => {
     return (
-        <Row>
-            <Header style={headerStyle}>
-                <Row justify="space-around" align={"middle"}>
-                    <Link to="/">
-                        <Button icon={<HomeOutlined />} type="default">
-                            HOME
-                        </Button>
-                    </Link>
-                    <ButtonLog />
-
-                    <Col>
-                        <ButtonSubmit size="large" />
-                    </Col>
-                    <Row align="middle">
-                        <SearchItemsInput />
-                        <Button icon={<AppstoreAddOutlined rotate={5} spin />} type="primary" danger className={styles.buttonCreateAdd}>
-                            CREATE AD
-                        </Button>
-                        {/* <div style={logoStyle}>LOST & FOUND</div> */}
-                    </Row>
-                </Row>
-            </Header>
-        </Row>
+        <Header style={headerStyle}>
+            <Row>
+                <Col flex="auto">
+                    <Space>
+                        <Link to="/">
+                            <Button icon={<HomeOutlined />} type="dashed" size="large" ghost></Button>
+                        </Link>
+                        <ButtonLog />
+                    </Space>
+                </Col>
+                <Col flex="auto">
+                    <ButtonSubmit />
+                </Col>
+                <Col flex="auto">
+                    <SearchItemsInput />
+                    <Button icon={<AppstoreAddOutlined rotate={5} spin />} type="primary" danger className={styles.buttonCreateAdd}>
+                        CREATE AD
+                    </Button>
+                </Col>
+                {/* <div style={logoStyle}>LOST & FOUND</div> */}
+            </Row>
+        </Header>
     );
 };

@@ -27,22 +27,22 @@ const ButtonLog: React.FC<LogginAccBtnProps> = ({ style, classNames }) => {
     };
 
     return (
-        <Space direction="horizontal" style={style}>
-            <Space wrap>
-                <Button
-                    icon={<LoginOutlined />}
-                    loading={loadings[0]}
-                    onClick={() => enterLoading(0)}
-                    style={{ marginLeft: "38px", marginTop: "10px", marginBottom: "10px", backgroundColor: "black", color: "white" }}
-                    type="primary"
-                >
-                    Admin
-                </Button>
-                <Button icon={<LoginOutlined />} loading={loadings[0]} onClick={() => enterLoading(0)} type="primary">
-                    User
-                </Button>
-            </Space>
+        // <Space direction="horizontal" style={style}>
+        <Space wrap>
+            <Button
+                icon={<LoginOutlined />}
+                loading={loadings[0]}
+                onClick={() => enterLoading(0)}
+                style={{ marginTop: "10px", marginBottom: "10px", backgroundColor: "black", color: "white" }}
+                type="primary"
+            >
+                Admin
+            </Button>
+            <Button icon={<LoginOutlined />} loading={loadings[0]} onClick={() => enterLoading(0)} type="primary">
+                User
+            </Button>
         </Space>
+        // </Space>
     );
 };
 

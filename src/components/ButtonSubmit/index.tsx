@@ -2,8 +2,9 @@ import React, { useRef } from "react";
 
 import { Button, Space } from "antd";
 import { Row, Col, Divider } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-
+import styles from "./buttonSubmit.module.scss";
 interface ButtonName {
     [key: string]: string;
     btn1: string;
@@ -24,11 +25,11 @@ interface ButtonName {
 
 // };
 
-interface ButtonSubmitProps {
-    size: "large" | "middle" | "small";
-}
+// interface ButtonSubmitProps {
+//     size: "large" | "middle" | "small";
+// }
 
-const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ size }) => {
+const ButtonSubmit: React.FC = () => {
     return (
         <Space wrap>
             {/* {Object.keys(buttonName).map((key) => (
@@ -39,8 +40,8 @@ const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ size }) => {
             </Button>
         ))} */}
             <a href="#viewrecentitems">
-                <Button size={size} type="default">
-                    VIEW RECENT POSTS
+                <Button type="default" className={styles.buttonTextSubmit} icon={<EyeOutlined />}>
+                    RECENT POSTS
                 </Button>
             </a>
         </Space>

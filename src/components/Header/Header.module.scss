@@ -1,7 +1,7 @@
 .buttonCreateAdd {
     border-radius: 0px 10px 10px 0px;
-    font-size: 17px;
-    height: 40px;
+    // font-size: 17px;
+    height: 39px;
 }
 
 @media screen and (max-width: 768px) {
@@ -23,7 +23,7 @@
         font-size: 0px;
         &::before {
             content: "+";
-            font-size: 18px;
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -37,7 +37,7 @@
         font-size: 0px;
         &::before {
             content: "+";
-            font-size: 18px;
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;

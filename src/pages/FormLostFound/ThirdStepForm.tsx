@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Checkbox, Col, Form, Input, Select } from "antd";
+import { Checkbox, Form, Input, Select, Row, Col } from "antd";
 import { Divider, Typography } from "antd";
 
 import { type } from "os";
@@ -76,28 +76,29 @@ const ThirdStepForm: React.FC = () => {
     // );
 
     return (
-        <>
-            <Form.Item
-                name="firstname"
-                label="First Name"
-                tooltip="What do you want others to call you?"
-                //rules={[{ required: true, message: "Please input your nickname!", whitespace: true }]}
-                rules={[yupSyncStepThirdStepSchema]}
-            >
-                <Input value={firstname} onChange={(e) => dispatch(setAdataFirstName(e.target.value))} />
-            </Form.Item>
+        <Row align="middle" justify="center">
+            <Col xs={12} sm={16} md={20} lg={20} xl={20}>
+                <Form.Item
+                    name="firstname"
+                    label="First Name"
+                    tooltip="What do you want others to call you?"
+                    //rules={[{ required: true, message: "Please input your nickname!", whitespace: true }]}
+                    rules={[yupSyncStepThirdStepSchema]}
+                >
+                    <Input value={firstname} onChange={(e) => dispatch(setAdataFirstName(e.target.value))} />
+                </Form.Item>
 
-            <Form.Item
-                name="lastname"
-                rules={[yupSyncStepThirdStepSchema]}
-                label="Last Name"
-                tooltip="What do you want others to call you?"
-                // rules={[{ required: true, message: "Please input your nickname!", whitespace: true }]}
-            >
-                <Input value={lastname} onChange={(e) => dispatch(setAdataLastName(e.target.value))} />
-            </Form.Item>
+                <Form.Item
+                    name="lastname"
+                    rules={[yupSyncStepThirdStepSchema]}
+                    label="Last Name"
+                    tooltip="What do you want others to call you?"
+                    // rules={[{ required: true, message: "Please input your nickname!", whitespace: true }]}
+                >
+                    <Input value={lastname} onChange={(e) => dispatch(setAdataLastName(e.target.value))} />
+                </Form.Item>
 
-            {/* <Form.Item
+                {/* <Form.Item
                 rules={[yupSyncStepThirdStepSchema]}
                 name="phone"
                 label="Phone Number"
@@ -105,31 +106,32 @@ const ThirdStepForm: React.FC = () => {
             >
                 <Input addonBefore={prefixSelector} style={{ width: "100%" }} value={phone} onChange={handlePhoneMainChange} type="number" />
             </Form.Item> */}
-            <Form.Item rules={[yupSyncStepThirdStepSchema]} name="phone" label="Phone Number">
-                <PhoneInput
-                    value={phone}
-                    inputProps={{
-                        name: "phone",
-                        required: true,
-                    }}
-                    preferredCountries={["us", "ua"]}
-                    onChange={handlePhoneChange}
-                    containerClass="phone-input-container"
-                    inputClass="phone-input"
-                    placeholder="Phone"
-                    //fluid
-                />
-            </Form.Item>
-            <Form.Item name="email" rules={[yupSyncStepThirdStepSchema]} label="E-mail">
-                <Input value={email} onChange={(e) => dispatch(setAdataEmail(e.target.value))} />
-            </Form.Item>
+                <Form.Item rules={[yupSyncStepThirdStepSchema]} name="phone" label="Phone Number">
+                    <PhoneInput
+                        value={phone}
+                        inputProps={{
+                            name: "phone",
+                            required: true,
+                        }}
+                        preferredCountries={["us", "ua"]}
+                        onChange={handlePhoneChange}
+                        containerClass="phone-input-container"
+                        inputClass="phone-input"
+                        placeholder="Phone"
+                        //fluid
+                    />
+                </Form.Item>
+                <Form.Item name="email" rules={[yupSyncStepThirdStepSchema]} label="E-mail">
+                    <Input value={email} onChange={(e) => dispatch(setAdataEmail(e.target.value))} />
+                </Form.Item>
 
-            <Form.Item rules={[yupSyncStepThirdStepSchema]} name="agreement" valuePropName="checked">
-                <Checkbox value={aDataChecked} onChange={(e) => dispatch(setAdataChecked(e.target.checked))}>
-                    I have read the <a href="">agreement</a>
-                </Checkbox>
-            </Form.Item>
-        </>
+                <Form.Item rules={[yupSyncStepThirdStepSchema]} name="agreement" valuePropName="checked">
+                    <Checkbox value={aDataChecked} onChange={(e) => dispatch(setAdataChecked(e.target.checked))}>
+                        I have read the <a href="">agreement</a>
+                    </Checkbox>
+                </Form.Item>
+            </Col>
+        </Row>
     );
 };
 

@@ -1,0 +1,33 @@
+.buttonTextSubmit {
+    font-size: 14px;
+    //  height: 40px;
+}
+
+/* Media query for screen widths up to 768px */
+@media screen and (max-width: 768px) {
+    .buttonTextSubmit {
+        font-size: 14px;
+        //height: 40px;
+    }
+}
+
+@media screen and (max-width: 562px) {
+    .buttonTextSubmit {
+        font-size: 14px;
+        // height: 40px;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .buttonTextSubmit {
+        font-size: 14px;
+        // height: 40px;
+    }
+}
+
+@media screen and (max-width: 389px) {
+    .buttonTextSubmit {
+        font-size: 14px;
+        //height: 40px;
+    }
+}
