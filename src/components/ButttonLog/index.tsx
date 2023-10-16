@@ -33,12 +33,13 @@ const ButtonLog: React.FC<LogginAccBtnProps> = ({ style, classNames }) => {
                 icon={<LoginOutlined />}
                 loading={loadings[0]}
                 onClick={() => enterLoading(0)}
-                style={{ marginTop: "10px", marginBottom: "10px", backgroundColor: "black", color: "white" }}
+                style={{ backgroundColor: "black", color: "white" }}
                 type="primary"
+                size="middle"
             >
                 Admin
             </Button>
-            <Button icon={<LoginOutlined />} loading={loadings[0]} onClick={() => enterLoading(0)} type="primary">
+            <Button icon={<LoginOutlined />} loading={loadings[0]} onClick={() => enterLoading(0)} type="primary" size="middle">
                 User
             </Button>
         </Space>

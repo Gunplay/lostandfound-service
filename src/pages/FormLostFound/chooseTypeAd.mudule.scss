@@ -1,0 +1,16 @@
+// @media screen and (max-width: 559px) {
+//     .titleSize {
+//         font-size: 5px;
+//     }
+// }
+
+.ant-typography {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+@media screen and (max-width: 559px) {
+    .ant-typography {
+        font-size: 15px;
+    }
+}

@@ -12,6 +12,7 @@ import styles from "./header.module.scss";
 const { Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
+    // marginTop: "0px",
     backgroundColor: "transparent",
     position: "fixed",
     width: "100%",
@@ -32,7 +33,7 @@ const logoStyle: React.CSSProperties = {
 export const HeaderPanel: React.FC = () => {
     return (
         <Header style={headerStyle}>
-            <Row>
+            <Row align="middle">
                 <Col flex="auto">
                     <Space>
                         <Link to="/">

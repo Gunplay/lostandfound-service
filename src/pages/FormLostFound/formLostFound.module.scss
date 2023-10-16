@@ -1,0 +1,66 @@
+.highlight {
+    animation: highlight 4s ease-in-out;
+}
+
+@keyframes highlight {
+    0%,
+    100% {
+        background-color: inherit;
+    }
+    50% {
+        background-color: #1677ff; /* Цвет подсветки */
+    }
+}
+.formWrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    max-width: 623px;
+    max-height: 485px;
+    background-color: white;
+    margin: auto auto;
+    border-radius: 15px;
+}
+// .found .formWrap {
+//     max-height: 600px; /* Applied when switcherLostOrFound is "FOUND" */
+// }
+
+@media screen and (max-width: 1038px) {
+    .formWrap {
+        height: 600px;
+    }
+}
+
+@media screen and (max-width: 598px) {
+    .formWrap {
+        height: 700px;
+    }
+}
+
+@media screen and (max-width: 559px) {
+    .formWrap {
+        height: 750px;
+    }
+}
+
+.ant-steps {
+    // Styles for the Steps component
+
+    @media screen and (max-width: 1038px) {
+        margin: 15px auto;
+        // Additional styles
+    }
+
+    @media screen and (max-width: 598px) {
+        margin: 15px auto;
+        // Additional styles
+    }
+
+    @media screen and (max-width: 559px) {
+        margin: 15px auto;
+        // Additional styles
+    }
+}

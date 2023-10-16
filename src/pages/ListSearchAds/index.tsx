@@ -50,7 +50,7 @@ const ListSearchAds = () => {
                 <>
                     <Row gutter={[8, 8]}>
                         <Col span={12}>
-                            {" "}
+                          
                             <Search placeholder="Seacrh by word..." enterButton="Search" size="large" loading />
                             <Search placeholder="input search text" onSearch={onSearch} enterButton />
                             <Search placeholder="input search text" onSearch={onSearch} enterButton />

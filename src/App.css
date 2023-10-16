@@ -18,10 +18,13 @@ div:where(.css-dev-only-do-not-override-1jr9qlj).ant-card .ant-card-head {
     border-radius: 8px 8px 0 0;
 }
 
-:where(.css-dev-only-do-not-override-txh9fw).ant-layout-header {
+:where(.css-dev-only-do-not-override-amq5gd).ant-layout-header {
     height: 64px;
-    padding-inline: 50px;
+    padding: 0 0px;
     color: rgba(0, 0, 0, 0.88);
-    line-height: 40px;
+    line-height: 44px;
     background: #001529;
+}
+:where(.css-dev-only-do-not-override-txh9fw).ant-space-align-center {
+    align-items: normal;
 }

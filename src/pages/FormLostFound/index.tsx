@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Steps, Row, Col } from "antd";
+import styles from "./formLostFound.module.scss";
 import FirstStepForm from "./FirstStepForm";
 import SecondStepFrom from "./SecondStepForm";
 import ThirdStepForm from "./ThirdStepForm";
 import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./animationStep.module.scss";
 import { RootState } from "../../redux/store";
 import { firstStepSchemaLost, firstStepSchemaFound, yupSyncStepFirstFound, secondStepSchema, thirdStepSchema } from "./validatorForm";
 console.log("styles", styles);
@@ -32,28 +32,35 @@ const FormLostFound: React.FC = () => {
     const [formHeight, setFormHeight] = useState(40);
     const [formInnerHeightForm, setFormInnerHeightForm] = useState(0);
 
-    // useEffect(() => {
-    //     function handleResize() {
-    //         if (window.innerWidth <= 1038) {
-    //             setFormHeight(150);
-    //             setFormInnerHeightForm(600);
-    //         } else if (window.innerWidth <= 598) {
-    //             setFormHeight(250);
-    //             setFormInnerHeightForm(700);
-    //         } else if (window.innerWidth <= 559) {
-    //             setFormHeight(250);
-    //             setFormInnerHeightForm(750);
-    //         } else {
-    //             setFormHeight(100); // Default height for larger screens
-    //             setFormInnerHeightForm(550);
-    //         }
-    //     }
+    useEffect(() => {
+        function handleResize() {
+            const windowWidth = window.innerWidth;
+            let newFormHeight = 40;
+            let newFormInnerHeightForm = 0;
 
-    //     handleResize();
+            if (windowWidth <= 1038) {
+                newFormHeight = 150;
+                newFormInnerHeightForm = 600;
+            } else if (windowWidth <= 598) {
+                newFormHeight = 250;
+                newFormInnerHeightForm = 700;
+            } else if (windowWidth <= 559) {
+                newFormHeight = 250;
+                newFormInnerHeightForm = 750;
+            } else {
+                newFormHeight = 100; // Default height for larger screens
+                newFormInnerHeightForm = 550;
+            }
 
-    //     window.addEventListener("resize", handleResize);
-    //     return () => window.removeEventListener("resize", handleResize);
-    // }, []);
+            setFormHeight(newFormHeight);
+            setFormInnerHeightForm(newFormInnerHeightForm);
+        }
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const tailFormItemLayout = {
         wrapperCol: {
@@ -131,42 +138,46 @@ const FormLostFound: React.FC = () => {
 
     return (
         // <div className={styles.formWrap}>
-        <Form {...formItemLayout} form={form} className={`${styles.formWrap} ${switcherLostOrFound === "FOUND" ? styles.found : ""}`} name="register" scrollToFirstError>
-            <Steps
-                current={formState.current}
-                items={items}
-                style={{ display: "flex", justifyContent: "center", flexDirection: "inherit", maxWidth: "600px", margin: "15px auto" }}
-            />
-            <div style={{ textAlign: "center", marginTop: "16px" }}>{steps[formState.current].content}</div>
-            <div>
-                <div>
-                    {formState.current > 0 && (
-                        <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-                            Previous
-                        </Button>
-                    )}
-                    {formState.current < steps.length - 1 && (
-                        <Button
-                            type="primary"
-                            onClick={(e) => {
-                                next();
-                                console.log("formState.current", formState.current);
-                            }}
-                        >
-                            Next
-                        </Button>
-                    )}
-                    {formState.current === steps.length - 1 && (
-                        <>
-                            <Button type="primary" htmlType="submit" onClick={showModal}>
-                                Register
-                            </Button>
-                            <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
-                        </>
-                    )}
-                </div>
-            </div>
-        </Form>
+        <Row justify="center" className={`${styles.formWrap} ${switcherLostOrFound === "FOUND" ? styles.found : ""}`}>
+            <Col xs={18} sm={20} md={20} lg={20} xl={20} flex="auto">
+                <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
+                    <Steps
+                        current={formState.current}
+                        items={items}
+                        style={{ display: "flex", justifyContent: "center", flexDirection: "inherit", maxWidth: "600px", margin: "15px auto" }}
+                    />
+                    <div style={{ textAlign: "center", marginTop: "16px" }}>{steps[formState.current].content}</div>
+                    <div>
+                        <div>
+                            {formState.current > 0 && (
+                                <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
+                                    Previous
+                                </Button>
+                            )}
+                            {formState.current < steps.length - 1 && (
+                                <Button
+                                    type="primary"
+                                    onClick={(e) => {
+                                        next();
+                                        console.log("formState.current", formState.current);
+                                    }}
+                                >
+                                    Next
+                                </Button>
+                            )}
+                            {formState.current === steps.length - 1 && (
+                                <>
+                                    <Button type="primary" htmlType="submit" onClick={showModal}>
+                                        Register
+                                    </Button>
+                                    <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </Form>
+            </Col>
+        </Row>
         // </div>
     );
 };
