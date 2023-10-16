@@ -3,12 +3,23 @@
 //         font-size: 5px;
 //     }
 // }
-
+.fontSizeTittle {
+    font-size: 50px;
+}
 .ant-typography {
     font-size: 20px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
-
+@media screen and (max-width: 770px) {
+    .ant-typography {
+        font-size: 21px;
+    }
+}
+@media screen and (max-width: 572px) {
+    .ant-typography {
+        font-size: 20px;
+    }
+}
 @media screen and (max-width: 559px) {
     .ant-typography {
         font-size: 15px;

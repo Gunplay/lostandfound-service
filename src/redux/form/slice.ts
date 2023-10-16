@@ -107,6 +107,9 @@ const formSlice = createSlice({
         setAdataSwitcherLostOrFound(state, action: PayloadAction<number>) {
             state.adData.typeId = action.payload;
         },
+        setAdataSwitcherLostOrFoundText(state, action: PayloadAction<string>) {
+            state.adData.switcherLostOrFound = action.payload;
+        },
         setAdataSecretAnswer(state, action: PayloadAction<string>) {
             state.adData.secretAnswer = action.payload;
         },
@@ -152,6 +155,7 @@ export const {
     setAdataPhoneMain,
 
     setAdataSwitcherLostOrFound,
+    setAdataSwitcherLostOrFoundText,
     setAdataPhonePrefixUpdate,
     setAdataPhoneMainUpdate,
     setAdataChecked,

@@ -12,7 +12,7 @@ import { UserIdCategory } from "../../redux/form/types";
 const FirstStepForm: React.FC = () => {
     const dispatch = useDispatch();
     const { title, categories, categoryId, switcherLostOrFound, typeId, createdAt, secretQuestion } = useSelector((store: RootState) => store.form.adData);
-    console.log("categories", categories);
+
     const [highlightFields, setHighlightFields] = useState(false);
 
     useEffect(() => {

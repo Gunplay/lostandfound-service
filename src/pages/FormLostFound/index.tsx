@@ -26,41 +26,29 @@ const FormLostFound: React.FC = () => {
     const dispatch = useDispatch();
 
     const { title, categories, switcherLostOrFound } = useSelector((store: RootState) => store.form.adData);
-
+    console.log("switcherLostOrFound", switcherLostOrFound);
     const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
     const [openModal, setOpenModal] = useState(false);
-    const [formHeight, setFormHeight] = useState(40);
-    const [formInnerHeightForm, setFormInnerHeightForm] = useState(0);
-
+    // const [formHeight, setFormHeight] = useState("440px");
+    //console.log("formHeight", formHeight);
     useEffect(() => {
         function handleResize() {
-            const windowWidth = window.innerWidth;
-            let newFormHeight = 40;
-            let newFormInnerHeightForm = 0;
-
-            if (windowWidth <= 1038) {
-                newFormHeight = 150;
-                newFormInnerHeightForm = 600;
-            } else if (windowWidth <= 598) {
-                newFormHeight = 250;
-                newFormInnerHeightForm = 700;
-            } else if (windowWidth <= 559) {
-                newFormHeight = 250;
-                newFormInnerHeightForm = 750;
+            console.log("Resize event detected. switcherLostOrFound:", switcherLostOrFound);
+            if (switcherLostOrFound === "FOUND") {
+                // setFormHeight("500px");
             } else {
-                newFormHeight = 100; // Default height for larger screens
-                newFormInnerHeightForm = 550;
+                // setFormHeight("440px");
             }
-
-            setFormHeight(newFormHeight);
-            setFormInnerHeightForm(newFormInnerHeightForm);
         }
 
         handleResize();
 
         window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [switcherLostOrFound]);
 
     const tailFormItemLayout = {
         wrapperCol: {
@@ -138,8 +126,8 @@ const FormLostFound: React.FC = () => {
 
     return (
         // <div className={styles.formWrap}>
-        <Row justify="center" className={`${styles.formWrap} ${switcherLostOrFound === "FOUND" ? styles.found : ""}`}>
-            <Col xs={18} sm={20} md={20} lg={20} xl={20} flex="auto">
+        <Row justify="center" className={styles.formWrap}>
+            <Col xs={18} sm={16} md={16} lg={20} xl={20} flex="auto">
                 <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
                     <Steps
                         current={formState.current}
@@ -148,7 +136,7 @@ const FormLostFound: React.FC = () => {
                     />
                     <div style={{ textAlign: "center", marginTop: "16px" }}>{steps[formState.current].content}</div>
                     <div>
-                        <div>
+                        <div style={{ marginBottom: "15px" }}>
                             {formState.current > 0 && (
                                 <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
                                     Previous
@@ -159,7 +147,7 @@ const FormLostFound: React.FC = () => {
                                     type="primary"
                                     onClick={(e) => {
                                         next();
-                                        console.log("formState.current", formState.current);
+                                        // console.log("formState.current", formState.current);
                                     }}
                                 >
                                     Next
