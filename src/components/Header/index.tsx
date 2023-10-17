@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import ButtonSubmit from "../ButtonSubmit";
 //import LogginAccBtn from './LogginAccBtn';
 import ButtonLog from "../ButttonLog";
-import SearchItemsInput from "../SearchItemsInput";
 import styles from "./header.module.scss";
+import SearchItemsInput from "../SearchItemsInput";
 const { Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
