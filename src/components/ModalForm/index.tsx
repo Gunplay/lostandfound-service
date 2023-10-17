@@ -109,7 +109,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
     // }
     return (
         <>
-            <Modal title={typeId === 1 ? "LOST THING" : "FOUND THING"} visible={openModal} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+            <Modal title={typeId === 1 ? "LOST THING" : "FOUND THING"} open={openModal} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
                 <p style={{ fontSize: "23px" }}>{modalText}</p>
                 {/* Display the response data in the modal */}
                 {responseData && responseData.data && responseData.data.user && responseData.data.token && (
@@ -117,7 +117,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
                         <h3>Response Data: </h3>
                         <ul>
                             {Object.keys(responseData.data.user).map((key) => (
-                                <li>
+                                <li key={key}>
                                     {key} : {responseData.data.user[key]}
                                 </li>
                             ))}

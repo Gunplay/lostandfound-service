@@ -42,8 +42,8 @@ export const MainManualLostAndFound: React.FC = () => {
 
                     <Paragraph code={false}>
                         <ul style={{ textAlign: "center", marginBottom: "30px", margin: "auto 50px", listStyleType: "none" }}>
-                            {textList.map((text) => (
-                                <li>{text}</li>
+                            {textList.map((i, text) => (
+                                <li key={i}>{text}</li>
                             ))}
                         </ul>
                     </Paragraph>
