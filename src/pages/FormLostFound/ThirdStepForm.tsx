@@ -124,11 +124,11 @@ const ThirdStepForm: React.FC = () => {
                 <Input value={email} onChange={(e) => dispatch(setAdataEmail(e.target.value))} />
             </Form.Item>
 
-            <Form.Item rules={[yupSyncStepThirdStepSchema]} name="agreement" valuePropName="checked">
+            {/* <Form.Item rules={[yupSyncStepThirdStepSchema]} name="agreement" valuePropName="checked">
                 <Checkbox value={aDataChecked} onChange={(e) => dispatch(setAdataChecked(e.target.checked))}>
                     I have read the <a href="">agreement</a>
                 </Checkbox>
-            </Form.Item>
+            </Form.Item> */}
         </>
     );
 };

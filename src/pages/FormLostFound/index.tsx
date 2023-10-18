@@ -127,7 +127,7 @@ const FormLostFound: React.FC = () => {
     return (
         // <div className={styles.formWrap}>
         <Row justify="center" className={styles.formWrap}>
-            <Col xs={18} sm={16} md={16} lg={20} xl={20} flex="auto">
+            <Col xs={13} sm={17} md={20} lg={20} xl={20} flex="auto">
                 <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
                     <Steps
                         current={formState.current}

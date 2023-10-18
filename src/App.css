@@ -28,3 +28,20 @@ div:where(.css-dev-only-do-not-override-1jr9qlj).ant-card .ant-card-head {
 :where(.css-dev-only-do-not-override-txh9fw).ant-space-align-center {
     align-items: normal;
 }
+
+.react-tel-input .form-control {
+    position: relative;
+    font-size: 14px;
+    letter-spacing: 0.01rem;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-left: 48px;
+    margin-left: 0;
+    background: #ffffff;
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+    line-height: 25px;
+    height: 35px;
+    /* width         : 300px; */
+    outline: none;
+}

@@ -45,7 +45,7 @@ export const thirdStepSchema = yup.object().shape({
     prefix: yup.string().required("Prefix is required"),
     phone: yup.string().required("Phone Number is required"),
     email: yup.string().required("E-mail is required").email("Please enter a valid email address"),
-    agreement: yup.boolean().oneOf([true], "You must accept the agreement"),
+    //agreement: yup.boolean().oneOf([true], "You must accept the agreement"),
 });
 
 export const yupSyncStepThirdStepSchema = {

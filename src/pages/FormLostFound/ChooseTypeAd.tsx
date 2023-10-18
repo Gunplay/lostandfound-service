@@ -18,11 +18,15 @@ const ChooseTypeAd = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth <= 391) {
+            if (window.innerWidth <= 366) {
                 setSizeButton("small");
-                setTitleSize(5);
-            } else if (window.innerWidth <= 455) {
+            } else if (window.innerWidth <= 397) {
                 setSizeButton("middle");
+                setTitleSize(5);
+            } else if (window.innerWidth <= 518) {
+                setSizeButton("large");
+                setTitleSize(5);
+            } else if (window.innerWidth <= 900) {
                 setTitleSize(4);
             } else {
                 setSizeButton("large");
@@ -51,15 +55,15 @@ const ChooseTypeAd = () => {
                     </Col>
                 </Row>
                 <Row align="middle" justify="center" style={{ marginBottom: "15px" }}>
-                    <Col xs={14} sm={16} md={24} lg={24} xl={32}>
+                    <Col>
                         <Space>
-                            <Text className={styles.fontSizeTittle}>Choose the type of ad: </Text>
+                            <Text className={styles.fontSizeTittle}>{sizeButton === "small" ? "Type: " : "Choose the type of ad: "}</Text>
                         </Space>
                         <Button
                             size={sizeButton}
                             value={typeId}
                             type={typeId === AD_LOST_TYPE_ID ? "primary" : "default"}
-                            style={{ borderTopRightRadius: "0px", borderBottomRightRadius: "0px", fontSize: sizeButton === "small" ? "14px" : "18px" }}
+                            style={{ borderTopRightRadius: "0px", borderBottomRightRadius: "0px", fontSize: sizeButton === "small" ? "12px" : "18px" }}
                             onClick={() => {
                                 handleTypeChange(AD_LOST_TYPE_ID);
                                 dispatch(setAdataSwitcherLostOrFoundText("LOST"));
@@ -71,7 +75,7 @@ const ChooseTypeAd = () => {
                             size={sizeButton}
                             value={typeId}
                             type={typeId === AD_FOUND_TYPE_ID ? "primary" : "default"}
-                            style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px", fontSize: sizeButton === "small" ? "14px" : "18px" }}
+                            style={{ borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px", fontSize: sizeButton === "small" ? "12px" : "18px" }}
                             onClick={() => {
                                 handleTypeChange(AD_FOUND_TYPE_ID);
                                 dispatch(setAdataSwitcherLostOrFoundText("FOUND"));
