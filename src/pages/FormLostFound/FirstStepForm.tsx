@@ -49,7 +49,7 @@ const FirstStepForm: React.FC = () => {
 
     return (
         <div>
-            <ChooseTypeAd />
+            {/* <ChooseTypeAd /> */}
             {/* <Row justify="center">
                 <Col xs={18} sm={20} md={20} lg={20} xl={20} flex="auto"> */}
             <Form.Item name="title" label={typeId === 1 ? "LOST" : "FOUND"} rules={[yupSyncStepFirstLost]}>

@@ -19,7 +19,7 @@ const ChooseTypeAd = () => {
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 366) {
-                setSizeButton("small");
+                setSizeButton("middle");
             } else if (window.innerWidth <= 397) {
                 setSizeButton("middle");
                 setTitleSize(5);
@@ -54,11 +54,13 @@ const ChooseTypeAd = () => {
                         <Title level={sizeTitleSize}>REGISTRATION AD</Title>
                     </Col>
                 </Row>
+                <Row align="middle" justify="center" style={{ marginBottom: "10px" }}>
+                    <Col>
+                        <Text className={styles.fontSizeTittle}>Choose the type of ad: </Text>
+                    </Col>
+                </Row>
                 <Row align="middle" justify="center" style={{ marginBottom: "15px" }}>
                     <Col>
-                        <Space>
-                            <Text className={styles.fontSizeTittle}>{sizeButton === "small" ? "Type: " : "Choose the type of ad: "}</Text>
-                        </Space>
                         <Button
                             size={sizeButton}
                             value={typeId}

@@ -8,6 +8,7 @@ import { ModalForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { firstStepSchemaLost, firstStepSchemaFound, yupSyncStepFirstFound, secondStepSchema, thirdStepSchema } from "./validatorForm";
+import ChooseTypeAd from "./ChooseTypeAd";
 console.log("styles", styles);
 
 const formItemLayout = {
@@ -126,46 +127,54 @@ const FormLostFound: React.FC = () => {
 
     return (
         // <div className={styles.formWrap}>
-        <Row justify="center" className={styles.formWrap}>
-            <Col xs={13} sm={17} md={20} lg={20} xl={20} flex="auto">
-                <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
-                    <Steps
-                        current={formState.current}
-                        items={items}
-                        style={{ display: "flex", justifyContent: "center", flexDirection: "inherit", maxWidth: "600px", margin: "15px auto" }}
-                    />
-                    <div style={{ textAlign: "center", marginTop: "16px" }}>{steps[formState.current].content}</div>
-                    <div>
-                        <div style={{ marginBottom: "15px" }}>
-                            {formState.current > 0 && (
-                                <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-                                    Previous
-                                </Button>
-                            )}
-                            {formState.current < steps.length - 1 && (
-                                <Button
-                                    type="primary"
-                                    onClick={(e) => {
-                                        next();
-                                        // console.log("formState.current", formState.current);
-                                    }}
-                                >
-                                    Next
-                                </Button>
-                            )}
-                            {formState.current === steps.length - 1 && (
-                                <>
-                                    <Button type="primary" htmlType="submit" onClick={showModal}>
-                                        Register
+        <>
+            <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
+                <Row justify="center" className={styles.formWrap}>
+                    <Col xs={13} sm={16} md={20} lg={20} xl={20}>
+                        <Steps
+                            current={formState.current}
+                            items={items}
+                            style={{ display: "flex", justifyContent: "center", flexDirection: "inherit", maxWidth: "600px", margin: "15px auto" }}
+                        />
+                    </Col>
+
+                    <Col xs={20} sm={20} md={20} lg={20} xl={20}>
+                        <ChooseTypeAd />
+                    </Col>
+                    <Col xs={18} sm={18} md={20} lg={20} xl={20} flex="auto">
+                        <div>{steps[formState.current].content}</div>
+                        <div>
+                            <div style={{ marginBottom: "15px" }}>
+                                {formState.current > 0 && (
+                                    <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
+                                        Previous
                                     </Button>
-                                    <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
-                                </>
-                            )}
+                                )}
+                                {formState.current < steps.length - 1 && (
+                                    <Button
+                                        type="primary"
+                                        onClick={(e) => {
+                                            next();
+                                            // console.log("formState.current", formState.current);
+                                        }}
+                                    >
+                                        Next
+                                    </Button>
+                                )}
+                                {formState.current === steps.length - 1 && (
+                                    <>
+                                        <Button type="primary" htmlType="submit" onClick={showModal}>
+                                            Register
+                                        </Button>
+                                        <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </Form>
-            </Col>
-        </Row>
+                    </Col>
+                </Row>
+            </Form>
+        </>
         // </div>
     );
 };
