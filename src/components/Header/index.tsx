@@ -12,8 +12,7 @@ import SearchItemsInput from "../SearchItemsInput";
 const { Header } = Layout;
 
 const headerStyle: React.CSSProperties = {
-    // marginTop: "0px",
-    backgroundColor: "transparent",
+    backgroundColor: "rgba(0, 0, 0, 0.2)", // Четвертое значение (0.5) определяет степень прозрачности
     position: "fixed",
     width: "100%",
     zIndex: 69,
