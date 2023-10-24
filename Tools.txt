@@ -1,0 +1,7 @@
+BackTicks
+ComePilot
+Es lint
+Spell  checker
+color highlight
+Import Cost - size 
+IntelliCode

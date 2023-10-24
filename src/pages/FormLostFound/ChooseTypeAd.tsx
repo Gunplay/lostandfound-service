@@ -21,7 +21,12 @@ const ChooseTypeAd = () => {
             if (window.innerWidth <= 366) {
                 setSizeButton("middle");
             } else if (window.innerWidth <= 397) {
+
+
+
                 setSizeButton("middle");
+                
+                
                 setTitleSize(5);
             } else if (window.innerWidth <= 518) {
                 setSizeButton("large");

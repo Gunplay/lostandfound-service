@@ -1,201 +1,230 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Steps, Row, Col } from "antd";
-import styles from "./formLostFound.module.scss";
-import FirstStepForm from "./FirstStepForm";
-import SecondStepFrom from "./SecondStepForm";
-import ThirdStepForm from "./ThirdStepForm";
-import { ModalForm } from "../../components";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { firstStepSchemaLost, firstStepSchemaFound, yupSyncStepFirstFound, secondStepSchema, thirdStepSchema } from "./validatorForm";
-import ChooseTypeAd from "./ChooseTypeAd";
-console.log("styles", styles);
+import { Button, Col, Form, Row, Steps } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ModalForm } from '../../components'
+import { RootState } from '../../redux/store'
+import ChooseTypeAd from './ChooseTypeAd'
+import FirstStepForm from './FirstStepForm'
+import SecondStepFrom from './SecondStepForm'
+import ThirdStepForm from './ThirdStepForm'
+import styles from './formLostFound.module.scss'
+import {
+	firstStepSchemaFound,
+	firstStepSchemaLost,
+	secondStepSchema,
+	thirdStepSchema,
+} from './validatorForm'
 
 const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-    },
-};
+	labelCol: {
+		xs: { span: 24 },
+		sm: { span: 8 },
+	},
+	wrapperCol: {
+		xs: { span: 24 },
+		sm: { span: 16 },
+	},
+}
 
 const FormLostFound: React.FC = () => {
-    const [form] = Form.useForm();
-    const dispatch = useDispatch();
+	const [form] = Form.useForm()
+	const dispatch = useDispatch()
 
-    const { title, categories, switcherLostOrFound } = useSelector((store: RootState) => store.form.adData);
-    console.log("switcherLostOrFound", switcherLostOrFound);
-    const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
-    const [openModal, setOpenModal] = useState(false);
-    // const [formHeight, setFormHeight] = useState("440px");
-    //console.log("formHeight", formHeight);
-    useEffect(() => {
-        function handleResize() {
-            console.log("Resize event detected. switcherLostOrFound:", switcherLostOrFound);
-            if (switcherLostOrFound === "FOUND") {
-                // setFormHeight("500px");
-            } else {
-                // setFormHeight("440px");
-            }
-        }
+	const { title, categories, switcherLostOrFound } = useSelector(
+		(store: RootState) => store.form.adData
+	)
+	const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([])
+	const [openModal, setOpenModal] = useState(false)
 
-        handleResize();
+	useEffect(() => {
+		function handleResize() {
+			if (switcherLostOrFound === 'FOUND') {
+				// setFormHeight("500px");
+			} else {
+				// setFormHeight("440px");
+			}
+		}
 
-        window.addEventListener("resize", handleResize);
+		handleResize()
 
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, [switcherLostOrFound]);
+		window.addEventListener('resize', handleResize)
 
-    const tailFormItemLayout = {
-        wrapperCol: {
-            xs: {
-                span: 24,
-                offset: 0,
-            },
-            sm: {
-                span: 16,
-                offset: 8,
-            },
-        },
-    };
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [switcherLostOrFound])
 
-    const showModal = async () => {
-        try {
-            const schemas = [firstStepSchemaLost, firstStepSchemaFound, secondStepSchema, thirdStepSchema];
-            await form.validateFields();
-            const allFieldsFilled = schemas.every((schema) => schema.fields && Object.keys(schema.fields).length > 0);
-            console.log("allFieldsFilled", allFieldsFilled);
-            if (allFieldsFilled) {
-                setOpenModal(true);
-            } else {
-                console.log("Please fill in all fields.");
-            }
-        } catch (error) {
-            console.error("Error during validation:", error);
-        }
-    };
+	const tailFormItemLayout = {
+		wrapperCol: {
+			xs: {
+				span: 24,
+				offset: 0,
+			},
+			sm: {
+				span: 16,
+				offset: 8,
+			},
+		},
+	}
 
-    const onWebsiteChange = (value: string) => {
-        if (!value) {
-            setAutoCompleteResult([]);
-        } else {
-            setAutoCompleteResult([".com", ".org", ".net"].map((domain) => `${value}${domain}`));
-        }
-    };
+	const showModal = async () => {
+		try {
+			const schemas = [
+				firstStepSchemaLost,
+				firstStepSchemaFound,
+				secondStepSchema,
+				thirdStepSchema,
+			]
+			await form.validateFields()
+			const allFieldsFilled = schemas.every(
+				schema => schema.fields && Object.keys(schema.fields).length > 0
+			)
 
-    const websiteOptions = autoCompleteResult.map((website) => ({
-        label: website,
-        value: website,
-    }));
+			if (allFieldsFilled) {
+				setOpenModal(true)
+			} else {
+				console.log('Please fill in all fields.')
+			}
+		} catch (error) {
+			console.error('Error during validation:', error)
+		}
+	}
 
-    // STEP
-    const [formState, setFormState] = useState(initialState);
+	const onWebsiteChange = (value: string) => {
+		if (!value) {
+			setAutoCompleteResult([])
+		} else {
+			setAutoCompleteResult(
+				['.com', '.org', '.net'].map(domain => `${value}${domain}`)
+			)
+		}
+	}
 
-    const next = async () => {
-        try {
-            const schemas = [firstStepSchemaLost, secondStepSchema, thirdStepSchema, firstStepSchemaFound];
-            const currentSchema = schemas[formState.current];
-            if (currentSchema) {
-                const values = await form.validateFields();
-                await currentSchema.validate(values, { abortEarly: false });
-                setFormState({ ...formState, current: formState.current + 1 });
-            }
-        } catch (errorInfo) {
-            console.error("Error during validation:", errorInfo);
-        }
-    };
+	const websiteOptions = autoCompleteResult.map(website => ({
+		label: website,
+		value: website,
+	}))
 
-    const prev = () => {
-        setFormState({ ...formState, current: formState.current - 1 });
-    };
-    const resetForm = () => {
-        setFormState(initialState);
-    };
+	// STEP
+	const [formState, setFormState] = useState(initialState)
 
-    const items = steps.map((item) => ({ key: item.title, title: item.title }));
+	const next = async () => {
+		try {
+			const schemas = [
+				firstStepSchemaLost,
+				secondStepSchema,
+				thirdStepSchema,
+				firstStepSchemaFound,
+			]
+			const currentSchema = schemas[formState.current]
+			if (currentSchema) {
+				const values = await form.validateFields()
+				await currentSchema.validate(values, { abortEarly: false })
+				setFormState({ ...formState, current: formState.current + 1 })
+			}
+		} catch (errorInfo) {
+			console.error('Error during validation:', errorInfo)
+		}
+	}
 
-    const contentStyle: React.CSSProperties = {
-        lineHeight: "260px",
-        textAlign: "center",
-        marginTop: 16,
-    };
+	const prev = () => {
+		setFormState({ ...formState, current: formState.current - 1 })
+	}
+	const resetForm = () => {
+		setFormState(initialState)
+	}
 
-    return (
-        // <div className={styles.formWrap}>
-        <>
-            <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
-                <Row justify="center" className={styles.formWrap}>
-                    <Col xs={13} sm={16} md={20} lg={20} xl={20}>
-                        <Steps
-                            current={formState.current}
-                            items={items}
-                            style={{ display: "flex", justifyContent: "center", flexDirection: "inherit", maxWidth: "600px", margin: "15px auto" }}
-                        />
-                    </Col>
+	const items = steps.map(item => ({ key: item.title, title: item.title }))
 
-                    <Col xs={20} sm={20} md={20} lg={20} xl={20}>
-                        <ChooseTypeAd />
-                    </Col>
-                    <Col xs={18} sm={18} md={20} lg={20} xl={20} flex="auto">
-                        <div>{steps[formState.current].content}</div>
-                        <div>
-                            <div style={{ marginBottom: "15px" }}>
-                                {formState.current > 0 && (
-                                    <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-                                        Previous
-                                    </Button>
-                                )}
-                                {formState.current < steps.length - 1 && (
-                                    <Button
-                                        type="primary"
-                                        onClick={(e) => {
-                                            next();
-                                            // console.log("formState.current", formState.current);
-                                        }}
-                                    >
-                                        Next
-                                    </Button>
-                                )}
-                                {formState.current === steps.length - 1 && (
-                                    <>
-                                        <Button type="primary" htmlType="submit" onClick={showModal}>
-                                            Register
-                                        </Button>
-                                        <ModalForm openModal={openModal} setOpenModal={setOpenModal} />
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Form>
-        </>
-        // </div>
-    );
-};
+	const contentStyle: React.CSSProperties = {
+		lineHeight: '260px',
+		textAlign: 'center',
+		marginTop: 16,
+	}
+
+	return (
+		// <div className={styles.formWrap}>
+		<>
+			<Form {...formItemLayout} form={form} name='register' scrollToFirstError>
+				<Row justify='center' className={styles.formWrap}>
+					<Col xs={13} sm={16} md={20} lg={20} xl={20}>
+						<Steps
+							current={formState.current}
+							items={items}
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+								flexDirection: 'inherit',
+								maxWidth: '600px',
+								margin: '15px auto',
+							}}
+						/>
+					</Col>
+
+					<Col xs={20} sm={20} md={20} lg={20} xl={20}>
+						<ChooseTypeAd />
+					</Col>
+					<Col xs={18} sm={18} md={20} lg={20} xl={20} flex='auto'>
+						<div>{steps[formState.current].content}</div>
+						<div>
+							<div style={{ marginBottom: '15px' }}>
+								{formState.current > 0 && (
+									<Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+										Previous
+									</Button>
+								)}
+								{formState.current < steps.length - 1 && (
+									<Button
+										type='primary'
+										onClick={e => {
+											next()
+										}}
+									>
+										Next
+									</Button>
+								)}
+								{formState.current === steps.length - 1 && (
+									<>
+										<Button
+											type='primary'
+											htmlType='submit'
+											onClick={showModal}
+										>
+											Register
+										</Button>
+										<ModalForm
+											openModal={openModal}
+											setOpenModal={setOpenModal}
+										/>
+									</>
+								)}
+							</div>
+						</div>
+					</Col>
+				</Row>
+			</Form>
+		</>
+		// </div>
+	)
+}
 
 const steps = [
-    {
-        title: "First",
-        content: <FirstStepForm />,
-    },
-    {
-        title: "Second",
-        content: <SecondStepFrom />,
-    },
-    {
-        title: "Last",
-        content: <ThirdStepForm />,
-    },
-];
+	{
+		title: 'First',
+		content: <FirstStepForm />,
+	},
+	{
+		title: 'Second',
+		content: <SecondStepFrom />,
+	},
+	{
+		title: 'Last',
+		content: <ThirdStepForm />,
+	},
+]
 
 const initialState = {
-    current: 0,
-};
+	current: 0,
+}
 
-export default FormLostFound;
+export default FormLostFound

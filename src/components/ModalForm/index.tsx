@@ -18,7 +18,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
     // const [open, setOpen] = useState(false);
     const [responseData, setResponseData] = useState<any>(null);
 
-    // console.log("dataRes", responseData);
     const {
         // _id,
         title,
@@ -100,13 +99,6 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
         setOpenModal(false);
     };
 
-    // if (responseData && responseData.data && responseData.data.user) {
-    //     const dataResIngo = Object.entries(responseData.data.user);
-    //     return dataResIngo;
-    //     console.log("dataResIngo", dataResIngo);
-    // } else {
-    //     console.log("dataResIngo error");
-    // }
     return (
         <>
             <Modal title={typeId === 1 ? "LOST THING" : "FOUND THING"} open={openModal} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>

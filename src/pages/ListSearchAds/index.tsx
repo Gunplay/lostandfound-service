@@ -1,95 +1,96 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchCards } from "../../redux/card/asyncActions"; // Import your fetchCards action
-import { RootState } from "../../redux/store";
-import { Col, Pagination, Row, Input, Space } from "antd";
-import { EditOutlined, EllipsisOutlined, SettingOutlined, AudioOutlined } from "@ant-design/icons";
-import { Avatar, Card } from "antd";
-import type { SearchProps } from "antd/es/input";
-const { Search } = Input;
-const { Meta } = Card;
-
-const suffix = (
-    <AudioOutlined
-        style={{
-            fontSize: 16,
-            color: "#1677ff",
-        }}
-    />
-);
-
+import {
+	EditOutlined,
+	EllipsisOutlined,
+	SettingOutlined,
+} from '@ant-design/icons'
+import { Avatar, Card, Col, Input, Pagination, Row } from 'antd'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { fetchAds } from '../../redux/list/asyncAction'
+import { setCurrentPage } from '../../redux/list/slice'
+import { RootState, useAppDispatch } from '../../redux/store'
+const { Search } = Input
+const { Meta } = Card
 const ListSearchAds = () => {
-    const { items, status } = useSelector((store: RootState) => store.card);
-    const dispatch = useDispatch();
-    const onSearch: SearchProps["onSearch"] = (value: string, info: any) => console.log(info?.source, value);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4; // Number of items to display per page
+	console.log('useParams', useParams())
+	const dispatch = useAppDispatch()
+	const {
+		foundAds,
+		currentPage,
+		word,
+		noveltyOrder,
+		typeId,
+		categoryId,
+		address,
+		isLoadResults,
+		status,
+	} = useSelector((store: RootState) => store.list)
+	const totalPages = useSelector((store: RootState) => store.list.totalPages)
+	console.log('totalPages', totalPages)
+	const navigate = useNavigate()
+	const location = useLocation()
 
-    // useEffect(() => {
-    //     // Fetch data when the component mounts
-    //     dispatch(fetchCards());
-    // }, [dispatch]);
+	const queryParams = new URLSearchParams(location.search)
 
-    const handlePageChange = (page: number) => {
-        // console.log("page", page);
-        setCurrentPage(page);
-    };
+	const wordQ = queryParams.get('word') || ''
+	const page = parseInt(queryParams.get('page') || '1', 10)
 
-    const startIndex = (currentPage - 1) * itemsPerPage; // 0 4
+	const noveltyOrderQ = queryParams.get('noveltyOrder') || 'desc'
 
-    const endIndex = startIndex + itemsPerPage;
+	useEffect(() => {
+		// navigate(`/ads/find`);
+		dispatch(fetchAds({ page, noveltyOrder })) // Fetch data when the component mounts or when query parameters change
+	}, [location])
 
-    const itemsToDisplay = items.slice(startIndex, endIndex);
+	const handlePageChange = (page: React.SetStateAction<number>) => {
+		dispatch(setCurrentPage(page))
+		// !TODO
+		//  dispatch(fetchAds({ page, noveltyOrder }));
+		// navigate(`list/ads/find?word=${wordQ}&page=${page}&noveltyOrder=${noveltyOrderQ}`);
+		// URL MUST BE AFTER ? WITH NAVIGATE, WITHOUT http://127.0.0.1:3001/ads/find
+		navigate(`/list?word=${wordQ}&page=${page}&noveltyOrder=${noveltyOrderQ}`)
+	}
 
-    return (
-        <>
-            <Row gutter={[0, 32]}>
-                <Col span={24} />
-                <Col span={24} />
+	return (
+		<>
+			{/* Render the ads from the foundAds state */}
+			<Row gutter={[0, 32]}>
+				{foundAds &&
+					foundAds.map((item: any) => (
+						<Col key={item['_id']} xl={16} md={16} sm={16} xs={24}>
+							<Row justify='space-around'>
+								<Card
+									style={{ width: 300 }}
+									cover={<img alt='example' src={item.photo} />}
+									hoverable
+									actions={[
+										<SettingOutlined key='setting' />,
+										<EditOutlined key='edit' />,
+										<EllipsisOutlined key='ellipsis' />,
+									]}
+								>
+									<Meta
+										avatar={<Avatar src={item.photo} />}
+										title={item.title}
+										description={item.address}
+									/>
+									<Meta
+										title={item.categoryName}
+										description={item.createdAt.slice(0, -4)}
+									/>
+								</Card>
+							</Row>
+						</Col>
+					))}
+			</Row>
+			<Pagination
+				current={currentPage}
+				total={30}
+				onChange={handlePageChange}
+			/>
+		</>
+	)
+}
 
-                <>
-                    <Row gutter={[8, 8]}>
-                        <Col span={12}>
-                          
-                            <Search placeholder="Seacrh by word..." enterButton="Search" size="large" loading />
-                            <Search placeholder="input search text" onSearch={onSearch} enterButton />
-                            <Search placeholder="input search text" onSearch={onSearch} enterButton />
-                        </Col>
-                        <Col span={12}>
-                            <Search placeholder="Search by place..." enterButton="Search" size="large" loading />
-                            <Search placeholder="input search text" onSearch={onSearch} enterButton />
-                        </Col>
-
-                        <Col span={12} />
-                        <Col span={12} />
-                    </Row>
-                    <Row gutter={[8, 8]}>
-                        <Col span={12} />
-                        <Col span={12} />
-                    </Row>
-                    {/* Col xl={24} md={16} sm={16} xs={12}> */}
-                </>
-                {itemsToDisplay?.map((item) => (
-                    <Col key={item["_id"]} xl={16} md={16} sm={16} xs={24}>
-                        <Row justify="space-around">
-                            <Card
-                                style={{ width: 300 }}
-                                cover={<img alt="example" src={item.photo} />}
-                                hoverable
-                                actions={[<SettingOutlined key="setting" />, <EditOutlined key="edit" />, <EllipsisOutlined key="ellipsis" />]}
-                            >
-                                <Meta avatar={<Avatar src={item.photo} />} title={item.title} description={item.address} />
-                                <Meta title={item.categoryName} description={item.createdAt.slice(0, -4)} />
-                            </Card>
-                            );
-                        </Row>
-                    </Col>
-                ))}
-                <Col span={24} />
-            </Row>
-            <Pagination current={currentPage} total={items.length} pageSize={itemsPerPage} onChange={handlePageChange} />
-        </>
-    );
-};
-
-export default ListSearchAds;
+export default ListSearchAds

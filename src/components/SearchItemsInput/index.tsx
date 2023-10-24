@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "antd";
 import styles from "./searchItemsInput.module.scss";
 const { TextArea } = Input;
-console.log("styles", styles);
+
 const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {};
 
 const SearchItemsInput: React.FC = () => (

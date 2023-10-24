@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 import cardReducer from "./card/slice";
 import formReducer from "./form/slice";
+import listReducer from "./list/slice";
 import formCategoriesReducer from "./form/slice";
 // import formCategoriesReducers from "./form/slice";
 
@@ -13,7 +14,7 @@ export const store = configureStore({
     reducer: {
         card: cardReducer,
         form: formReducer,
-
+        list: listReducer,
         // categories: formCategoriesReducers,
 
         // cart,

@@ -1,7 +1,7 @@
 import { CreateSliceOptions, PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { CardData, CardSliceState, Status } from "./types";
 import { fetchCards } from "./asyncActions";
-
+import type { UploadFile } from "antd/es/upload/interface";
 const initialState: CardSliceState = {
     items: [],
     status: Status.LOADING,
@@ -23,7 +23,7 @@ const cardSlice = createSlice({
             state.items = [];
         });
 
-        builder.addCase(fetchCards.fulfilled, (state, action) => {
+        builder.addCase(fetchCards.fulfilled, (state, action: PayloadAction<CardData[]>) => {
             state.items = action.payload;
             state.status = Status.SUCCESS;
         });
