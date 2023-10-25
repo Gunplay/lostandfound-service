@@ -46,7 +46,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({ openModal, setOpenModal })
     adFormData.append("description", description);
 
     adFormData.append("typeId", String(typeId));
-    console.log("categoryId", categoryId);
+    //console.log("categoryId", categoryId);
     adFormData.append("categoryId", categoryId);
 
     adFormData.append("location[address]", address);

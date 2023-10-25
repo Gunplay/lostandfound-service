@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { CardData } from '../card/types'
 import { DataAndTotalPage, fetchAds } from './asyncAction'
 import { Status } from './types'
+
 const initialState = {
 	foundAds: [] as CardData[],
 	totalPages: 1,
@@ -33,6 +34,7 @@ const listSlice = createSlice({
 		})
 		builder.addCase(
 			fetchAds.fulfilled,
+			//(state, action: PayloadAction<DataAndTotalPage>) => {
 			(state, action: PayloadAction<DataAndTotalPage>) => {
 				state.foundAds = action.payload.foundAds
 				state.totalPages = action.payload.totalPages // Use `totalPages` here

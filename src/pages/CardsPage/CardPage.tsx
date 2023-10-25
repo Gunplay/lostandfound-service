@@ -20,7 +20,7 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
 	const currentPageStart = useSelector(
 		(store: RootState) => store.list.currentPage
 	)
-	console.log('currentPageStart', currentPageStart)
+	//console.log('currentPageStart', currentPageStart)
 	const [switcher, setSwitcher] = useState(false)
 	const [showMore, setShowMore] = useState(false)
 	const [listSearchAds, setListSearchAds] = useState(false)

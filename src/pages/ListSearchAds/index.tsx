@@ -3,20 +3,23 @@ import {
 	EllipsisOutlined,
 	SettingOutlined,
 } from '@ant-design/icons'
-import { Avatar, Card, Col, Input, Pagination, Row } from 'antd'
+import { Avatar, Card, Col, Input, Pagination, Row, Spin } from 'antd'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router'
+import { Status } from '../../redux/card/types'
 import { fetchAds } from '../../redux/list/asyncAction'
 import { setCurrentPage } from '../../redux/list/slice'
 import { RootState, useAppDispatch } from '../../redux/store'
 const { Search } = Input
 const { Meta } = Card
+
 const ListSearchAds = () => {
 	console.log('useParams', useParams())
 	const dispatch = useAppDispatch()
 	const {
 		foundAds,
+		totalPages,
 		currentPage,
 		word,
 		noveltyOrder,
@@ -26,8 +29,24 @@ const ListSearchAds = () => {
 		isLoadResults,
 		status,
 	} = useSelector((store: RootState) => store.list)
-	const totalPages = useSelector((store: RootState) => store.list.totalPages)
+	// const totalPagesNew = totalPages + 20
 	console.log('totalPages', totalPages)
+	// data
+	// {foundAds: Array(3), totalPages: 3}
+	// foundAds
+	// :
+	// (3) [{…}, {…}, {…}]
+	// totalPages
+	// :
+	// 3
+
+	// const totalPagesValue = Object.keys(foundAds).map(item => {
+	// 	return item.
+	// })
+	// 	{foundAds: Array(3), totalPages: 3}
+	// foundAds: (3) [{…}, {…}, {…}]
+	// totalPages: 3
+
 	const navigate = useNavigate()
 	const location = useLocation()
 
@@ -40,11 +59,13 @@ const ListSearchAds = () => {
 
 	useEffect(() => {
 		// navigate(`/ads/find`);
-		dispatch(fetchAds({ page, noveltyOrder })) // Fetch data when the component mounts or when query parameters change
+		dispatch(fetchAds({ page, noveltyOrder })) // Fetch data when the component mounts or when query parameters
+		//dispatch(setTotalPage(totalPages))
 	}, [location])
 
 	const handlePageChange = (page: React.SetStateAction<number>) => {
 		dispatch(setCurrentPage(page))
+
 		// !TODO
 		//  dispatch(fetchAds({ page, noveltyOrder }));
 		// navigate(`list/ads/find?word=${wordQ}&page=${page}&noveltyOrder=${noveltyOrderQ}`);
@@ -54,39 +75,51 @@ const ListSearchAds = () => {
 
 	return (
 		<>
-			{/* Render the ads from the foundAds state */}
-			<Row gutter={[0, 32]}>
-				{foundAds &&
-					foundAds.map((item: any) => (
-						<Col key={item['_id']} xl={16} md={16} sm={16} xs={24}>
-							<Row justify='space-around'>
-								<Card
-									style={{ width: 300 }}
-									cover={<img alt='example' src={item.photo} />}
-									hoverable
-									actions={[
-										<SettingOutlined key='setting' />,
-										<EditOutlined key='edit' />,
-										<EllipsisOutlined key='ellipsis' />,
-									]}
-								>
-									<Meta
-										avatar={<Avatar src={item.photo} />}
-										title={item.title}
-										description={item.address}
-									/>
-									<Meta
-										title={item.categoryName}
-										description={item.createdAt.slice(0, -4)}
-									/>
-								</Card>
-							</Row>
-						</Col>
-					))}
-			</Row>
+			{status === Status.LOADING ? ( // Update this lines
+				<Row align='middle'>
+					<Col xl={24} md={24} sm={24} xs={24}>
+						{foundAds.map(spinner => (
+							<Spin size='large'></Spin>
+						))}
+					</Col>
+				</Row>
+			) : (
+				<>
+					<Row gutter={[0, 32]}>
+						{foundAds &&
+							foundAds.map((item: any) => (
+								<Col key={item['_id']} xl={16} md={16} sm={16} xs={24}>
+									<Row justify='space-around'>
+										<Card
+											style={{ width: 300 }}
+											cover={<img alt='example' src={item.photo} />}
+											hoverable
+											actions={[
+												<SettingOutlined key='setting' />,
+												<EditOutlined key='edit' />,
+												<EllipsisOutlined key='ellipsis' />,
+											]}
+										>
+											<Meta
+												avatar={<Avatar src={item.photo} />}
+												title={item.title}
+												description={item.address}
+											/>
+											<Meta
+												title={item.categoryName}
+												description={item.createdAt.slice(0, -4)}
+											/>
+										</Card>
+									</Row>
+								</Col>
+							))}
+					</Row>
+				</>
+			)}
 			<Pagination
 				current={currentPage}
-				total={30}
+				total={totalPages}
+				defaultPageSize={totalPages}
 				onChange={handlePageChange}
 			/>
 		</>
