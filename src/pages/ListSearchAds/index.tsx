@@ -86,9 +86,11 @@ const ListSearchAds = () => {
 			) : (
 				<>
 					<Row gutter={[0, 32]}>
+						<Col span={24}></Col>
+						<Col span={24}></Col>
 						{foundAds &&
 							foundAds.map((item: any) => (
-								<Col key={item['_id']} xl={16} md={16} sm={16} xs={24}>
+								<Col key={item['_id']} xl={16} md={16} sm={16} xs={24} pull={4}>
 									<Row justify='space-around'>
 										<Card
 											style={{ width: 300 }}
@@ -119,7 +121,7 @@ const ListSearchAds = () => {
 			<Pagination
 				current={currentPage}
 				total={totalPages}
-				defaultPageSize={totalPages}
+				defaultPageSize={1}
 				onChange={handlePageChange}
 			/>
 		</>

@@ -2,6 +2,7 @@
     border-radius: 0px 10px 10px 0px;
     // font-size: 17px;
     height: 39px;
+    
 }
 
 @media screen and (max-width: 768px) {
@@ -13,7 +14,7 @@
 @media screen and (max-width: 510px) {
     .buttonCreateAdd {
         width: 25px;
-
+        
         font-size: 0px;
         &::before {
             content: "+";
