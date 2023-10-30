@@ -7,7 +7,7 @@ import FormLostFound from '../pages/FormLostFound'
 import HomePage from '../pages/HomePage/HomePage'
 import { MainManualLostAndFound } from '../pages/MainManualLostAndFound'
 
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useLocation } from 'react-router'
 import ListSearchAds from '../pages/ListSearchAds'
 
 const contentStyle: React.CSSProperties = {
@@ -42,18 +42,23 @@ const overlayStyle: React.CSSProperties = {
 }
 
 const ContentLayout: React.FC = () => {
+	const location = useLocation()
+	console.log('pathname', location.pathname)
 	return (
 		<Content style={contentStyle}>
 			<HeaderPanel />
+			{/* {location.pathname !== '/formlostandfound' && <HeaderPanel />} */}
 			<Routes>
 				<Route path='/' element={<HomePage />} />
-				<Route path='/formlostandfound' element={<FormLostFound />} />
 				<Route path='/manual' element={<MainManualLostAndFound />} />
-
 				<Route path='/cards' element={<CardsPage />} />
 				<Route path='/list' element={<ListSearchAds />} />
+				<Route path='/formlostandfound' element={<FormLostFound />} />
 			</Routes>
-			<FooterPanel />
+			{location.pathname !== '/formlostandfound' && <FooterPanel />}
+			<script
+				src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`}
+			></script>
 		</Content>
 	)
 }

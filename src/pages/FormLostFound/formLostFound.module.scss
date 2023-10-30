@@ -1,42 +1,42 @@
 .highlight {
-    animation: highlight 4s ease-in-out;
+	animation: highlight 4s ease-in-out;
 }
 
 @keyframes highlight {
-    0%,
-    100% {
-        background-color: inherit;
-    }
-    50% {
-        background-color: #1677ff; /* Цвет подсветки */
-    }
+	0%,
+	100% {
+		background-color: inherit;
+	}
+	50% {
+		background-color: #1677ff; /* Цвет подсветки */
+	}
 }
 .formWrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    //bottom: 0;
-    z-index: 50;
-    max-width: 670px;
-    // max-height: 485px;
-    background-color: white;
-    margin: 190px auto;
-    border-radius: 15px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	//bottom: 0;
+	z-index: 50;
+	max-width: 670px;
+	// max-height: 485px;
+	// background-color: white;
+	margin: 130px auto;
+	border-radius: 15px;
 }
 .react-tel-input .form-control {
-    position: relative;
-    font-size: 14px;
-    letter-spacing: 0.01rem;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-left: 48px;
-    margin-left: 0;
-    background: #ffffff;
-    border: 1px solid #cacaca;
-    border-radius: 5px;
-    line-height: 25px;
-    height: 35px;
-    width: 150px;
-    outline: none;
+	position: relative;
+	font-size: 14px;
+	letter-spacing: 0.01rem;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	padding-left: 48px;
+	margin-left: 0;
+	background: #ffffff;
+	border: 1px solid #cacaca;
+	border-radius: 5px;
+	line-height: 25px;
+	height: 35px;
+	width: 150px;
+	outline: none;
 }

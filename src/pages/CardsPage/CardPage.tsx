@@ -20,7 +20,7 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
 	const currentPageStart = useSelector(
 		(store: RootState) => store.list.currentPage
 	)
-	//console.log('currentPageStart', currentPageStart)
+
 	const [switcher, setSwitcher] = useState(false)
 	const [showMore, setShowMore] = useState(false)
 	const [listSearchAds, setListSearchAds] = useState(false)
@@ -55,21 +55,113 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
 
 			<Row gutter={[0, 32]}>
 				<Col span={24} />
+				<Col span={24}></Col>
+				<Col></Col>
+				{/* <Card
+					style={{ width: 300 }}
+					cover={
+						<img
+							alt='example'
+							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
+						/>
+					}
+					hoverable
+					// actions={[
+					// 	<SettingOutlined key='setting' />,
+					// 	<EditOutlined key='edit' />,
+					// 	<EllipsisOutlined key='ellipsis' />,
+					// ]}
+				>
+					<Meta
+						// avatar={<Avatar } />}
+						title='DOG'
+						description='LOST MY PET'
+					/>
+					<Meta title='DOG' description='LOST MY PET' />
+				</Card>
+				<Card
+					style={{ width: 300 }}
+					cover={
+						<img
+							alt='example'
+							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
+						/>
+					}
+					hoverable
+					// actions={[
+					// 	<SettingOutlined key='setting' />,
+					// 	<EditOutlined key='edit' />,
+					// 	<EllipsisOutlined key='ellipsis' />,
+					// ]}
+				>
+					<Meta
+						// avatar={<Avatar } />}
+						title='DOG'
+						description='LOST MY PET'
+					/>
+					<Meta title='DOG' description='LOST MY PET' />
+				</Card>
+				<Card
+					style={{ width: 300 }}
+					cover={
+						<img
+							alt='example'
+							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
+						/>
+					}
+					hoverable
+					// actions={[
+					// 	<SettingOutlined key='setting' />,
+					// 	<EditOutlined key='edit' />,
+					// 	<EllipsisOutlined key='ellipsis' />,
+					// ]}
+				>
+					<Meta
+						// avatar={<Avatar } />}
+						title='DOG'
+						description='LOST MY PET'
+					/>
+					<Meta title='DOG' description='LOST MY PET' />
+				</Card>
+				<Card
+					style={{ width: 300 }}
+					cover={
+						<img
+							alt='example'
+							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
+						/>
+					}
+					hoverable
+					// actions={[
+					// 	<SettingOutlined key='setting' />,
+					// 	<EditOutlined key='edit' />,
+					// 	<EllipsisOutlined key='ellipsis' />,
+					// ]}
+				>
+					<Meta
+						// avatar={<Avatar } />}
+						title='DOG'
+						description='LOST MY PET'
+					/>
+					<Meta title='DOG' description='LOST MY PET' />
+				</Card> */}
 				{currentCards?.map(item => (
 					<Col key={item['_id']} xl={6} md={8} sm={12} xs={24}>
-						<Row justify='center'>
-							<Row>
-								<Col>
-									{' '}
-									<Button type='link'>Alert Owner</Button>
-								</Col>
-								<Col>
-									{' '}
-									<Button type='link'>View lost thing</Button>
-								</Col>
+						<Space>
+							<Row justify='center'>
+								<Row>
+									<Col>
+										{' '}
+										<Button type='link'>Alert Owner</Button>
+									</Col>
+									<Col>
+										{' '}
+										<Button type='link'>View lost thing</Button>
+									</Col>
+								</Row>
+								<CardNewItem checked={switcher} cardInfo={item} />
 							</Row>
-							<CardNewItem checked={switcher} cardInfo={item} />
-						</Row>
+						</Space>
 					</Col>
 				))}
 				<Col span={24} />

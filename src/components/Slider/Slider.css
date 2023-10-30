@@ -1,0 +1,23 @@
+.SliderStyle {
+	min-height: 100px;
+	border-radius: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	opacity: 0.5;
+	margin-top: 0px;
+	color: '#fff';
+}
+@media screen and (max-width: 388px) {
+	.SliderStyle {
+		margin-top: 60px;
+	}
+}
+
+.ContentStyle {
+	width: 100%;
+	color: #fff;
+	line-height: 120px;
+	text-align: center;
+	background: olivedrab;
+	border-radius: 10px;
+}

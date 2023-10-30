@@ -1,22 +1,46 @@
 import {
 	EditOutlined,
 	EllipsisOutlined,
+	SearchOutlined,
 	SettingOutlined,
 } from '@ant-design/icons'
-import { Avatar, Card, Col, Input, Pagination, Row, Spin } from 'antd'
-import React, { useEffect } from 'react'
+import {
+	Avatar,
+	Button,
+	Card,
+	Col,
+	Input,
+	Pagination,
+	Row,
+	Select,
+	Space,
+	Typography,
+} from 'antd'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useNavigate, useParams } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { Status } from '../../redux/card/types'
 import { fetchAds } from '../../redux/list/asyncAction'
 import { setCurrentPage } from '../../redux/list/slice'
 import { RootState, useAppDispatch } from '../../redux/store'
+const { Title } = Typography
 const { Search } = Input
 const { Meta } = Card
 
+const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters']
+
 const ListSearchAds = () => {
-	console.log('useParams', useParams())
+	const categories = useSelector(
+		(store: RootState) => store.form.adData.categories
+	)
+
+	const [selectedItems, setSelectedItems] = useState<string[]>([])
 	const dispatch = useAppDispatch()
+
+	const filteredOptions = categories
+		.map(item => item.category)
+		.filter(o => !selectedItems.includes(o))
+
 	const {
 		foundAds,
 		totalPages,
@@ -29,23 +53,6 @@ const ListSearchAds = () => {
 		isLoadResults,
 		status,
 	} = useSelector((store: RootState) => store.list)
-	// const totalPagesNew = totalPages + 20
-	console.log('totalPages', totalPages)
-	// data
-	// {foundAds: Array(3), totalPages: 3}
-	// foundAds
-	// :
-	// (3) [{…}, {…}, {…}]
-	// totalPages
-	// :
-	// 3
-
-	// const totalPagesValue = Object.keys(foundAds).map(item => {
-	// 	return item.
-	// })
-	// 	{foundAds: Array(3), totalPages: 3}
-	// foundAds: (3) [{…}, {…}, {…}]
-	// totalPages: 3
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -77,45 +84,107 @@ const ListSearchAds = () => {
 		<>
 			{status === Status.LOADING ? ( // Update this lines
 				<Row align='middle'>
-					<Col xl={24} md={24} sm={24} xs={24}>
+					{/* <Col xl={24} md={24} sm={24} xs={24} key={spinner}>
 						{foundAds.map(spinner => (
 							<Spin size='large'></Spin>
 						))}
-					</Col>
+					</Col> */}
 				</Row>
 			) : (
 				<>
-					<Row gutter={[0, 32]}>
-						<Col span={24}></Col>
-						<Col span={24}></Col>
-						{foundAds &&
-							foundAds.map((item: any) => (
-								<Col key={item['_id']} xl={16} md={16} sm={16} xs={24} pull={4}>
-									<Row justify='space-around'>
-										<Card
-											style={{ width: 300 }}
-											cover={<img alt='example' src={item.photo} />}
-											hoverable
-											actions={[
-												<SettingOutlined key='setting' />,
-												<EditOutlined key='edit' />,
-												<EllipsisOutlined key='ellipsis' />,
-											]}
-										>
-											<Meta
-												avatar={<Avatar src={item.photo} />}
-												title={item.title}
-												description={item.address}
-											/>
-											<Meta
-												title={item.categoryName}
-												description={item.createdAt.slice(0, -4)}
-											/>
-										</Card>
-									</Row>
+					<div>
+						<Row justify='center'>
+							<Col>
+								<Title style={{ backgroundColor: 'ButtonHighlight' }}>
+									SEARCH ADS
+								</Title>
+							</Col>
+						</Row>
+						<Row justify='center'>
+							<Space size='large'>
+								<Col>
+									<Search
+										size='large'
+										placeholder='Search by word...'
+										loading={false}
+										enterButton
+									/>
 								</Col>
-							))}
-					</Row>
+								<Col>
+									<Search
+										size='large'
+										placeholder='Search by place...'
+										loading={false}
+										enterButton
+									/>
+								</Col>
+								<Col>
+									<Button size='large' icon={<SearchOutlined />}>
+										Search
+									</Button>
+								</Col>
+							</Space>
+						</Row>
+						<Row justify='center'>
+							<Space size='large'>
+								<Col>
+									<Select
+										size='large'
+										style={{ width: 150 }}
+										placeholder='Type item'
+									/>
+								</Col>
+								<Col>
+									<Select
+										mode='multiple'
+										placeholder='Category'
+										value={selectedItems}
+										onChange={setSelectedItems}
+										style={{ width: 300 }}
+										options={filteredOptions.map(item => ({
+											value: item,
+											label: item,
+										}))}
+									/>
+								</Col>
+								<Col>
+									<Select
+										size='large'
+										style={{ width: 150 }}
+										placeholder='Sort items by'
+									/>
+								</Col>
+							</Space>
+						</Row>
+					</div>
+
+					{foundAds &&
+						foundAds.map((item: any) => (
+							<Row justify='center' key={item['_id']}>
+								<Col xl={16} md={16} sm={16} xs={24}>
+									<Card
+										style={{ width: 300 }}
+										cover={<img alt='example' src={item.photo} />}
+										hoverable
+										actions={[
+											<SettingOutlined key='setting' />,
+											<EditOutlined key='edit' />,
+											<EllipsisOutlined key='ellipsis' />,
+										]}
+									>
+										<Meta
+											avatar={<Avatar src={item.photo} />}
+											title={item.title}
+											description={item.address}
+										/>
+										<Meta
+											title={item.categoryName}
+											description={item.createdAt.slice(0, -4)}
+										/>
+									</Card>
+								</Col>
+							</Row>
+						))}
 				</>
 			)}
 			<Pagination

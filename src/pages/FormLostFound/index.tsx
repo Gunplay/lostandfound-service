@@ -145,7 +145,14 @@ const FormLostFound: React.FC = () => {
 	return (
 		// <div className={styles.formWrap}>
 		<>
-			<Form {...formItemLayout} form={form} name='register' scrollToFirstError>
+			<Form
+				{...formItemLayout}
+				form={form}
+				name='register'
+				scrollToFirstError
+				// onMouseEnter={(e) => console.log(e)}
+				// onMouseLeave={(e) => console.log(e)}
+			>
 				<Row justify='center' className={styles.formWrap}>
 					<Col xs={13} sm={16} md={20} lg={20} xl={20}>
 						<Steps

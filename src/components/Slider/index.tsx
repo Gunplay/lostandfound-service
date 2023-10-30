@@ -1,38 +1,34 @@
-import React from 'react';
-import { Carousel } from 'antd';
-
-const contentStyle: React.CSSProperties = {
-  height: '595px',
-  width: '1000px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
-};
-
-const SliderStyle: React.CSSProperties = {
-  borderRadius: '10px', // Add border-radius
-  marginLeft: '20px', // Add left margin
-  marginRight: '20px',
-  opacity: '0.5'
-  
-};
+import { Button, Carousel } from 'antd'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './Slider.css'
 
 export const Slider: React.FC = () => (
-  <Carousel autoplay style={SliderStyle}>
-    <div>
-      <h3 style={contentStyle}>1</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>2</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>3</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>4</h3>
-    </div>
-  </Carousel>
-);
-
-
+	<>
+		<Carousel autoplay className='SliderStyle' dotPosition='bottom' dots>
+			<div>
+				<h4 className='ContentStyle'>LOST OR FOUND YOURSELF THING?</h4>
+			</div>
+			<div>
+				<h3 className='ContentStyle'>DON'T WORRY!</h3>
+			</div>
+			<div>
+				<h3 className='ContentStyle'>WE CAN HELP YOU!</h3>
+			</div>
+			<div>
+				<h4 className='ContentStyle'>PRESS ON FORM!</h4>
+			</div>
+		</Carousel>
+		<div>
+			<Button
+				type='primary'
+				size='large'
+				ghost
+				style={{ marginBottom: '15px' }}
+			>
+				{' '}
+				<Link to='/formlostandfound'>FILL IN FORM </Link>
+			</Button>
+		</div>
+	</>
+)

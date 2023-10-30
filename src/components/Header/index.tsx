@@ -13,21 +13,11 @@ const { Header } = Layout
 
 const headerStyle: React.CSSProperties = {
 	// marginTop: "0px",
-	backgroundColor: 'transparent',
-	position: 'absolute',
+	background: 'transparent',
+	//position: 'absolute',
 	width: '100%',
-	zIndex: 69,
-}
-
-const logoStyle: React.CSSProperties = {
-	color: 'black',
-	backgroundColor: 'gray',
-	borderRadius: '2%',
-	border: '0.5px solid white',
-	//padding: "5px",
-	fontSize: '25px',
-	fontWeight: 'bold',
-	opacity: 0.85,
+	margin: '10px auto',
+	// zIndex: 69,
 }
 
 export const HeaderPanel: React.FC = () => {
@@ -64,4 +54,11 @@ export const HeaderPanel: React.FC = () => {
 			</Row>
 		</Header>
 	)
+}
+function rgb(
+	arg0: number,
+	arg1: number,
+	arg2: number
+): import('csstype').Property.BackgroundColor | undefined {
+	throw new Error('Function not implemented.')
 }

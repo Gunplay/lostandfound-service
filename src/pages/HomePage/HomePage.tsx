@@ -1,10 +1,11 @@
 import React from 'react'
 
 import { Link as LinkRout } from 'react-router-dom'
-import FormLostFound from '../FormLostFound'
 
+import { Slider } from '../../components'
 import FloatingButtonHelpInfo from '../../components/FloatingButtonHelpInfo'
 import { CardsPage } from '../CardsPage/CardPage'
+import GoogleMapThings from '../GoogleMapThings'
 import { MainManualLostAndFound } from '../MainManualLostAndFound'
 import './HomePage.css'
 const overlayStyle: React.CSSProperties = {
@@ -20,16 +21,17 @@ const overlayStyle: React.CSSProperties = {
 const HomePage: React.FC = () => {
 	return (
 		<>
-			<div style={{ position: 'relative', zIndex: 50 }}>
+			<Slider />
+			<GoogleMapThings />
+			{/* <div style={{ position: 'relative', zIndex: 50 }}>
 				<img
 					src='backgroundImg.jpg'
 					alt='backgroundImg'
 					style={{ height: '100vh', width: '100%', objectFit: 'cover' }}
 				/>
 				<div style={overlayStyle} />
-
-				<FormLostFound />
-			</div>
+				
+			</div> */}
 
 			<MainManualLostAndFound />
 			<CardsPage />
