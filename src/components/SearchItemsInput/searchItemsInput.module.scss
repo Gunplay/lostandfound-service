@@ -1,50 +1,50 @@
 .searchInput {
-    width: 300px;
-    height: 39px;
-    font-size: 18px;
-    font-weight: bold; /* Specify the font weight */
-    color: black;
-    border-radius: 10px 0 0 10px;
+	width: 300px;
+	height: 39px;
+	font-size: 18px;
+	font-weight: bold; /* Specify the font weight */
+	color: black;
+	border-radius: 10px 0 0 10px;
 }
 
 /* Media query for screen widths up to 768px */
 @media screen and (max-width: 768px) {
-    .searchInput {
-        width: 300px;
-    }
+	.searchInput {
+		width: 300px;
+	}
 }
 
 @media screen and (max-width: 562px) {
-    .searchInput {
-        width: 300px;
-    }
+	.searchInput {
+		width: 300px;
+	}
 }
 
 @media screen and (max-width: 510px) {
-    .searchInput {
-        width: 240px;
-    }
+	.searchInput {
+		width: 240px;
+	}
 }
 
 @media screen and (max-width: 389px) {
-    .searchInput {
-        width: 240px;
-    }
+	.searchInput {
+		width: 240px;
+	}
 }
 @media screen and (max-width: 370px) {
-    .searchInput {
-        width: 200px;
-    }
+	.searchInput {
+		width: 200px;
+	}
 }
 
 @media screen and (max-width: 312px) {
-    .searchInput {
-        width: 180px;
-    }
+	.searchInput {
+		width: 180px;
+	}
 }
 
 @media screen and (max-width: 292px) {
-    .searchInput {
-        width: 130px;
-    }
+	.searchInput {
+		width: 130px;
+	}
 }
