@@ -1,6 +1,8 @@
+import { HomeTwoTone } from '@ant-design/icons'
 import { Button, Col, Form, Row, Steps } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { ModalForm } from '../../components'
 import { RootState } from '../../redux/store'
 import ChooseTypeAd from './ChooseTypeAd'
@@ -153,6 +155,9 @@ const FormLostFound: React.FC = () => {
 				// onMouseEnter={(e) => console.log(e)}
 				// onMouseLeave={(e) => console.log(e)}
 			>
+				<Button size='large' icon={<HomeTwoTone />}>
+					<Link to='/'>HOME</Link>
+				</Button>
 				<Row justify='center' className={styles.formWrap}>
 					<Col xs={13} sm={16} md={20} lg={20} xl={20}>
 						<Steps

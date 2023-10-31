@@ -4,7 +4,7 @@
 	margin-left: 20px;
 	margin-right: 20px;
 	opacity: 0.5;
-	margin-top: 0px;
+	margin-top: 25px;
 	color: '#fff';
 }
 @media screen and (max-width: 388px) {
@@ -14,10 +14,12 @@
 }
 
 .ContentStyle {
+	min-height: 65px;
 	width: 100%;
-	color: #fff;
-	line-height: 120px;
+	color: black;
+	line-height: 20px;
 	text-align: center;
-	background: olivedrab;
+	/* background: olivedrab; */
+	background: white;
 	border-radius: 10px;
 }
