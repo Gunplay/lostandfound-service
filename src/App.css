@@ -1,47 +1,71 @@
 body {
-    box-sizing: border-box;
+	box-sizing: border-box;
 
-    border-bottom: none;
-}
-div:where(.css-dev-only-do-not-override-1jr9qlj).ant-card .ant-card-head {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    min-height: 56px;
-    margin-bottom: -1px;
-    padding: 0 24px;
-    color: rgba(0, 0, 0, 0.88);
-    font-weight: 600;
-    font-size: 16px;
-    background: transparent;
-    border-bottom: none;
-    border-radius: 8px 8px 0 0;
+	border-bottom: none;
 }
 
-:where(.css-dev-only-do-not-override-amq5gd).ant-layout-header {
-    height: 64px;
-    padding: 0 0px;
-    color: rgba(0, 0, 0, 0.88);
-    line-height: 44px;
-    background: #001529;
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	box-sizing: border-box;
 }
-:where(.css-dev-only-do-not-override-txh9fw).ant-space-align-center {
-    align-items: normal;
+
+ul,
+ol,
+li {
+	list-style: none;
+}
+.ant-layout-header {
+	/* height: 10%; */
+	height: auto;
+	padding: 0 0px;
+	background-color: #2f5388;
+	/* line-height: 64px; */
+	/* background: rgb(62, 119, 141); */
+}
+.ant-input-affix-wrapper {
+	border-color: #ffffff;
+	background-color: rgb(62, 119, 141);
+}
+.ant-input-affix-wrapper:hover {
+	border-color: #ffffff;
+	background-color: tomato;
+}
+.ant-card .ant-card-head {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	min-height: 56px;
+	margin-bottom: -1px;
+	padding: 0 24px;
+	color: rgba(0, 0, 0, 0.88);
+	font-weight: 600;
+	font-size: 16px;
+	background: transparent;
+	border-bottom: none;
+	border-radius: 8px 8px 0 0;
+}
+
+.ant-space-align-center {
+	align-items: normal;
 }
 
 .react-tel-input .form-control {
-    position: relative;
-    font-size: 14px;
-    letter-spacing: 0.01rem;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-left: 48px;
-    margin-left: 0;
-    background: #ffffff;
-    border: 1px solid #cacaca;
-    border-radius: 5px;
-    line-height: 25px;
-    height: 35px;
-    /* width         : 300px; */
-    outline: none;
+	position: relative;
+	font-size: 14px;
+	letter-spacing: 0.01rem;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	padding-left: 48px;
+	margin-left: 0;
+	background: #ffffff;
+	border: 1px solid #cacaca;
+	border-radius: 5px;
+	line-height: 25px;
+	height: 35px;
+	/* width         : 300px; */
+	outline: none;
 }

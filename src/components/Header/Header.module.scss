@@ -1,9 +1,15 @@
+.ant-layout-header {
+	/* height: 10%; */
+	height: auto;
+	/* padding: 0 50px; */
+
+	/* line-height: 64px; */
+	background: #d8543d;
+}
 .buttonCreateAdd {
-    border-radius: 0px 10px 10px 0px;
-    // font-size: 17px;
-    height: 39px;
-    
-    
+	border-radius: 0px 10px 10px 0px;
+
+	height: 39px;
 }
 
 @media screen and (max-width: 768px) {
@@ -13,30 +19,30 @@
 }
 
 @media screen and (max-width: 510px) {
-    .buttonCreateAdd {
-        width: 25px;
-        
-        font-size: 0px;
-        &::before {
-            content: "+";
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    }
+	.buttonCreateAdd {
+		width: 25px;
+
+		font-size: 0px;
+		&::before {
+			content: '+';
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
 }
 
 @media screen and (max-width: 389px) {
-    .buttonCreateAdd {
-        width: 20px;
-        font-size: 0px;
-        &::before {
-            content: "+";
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    }
+	.buttonCreateAdd {
+		width: 20px;
+		font-size: 0px;
+		&::before {
+			content: '+';
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
 }

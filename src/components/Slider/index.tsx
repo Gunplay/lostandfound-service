@@ -17,7 +17,7 @@ export const Slider: React.FC = () => (
 				<h4 className='ContentStyle'>ARE YOU LOST OR FOUND YOURSELF THING?</h4>
 			</div>
 			<div>
-				<h3 className='ContentStyle'>
+				<h3 className='ContentStyle' >
 					DON'T WORRY! YOU CAN FILL OUR FORM WITH SEVERAL STEPS
 				</h3>
 			</div>

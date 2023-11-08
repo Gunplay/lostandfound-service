@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link as LinkRout } from 'react-router-dom'
 
-import { Slider } from '../../components'
+import { SubHeader } from '../../components'
 import FloatingButtonHelpInfo from '../../components/FloatingButtonHelpInfo'
 import { CardsPage } from '../CardsPage/CardPage'
 import GoogleMapThings from '../GoogleMapThings'
@@ -21,7 +21,8 @@ const overlayStyle: React.CSSProperties = {
 const HomePage: React.FC = () => {
 	return (
 		<>
-			<Slider />
+			<SubHeader />
+			<MainManualLostAndFound />
 			<GoogleMapThings />
 			{/* <div style={{ position: 'relative', zIndex: 50 }}>
 				<img
@@ -33,7 +34,6 @@ const HomePage: React.FC = () => {
 				
 			</div> */}
 
-			<MainManualLostAndFound />
 			<CardsPage />
 			<LinkRout to='/list' className='show-more-link'>
 				SHOW MORE

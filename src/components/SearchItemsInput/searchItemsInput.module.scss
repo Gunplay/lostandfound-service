@@ -3,8 +3,10 @@
 	height: 39px;
 	font-size: 18px;
 	font-weight: bold; /* Specify the font weight */
-	color: black;
+	background-color: white;
+
 	border-radius: 10px 0 0 10px;
+	color: orangered;
 }
 
 /* Media query for screen widths up to 768px */
@@ -16,10 +18,14 @@
 
 @media screen and (max-width: 562px) {
 	.searchInput {
-		width: 300px;
+		width: 250px;
 	}
 }
-
+// @media screen and (max-width: 538px) {
+// 	.searchInput {
+// 		width: 230px;
+// 	}
+// }
 @media screen and (max-width: 510px) {
 	.searchInput {
 		width: 240px;
@@ -28,23 +34,28 @@
 
 @media screen and (max-width: 389px) {
 	.searchInput {
-		width: 240px;
+		width: 220px;
 	}
 }
 @media screen and (max-width: 370px) {
 	.searchInput {
-		width: 200px;
+		width: 190px;
+	}
+}
+@media screen and (max-width: 340px) {
+	.searchInput {
+		width: 170px;
 	}
 }
 
 @media screen and (max-width: 312px) {
 	.searchInput {
-		width: 180px;
+		width: 155px;
 	}
 }
 
-@media screen and (max-width: 292px) {
+@media screen and (max-width: 296px) {
 	.searchInput {
-		width: 130px;
+		width: 135px;
 	}
 }

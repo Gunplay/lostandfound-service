@@ -1,28 +1,28 @@
 import { AppstoreAddOutlined, HomeOutlined } from '@ant-design/icons'
-import { Button, Col, Layout, Row, Space } from 'antd'
+import { Button, Col, Layout, Row, Space, Typography } from 'antd'
 import 'antd/dist/antd'
 import React from 'react'
 import { Link } from 'react-router-dom'
-//import AccountBtn from './AccountBtn';
 import ButtonSubmit from '../ButtonSubmit'
-//import LogginAccBtn from './LogginAccBtn';
 import ButtonLog from '../ButttonLog'
 import SearchItemsInput from '../SearchItemsInput'
 import styles from './Header.module.scss'
+const { Title } = Typography
+//import AccountBtn from './AccountBtn';
+//import LogginAccBtn from './LogginAccBtn';
 const { Header } = Layout
-
 const headerStyle: React.CSSProperties = {
-	// marginTop: "0px",
-	background: 'transparent',
-	//position: 'absolute',
+	background: 'skyblue',
+
 	width: '100%',
-	margin: '10px auto',
-	// zIndex: 69,
+	padding: '10px',
+	minHeight: '64px',
+	paddingBottom: '20px',
 }
 
 export const HeaderPanel: React.FC = () => {
 	return (
-		<Header style={headerStyle}>
+		<Header>
 			<Row align='middle'>
 				<Col flex='auto'>
 					<Space>
@@ -50,15 +50,7 @@ export const HeaderPanel: React.FC = () => {
 						CREATE AD
 					</Button>
 				</Col>
-				{/* <div style={logoStyle}>LOST & FOUND</div> */}
 			</Row>
 		</Header>
 	)
-}
-function rgb(
-	arg0: number,
-	arg1: number,
-	arg2: number
-): import('csstype').Property.BackgroundColor | undefined {
-	throw new Error('Function not implemented.')
 }
