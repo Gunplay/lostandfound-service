@@ -1,5 +1,5 @@
 import GoogleMapReact from 'google-map-react'
-
+import styles from './GoogleMapThings.module.scss'
 const AnyReactComponent = ({ text }) => <div>{text}</div>
 
 export default function SimpleMap() {
@@ -13,7 +13,7 @@ export default function SimpleMap() {
 
 	return (
 		// Important! Always set the container height explicitly
-		<div style={{ height: '65vh', width: '100%' }}>
+		<div className={styles.map__container}>
 			<GoogleMapReact
 				bootstrapURLKeys={{ key: process.env.GOOGLE_MAPS_API_KEY }}
 				defaultCenter={defaultProps.center}

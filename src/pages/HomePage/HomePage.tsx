@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { Link as LinkRout } from 'react-router-dom'
-
 import { SubHeader } from '../../components'
 import FloatingButtonHelpInfo from '../../components/FloatingButtonHelpInfo'
 import { CardsPage } from '../CardsPage/CardPage'
@@ -35,9 +33,7 @@ const HomePage: React.FC = () => {
 			</div> */}
 
 			<CardsPage />
-			<LinkRout to='/list' className='show-more-link'>
-				SHOW MORE
-			</LinkRout>
+
 			<FloatingButtonHelpInfo />
 		</>
 	)

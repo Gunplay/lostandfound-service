@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
 import { Button, Col, Row, Space, Switch, Typography } from 'antd'
-import CardNewItem from '../../components/CardNewItem'
-
 import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { Link as LinkRout } from 'react-router-dom'
+import CardNewItem from '../../components/CardNewItem'
 import { fetchCards } from '../../redux/card/asyncActions'
 import { selectCardData } from '../../redux/card/selectors'
 import { RootState, useAppDispatch } from '../../redux/store'
-
+import styles from './CardsPage.module.scss'
 const { Text, Link } = Typography
 
 interface CardsPageProps {
@@ -46,7 +46,7 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
 	const currentCards = items?.slice(indexOfFirstCard, indexOfLastCard)
 
 	return (
-		<div ref={move} id='viewrecentitems'>
+		<div ref={move} id={styles.wrapper}>
 			<Space size='middle'>
 				<h1 style={{ color: 'black' }}>RECENTLY LOST THINGS</h1>
 				<Switch checked={switcher} onChange={onChange}></Switch>
@@ -54,97 +54,6 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
 			</Space>
 
 			<Row gutter={[0, 32]}>
-				<Col span={24} />
-				<Col span={24}></Col>
-				<Col></Col>
-				{/* <Card
-					style={{ width: 300 }}
-					cover={
-						<img
-							alt='example'
-							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
-						/>
-					}
-					hoverable
-					// actions={[
-					// 	<SettingOutlined key='setting' />,
-					// 	<EditOutlined key='edit' />,
-					// 	<EllipsisOutlined key='ellipsis' />,
-					// ]}
-				>
-					<Meta
-						// avatar={<Avatar } />}
-						title='DOG'
-						description='LOST MY PET'
-					/>
-					<Meta title='DOG' description='LOST MY PET' />
-				</Card>
-				<Card
-					style={{ width: 300 }}
-					cover={
-						<img
-							alt='example'
-							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
-						/>
-					}
-					hoverable
-					// actions={[
-					// 	<SettingOutlined key='setting' />,
-					// 	<EditOutlined key='edit' />,
-					// 	<EllipsisOutlined key='ellipsis' />,
-					// ]}
-				>
-					<Meta
-						// avatar={<Avatar } />}
-						title='DOG'
-						description='LOST MY PET'
-					/>
-					<Meta title='DOG' description='LOST MY PET' />
-				</Card>
-				<Card
-					style={{ width: 300 }}
-					cover={
-						<img
-							alt='example'
-							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
-						/>
-					}
-					hoverable
-					// actions={[
-					// 	<SettingOutlined key='setting' />,
-					// 	<EditOutlined key='edit' />,
-					// 	<EllipsisOutlined key='ellipsis' />,
-					// ]}
-				>
-					<Meta
-						// avatar={<Avatar } />}
-						title='DOG'
-						description='LOST MY PET'
-					/>
-					<Meta title='DOG' description='LOST MY PET' />
-				</Card>
-				<Card
-					style={{ width: 300 }}
-					cover={
-						<img
-							alt='example'
-							src='https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg'
-						/>
-					}
-					hoverable
-					// actions={[
-					// 	<SettingOutlined key='setting' />,
-					// 	<EditOutlined key='edit' />,
-					// 	<EllipsisOutlined key='ellipsis' />,
-					// ]}
-				>
-					<Meta
-						// avatar={<Avatar } />}
-						title='DOG'
-						description='LOST MY PET'
-					/>
-					<Meta title='DOG' description='LOST MY PET' />
-				</Card> */}
 				{currentCards?.map(item => (
 					<Col key={item['_id']} xl={6} md={8} sm={12} xs={24}>
 						<Space>
@@ -165,6 +74,9 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
 					</Col>
 				))}
 				<Col span={24} />
+				<LinkRout to='/list' className='show-more-link'>
+					SHOW MORE
+				</LinkRout>
 			</Row>
 		</div>
 	)

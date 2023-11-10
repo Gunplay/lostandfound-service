@@ -15,12 +15,14 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	//bottom: 0;
+	// bottom: 0;
 	z-index: 50;
 	max-width: 670px;
+
 	// max-height: 485px;
-	background-color: rgba(255, 255, 255, 0.767);
-	margin: 130px auto;
+	// background-color: white;
+	background-color: rgb(255, 255, 255, 0.9);
+	margin: 50px auto;
 	border-radius: 15px;
 }
 .react-tel-input .form-control {

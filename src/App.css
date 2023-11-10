@@ -19,12 +19,18 @@ li {
 	list-style: none;
 }
 .ant-layout-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 99;
 	/* height: 10%; */
 	height: auto;
 	padding: 0 0px;
-	background-color: #2f5388;
+
+	/* background-color: #2f5388; */
 	/* line-height: 64px; */
-	/* background: rgb(62, 119, 141); */
+	background: transparent;
 }
 .ant-input-affix-wrapper {
 	border-color: #ffffff;

@@ -13,7 +13,7 @@ import {
 	Pagination,
 	Row,
 	Select,
-	Space,
+	Spin,
 	Typography,
 } from 'antd'
 import React, { useEffect, useState } from 'react'
@@ -23,10 +23,10 @@ import { Status } from '../../redux/card/types'
 import { fetchAds } from '../../redux/list/asyncAction'
 import { setCurrentPage } from '../../redux/list/slice'
 import { RootState, useAppDispatch } from '../../redux/store'
+import styles from './ListSearchAds.module.scss'
 const { Title } = Typography
 const { Search } = Input
 const { Meta } = Card
-
 const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters']
 
 const ListSearchAds = () => {
@@ -82,117 +82,116 @@ const ListSearchAds = () => {
 
 	return (
 		<>
-			{status === Status.LOADING ? ( // Update this lines
-				<Row align='middle'>
-					{/* <Col xl={24} md={24} sm={24} xs={24} key={spinner}>
-						{foundAds.map(spinner => (
-							<Spin size='large'></Spin>
-						))}
-					</Col> */}
-				</Row>
-			) : (
-				<>
-					<div>
-						<Row justify='center'>
-							<Col>
-								<Title style={{ backgroundColor: 'ButtonHighlight' }}>
-									SEARCH ADS
-								</Title>
-							</Col>
-						</Row>
-						<Row justify='center'>
-							<Space size='large'>
-								<Col>
-									<Search
-										size='large'
-										placeholder='Search by word...'
-										loading={false}
-										enterButton
-									/>
-								</Col>
-								<Col>
-									<Search
-										size='large'
-										placeholder='Search by place...'
-										loading={false}
-										enterButton
-									/>
-								</Col>
-								<Col>
-									<Button size='large' icon={<SearchOutlined />}>
-										Search
-									</Button>
-								</Col>
-							</Space>
-						</Row>
-						<Row justify='center'>
-							<Space size='large'>
-								<Col>
-									<Select
-										size='large'
-										style={{ width: 150 }}
-										placeholder='Type item'
-									/>
-								</Col>
-								<Col>
-									<Select
-										mode='multiple'
-										placeholder='Category'
-										value={selectedItems}
-										onChange={setSelectedItems}
-										style={{ width: 300 }}
-										options={filteredOptions.map(item => ({
-											value: item,
-											label: item,
-										}))}
-									/>
-								</Col>
-								<Col>
-									<Select
-										size='large'
-										style={{ width: 150 }}
-										placeholder='Sort items by'
-									/>
-								</Col>
-							</Space>
-						</Row>
-					</div>
+			<div className={styles.wrapper}>
+				{status === Status.LOADING ? ( // Update this lines
+					<Row align='middle'>
+						<Col xl={24} md={24} sm={24} xs={24}>
+							{foundAds.map(spinner => (
+								<Spin size='large'></Spin>
+							))}
+						</Col>
+					</Row>
+				) : (
+					<>
+						<div>
+							<div className={styles.wrapper__inputPanel}>
+								<Row justify='center'>
+									<Col>
+										<Title>SEARCH ADS</Title>
+									</Col>
+								</Row>
+								<Row justify='center'>
+									<Col>
+										<Search
+											size='large'
+											placeholder='Search by word...'
+											loading={false}
+											enterButton
+										/>
+									</Col>
+									<Col>
+										<Search
+											size='large'
+											placeholder='Search by place...'
+											loading={false}
+											enterButton
+										/>
+									</Col>
+									<Col>
+										<Button size='large' icon={<SearchOutlined />}>
+											Search
+										</Button>
+									</Col>
+								</Row>
 
-					{foundAds &&
-						foundAds.map((item: any) => (
-							<Row justify='center' key={item['_id']}>
-								<Col xl={16} md={16} sm={16} xs={24}>
-									<Card
-										style={{ width: 300 }}
-										cover={<img alt='example' src={item.photo} />}
-										hoverable
-										actions={[
-											<SettingOutlined key='setting' />,
-											<EditOutlined key='edit' />,
-											<EllipsisOutlined key='ellipsis' />,
-										]}
-									>
-										<Meta
-											avatar={<Avatar src={item.photo} />}
-											title={item.title}
-											description={item.address}
+								<Row justify='center'>
+									<Col>
+										<Select
+											size='large'
+											style={{ width: 150 }}
+											placeholder='Type item'
 										/>
-										<Meta
-											title={item.categoryName}
-											description={item.createdAt.slice(0, -4)}
+									</Col>
+									<Col>
+										<Select
+											mode='multiple'
+											placeholder='Category'
+											value={selectedItems}
+											onChange={setSelectedItems}
+											style={{ width: 300 }}
+											options={filteredOptions.map(item => ({
+												value: item,
+												label: item,
+											}))}
 										/>
-									</Card>
-								</Col>
-							</Row>
-						))}
-				</>
-			)}
-			<Pagination
-				current={currentPage}
-				total={totalPages}
-				defaultPageSize={1}
-				onChange={handlePageChange}
-			/>
+									</Col>
+									<Col>
+										<Select
+											size='large'
+											style={{ width: 150 }}
+											placeholder='Sort items by'
+										/>
+									</Col>
+								</Row>
+							</div>
+						</div>
+
+						{foundAds &&
+							foundAds.map((item: any) => (
+								<Row justify='center' key={item['_id']}>
+									<Col xl={16} md={16} sm={16} xs={24}>
+										<Card
+											style={{ width: 300 }}
+											cover={<img alt='example' src={item.photo} />}
+											hoverable
+											actions={[
+												<SettingOutlined key='setting' />,
+												<EditOutlined key='edit' />,
+												<EllipsisOutlined key='ellipsis' />,
+											]}
+										>
+											<Meta
+												avatar={<Avatar src={item.photo} />}
+												title={item.title}
+												description={item.address}
+											/>
+											<Meta
+												title={item.categoryName}
+												description={item.createdAt.slice(0, -4)}
+											/>
+										</Card>
+									</Col>
+								</Row>
+							))}
+					</>
+				)}
+				<Pagination
+					current={currentPage}
+					total={totalPages}
+					defaultPageSize={1}
+					onChange={handlePageChange}
+				/>
+			</div>
 		</>
 	)
 }

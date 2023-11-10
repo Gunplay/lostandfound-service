@@ -1,13 +1,22 @@
 .SubHeader {
 	position: relative;
-	background-image: url('../../../public/andyone--WW8jBak7bo-unsplash.jpg');
+	height: 100vh;
+	padding-top: 20px;
+	background-image: url('../../../public/sam-mcnamara-p0ZvBVpW3KY-unsplash.jpg');
 	background-size: cover;
-	background-position: inherit;
+	background-position: center;
 	background-repeat: no-repeat;
 	text-align: center;
 	padding: 20px; /* Добавьте отступы для текста, чтобы он был видимым на фоне */
+	color: black;
 }
-
+.subheader__title {
+	margin-top: 60px;
+	font-size: 50px;
+	letter-spacing: 1px;
+	//line-height: 4rem;
+	color: white;
+}
 .SubHeader::before {
 	content: '';
 	position: absolute;
@@ -15,16 +24,17 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.5); /* Задайте цвет и прозрачность */
+	background: rgba(0, 0, 0, 0.2); /* Задайте цвет и прозрачность */
 }
 
 .sub__container {
+	padding: 130px 0px 0px 0px;
 	// background-color: cadetblue;
 }
 
 .ant-typography h1 {
 	margin-bottom: 0.5em;
-	color: white;
+	color: black;
 	font-weight: 600;
 	font-size: 38px;
 	line-height: 1.2105263157894737;
@@ -32,9 +42,63 @@
 .sub__backgroundList {
 	margin: 30px auto;
 	padding: 10px;
-	background: rgba(216, 214, 209, 0.1);
-	border-radius: 5%;
-	line-height: 40px;
-	color: white;
+	background: rgba(234, 234, 235, 0.6); /* Красивый цвет фона */
+	border-radius: 1%;
+	line-height: 30px;
+	color: #333; /* Цвет текста, более темный для лучшей читаемости */
+	font-size: 20px;
 	font-weight: 600;
+	letter-spacing: 0.5px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	text-align: center; /* Выравнивание текста по центру */
+}
+
+.header__inputSearch {
+}
+
+.sub__control {
+	margin-top: 30px;
+}
+
+@media screen and (max-width: 900px) {
+	.subheader__title {
+		font-size: 35px;
+	}
+	.sub__backgroundList {
+		font-size: 20px;
+	}
+}
+@media screen and (max-width: 600px) {
+	.subheader__title {
+		font-size: 25px;
+	}
+	.sub__backgroundList {
+		font-size: 20px;
+	}
+}
+@media screen and (max-width: 371px) {
+	.subheader__title {
+		font-size: 20px;
+	}
+	.sub__backgroundList {
+		font-size: 15px;
+	}
+}
+
+@media screen and (max-width: 371px) {
+	.subheader__title {
+		font-size: 20px;
+	}
+	.sub__backgroundList {
+		font-size: 15px;
+	}
+}
+@media screen and (max-width: 323px) {
+	.subheader__title {
+		font-size: 20px;
+	}
+	.sub__backgroundList {
+		font-size: 15px;
+	}
 }

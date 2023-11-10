@@ -1,54 +1,62 @@
+.footer__address {
+	padding: 10px 0px 0px 0px;
+}
+
+.footer__textAddress {
+	font-size: 20px;
+}
 .footerColor {
 	background-color: aliceblue;
 }
-.logoFooter {
+.footer__logo {
 	color: steelblue;
-	font-size: 35px;
+	font-size: 45px;
 	font-weight: bold;
 	opacity: 0.85;
 }
 
-.mailAddress {
-	font-size: 18px;
+.footer__textAddress {
+	font-size: 13px;
 }
 @media screen and (max-width: 900px) {
-	.logoFooter {
+	.footer__logo {
 		font-size: 35px;
 	}
-	.mailAddress {
-		font-size: 20px;
+	.footer__textAddress {
+		font-size: 13px;
 	}
 }
 @media screen and (max-width: 600px) {
-	.logoFooter {
+	.footer__logo {
 		font-size: 25px;
 	}
-	.mailAddress {
+
+	.footer__textAddress {
 		font-size: 13px;
 	}
 }
 @media screen and (max-width: 371px) {
-	.logoFooter {
+	.footer__logo {
 		font-size: 20px;
 	}
-	.mailAddress {
+	.footer__textAddress {
 		font-size: 11px;
 	}
 }
 
 @media screen and (max-width: 371px) {
-	.logoFooter {
+	.footer__logo {
 		font-size: 20px;
 	}
-	.mailAddress {
-		font-size: 9px;
+	.footer__textAddress {
+		font-size: 11px;
 	}
 }
 @media screen and (max-width: 323px) {
-	.logoFooter {
+	.footer__logo {
 		font-size: 20px;
 	}
-	.mailAddress {
-		font-size: 7px;
+	.footer__textAddress {
+		font-size: 11px;
 	}
 }
