@@ -58,7 +58,7 @@ export const SubHeader = () => {
 							</Col>
 						</Row>
 						<Row justify='center'>
-							<Col xs={10} sm={10} md={16} lg={6} xl={8} flex='auto'>
+							<Col xs={16} sm={16} md={16} lg={6} xl={8} flex='auto'>
 								<Search
 									className={styles.header__inputSearch}
 									placeholder='input search text'

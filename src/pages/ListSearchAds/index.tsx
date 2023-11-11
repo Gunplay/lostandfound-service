@@ -20,6 +20,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router'
 import { Status } from '../../redux/card/types'
+import { fetchFormCategories } from '../../redux/form/asyncActions'
 import { fetchAds } from '../../redux/list/asyncAction'
 import { setCurrentPage } from '../../redux/list/slice'
 import { RootState, useAppDispatch } from '../../redux/store'
@@ -33,7 +34,7 @@ const ListSearchAds = () => {
 	const categories = useSelector(
 		(store: RootState) => store.form.adData.categories
 	)
-
+	console.log('categories', categories)
 	const [selectedItems, setSelectedItems] = useState<string[]>([])
 	const dispatch = useAppDispatch()
 
@@ -67,6 +68,7 @@ const ListSearchAds = () => {
 	useEffect(() => {
 		// navigate(`/ads/find`);
 		dispatch(fetchAds({ page, noveltyOrder })) // Fetch data when the component mounts or when query parameters
+		dispatch(fetchFormCategories())
 		//dispatch(setTotalPage(totalPages))
 	}, [location])
 
@@ -85,7 +87,7 @@ const ListSearchAds = () => {
 			<div className={styles.wrapper}>
 				{status === Status.LOADING ? ( // Update this lines
 					<Row align='middle'>
-						<Col xl={24} md={24} sm={24} xs={24}>
+						<Col xs={16} sm={16} md={16} lg={6} xl={8}>
 							{foundAds.map(spinner => (
 								<Spin size='large'></Spin>
 							))}
@@ -96,59 +98,66 @@ const ListSearchAds = () => {
 						<div>
 							<div className={styles.wrapper__inputPanel}>
 								<Row justify='center'>
-									<Col>
+									<Col xs={16} sm={16} md={16} lg={16} xl={16} flex='auto'>
 										<Title>SEARCH ADS</Title>
 									</Col>
 								</Row>
-								<Row justify='center'>
-									<Col>
-										<Search
-											size='large'
-											placeholder='Search by word...'
-											loading={false}
-											enterButton
-										/>
-									</Col>
-									<Col>
-										<Search
-											size='large'
-											placeholder='Search by place...'
-											loading={false}
-											enterButton
-										/>
-									</Col>
-									<Col>
-										<Button size='large' icon={<SearchOutlined />}>
-											Search
-										</Button>
-									</Col>
-								</Row>
+								<div className={styles.inputPanel__first}>
+									<Row justify='space-around'>
+										<Col xs={10} sm={6} md={6} lg={6} xl={6} flex='auto'>
+											<Search
+												size='large'
+												placeholder='Search by word...'
+												loading={false}
+												enterButton
+											/>
+										</Col>
+										<Col xs={4} sm={6} md={6} lg={6} xl={6} flex='auto'>
+											<Search
+												size='large'
+												placeholder='Search by place...'
+												loading={false}
+												enterButton
+											/>
+										</Col>
+										<Col xs={2} sm={6} md={6} lg={6} xl={6} flex='auto'>
+											<Button
+												size='large'
+												type='primary'
+												icon={<SearchOutlined />}
+											>
+												Search
+											</Button>
+										</Col>
+									</Row>
+								</div>
 
-								<Row justify='center'>
-									<Col>
+								<Row justify='space-around'>
+									<Col xs={2} sm={6} md={6} lg={6} xl={6} flex='auto'>
 										<Select
+											className={styles.input__typeItem}
 											size='large'
-											style={{ width: 150 }}
 											placeholder='Type item'
 										/>
 									</Col>
-									<Col>
+									<Col xs={2} sm={12} md={6} lg={6} xl={6} flex='auto'>
 										<Select
-											mode='multiple'
+											className={styles.input__searchCategory}
+											size='large'
+											// mode='tags'
 											placeholder='Category'
 											value={selectedItems}
 											onChange={setSelectedItems}
-											style={{ width: 300 }}
 											options={filteredOptions.map(item => ({
 												value: item,
 												label: item,
 											}))}
 										/>
 									</Col>
-									<Col>
+									<Col xs={2} sm={6} md={6} lg={6} xl={6} flex='auto'>
 										<Select
+											className={styles.input__SortItem}
 											size='large'
-											style={{ width: 150 }}
 											placeholder='Sort items by'
 										/>
 									</Col>
@@ -158,10 +167,10 @@ const ListSearchAds = () => {
 
 						{foundAds &&
 							foundAds.map((item: any) => (
-								<Row justify='center' key={item['_id']}>
-									<Col xl={16} md={16} sm={16} xs={24}>
+								<Row justify='start' key={item['_id']}>
+									<Col xs={12} sm={12} md={8} lg={8} xl={8}>
 										<Card
-											style={{ width: 300 }}
+											className={styles.search__card}
 											cover={<img alt='example' src={item.photo} />}
 											hoverable
 											actions={[

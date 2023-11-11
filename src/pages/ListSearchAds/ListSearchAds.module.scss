@@ -1,11 +1,32 @@
 .wrapper {
 	margin: 0 auto;
-	padding: 0px 10px 20px 10px;
+	padding: 70px 10px 20px 10px;
 }
 
 .wrapper__inputPanel {
-	background-color: cadetblue;
-	margin: 0px 0px 20px 0px;
-	padding: 15px 20px 20px 20px;
-	border-radius: 10px;
+	background-color: rgba(36, 151, 204, 0.493);
+	max-width: 900px;
+	margin: 50px auto;
+	padding: 15px 20px 30px 20px;
+
+	/* Add 3D border effect */
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.inputPanel__first {
+	margin-bottom: 15px;
+}
+.input__searchCategory {
+	min-width: 215px;
+}
+.input__typeItem {
+	min-width: 215px;
+}
+.input__SortItem {
+	min-width: 210px;
+}
+
+.search__card {
+	min-height: 200px;
 }
