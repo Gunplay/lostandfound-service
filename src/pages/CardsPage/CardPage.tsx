@@ -73,10 +73,14 @@ export const CardsPage: React.FC<CardsPageProps> = ({ move }) => {
 						</Space>
 					</Col>
 				))}
-				<Col span={24} />
-				<LinkRout to='/list' className='show-more-link'>
-					SHOW MORE
-				</LinkRout>
+				{/* <Col span={24} /> */}
+			</Row>
+			<Row justify='center'>
+				<Col>
+					<LinkRout to='/list' className='show-more-link'>
+						SHOW MORE
+					</LinkRout>
+				</Col>
 			</Row>
 		</div>
 	)

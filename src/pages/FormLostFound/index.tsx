@@ -170,12 +170,12 @@ const FormLostFound: React.FC = () => {
 					</Col>
 
 					<Col xs={20} sm={20} md={20} lg={20} xl={20}>
-						<ChooseTypeAd />
+						{formState.current >= 1 ? null : <ChooseTypeAd />}
 					</Col>
 					<Col xs={18} sm={18} md={20} lg={20} xl={20} flex='auto'>
 						<div>{steps[formState.current].content}</div>
 						<div>
-							<div style={{ marginBottom: '15px' }}>
+							<div className={styles.form__buttonPosition}>
 								{formState.current > 0 && (
 									<Button style={{ margin: '0 8px' }} onClick={() => prev()}>
 										Previous

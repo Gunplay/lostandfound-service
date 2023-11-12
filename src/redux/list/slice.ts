@@ -20,6 +20,12 @@ const listSlice = createSlice({
 	name: 'list',
 	initialState,
 	reducers: {
+		setWorQ: (state, action) => {
+			state.word = action.payload
+		},
+		setTypeIdQ: (state, action) => {
+			state.typeId = action.payload
+		},
 		setCurrentPage: (state, action) => {
 			state.currentPage = action.payload
 		},
@@ -49,5 +55,6 @@ const listSlice = createSlice({
 	},
 })
 
-export const { setCurrentPage, setTotalPage } = listSlice.actions
+export const { setWorQ, setTypeIdQ, setCurrentPage, setTotalPage } =
+	listSlice.actions
 export default listSlice.reducer

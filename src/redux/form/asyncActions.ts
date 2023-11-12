@@ -12,7 +12,7 @@ export const fetchFormCategories = createAsyncThunk<UserIdCategory[]>(
 			)
 			// Dispatch actions here if needed
 			// dispatch(setAdsCategories(transformedCategories));
-			console.log('data', data)
+
 			return data
 		} catch (error) {
 			// Handle errors here if necessary

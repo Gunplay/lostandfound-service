@@ -37,8 +37,15 @@ li {
 	background-color: rgb(62, 119, 141);
 }
 .ant-input-affix-wrapper:hover {
-	border-color: #ffffff;
-	background-color: tomato;
+	/* border-color: #ffffff;
+	background-color: tomato; */
+}
+
+/* input homePage */
+.ant-input-search .ant-input:hover,
+.ant-input-search .ant-input:focus {
+	background-color: rgb(223, 214, 91);
+	/* color: black; */
 }
 .ant-card .ant-card-head {
 	display: flex;

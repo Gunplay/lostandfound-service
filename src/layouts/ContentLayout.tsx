@@ -17,7 +17,7 @@ const contentStyle: React.CSSProperties = {
 
 const ContentLayout: React.FC = () => {
 	const location = useLocation()
-	console.log('pathname', location.pathname)
+	//	console.log('pathname', location.pathname)
 	return (
 		<Content style={contentStyle}>
 			{/* <HeaderPanel /> */}

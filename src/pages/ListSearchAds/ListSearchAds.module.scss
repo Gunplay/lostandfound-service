@@ -4,8 +4,8 @@
 }
 
 .wrapper__inputPanel {
-	background-color: rgba(36, 151, 204, 0.493);
-	max-width: 900px;
+	background-color: #8095ac;
+	max-width: 1100px;
 	margin: 50px auto;
 	padding: 15px 20px 30px 20px;
 
@@ -16,6 +16,9 @@
 }
 .inputPanel__first {
 	margin-bottom: 15px;
+}
+.input__All {
+	min-width: 265px;
 }
 .input__searchCategory {
 	min-width: 215px;

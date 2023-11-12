@@ -1,20 +1,20 @@
-.highlight {
-	animation: highlight 4s ease-in-out;
-}
+// .highlight {
+// 	animation: highlight 4s ease-in-out;
+// }
 
-@keyframes highlight {
-	0%,
-	100% {
-		background-color: inherit;
-	}
-	50% {
-		background-color: #1677ff; /* Цвет подсветки */
-	}
-}
+// @keyframes highlight {
+// 	0%,
+// 	100% {
+// 		background-color: inherit;
+// 	}
+// 	50% {
+// 		background-color: #1677ff; /* Цвет подсветки */
+// 	}
+// }
 .formWrap {
-	top: 0;
-	left: 0;
-	right: 0;
+	// top: 0;
+	// left: 0;
+	// right: 0;
 	// bottom: 0;
 	z-index: 50;
 	max-width: 670px;
@@ -22,8 +22,11 @@
 	// max-height: 485px;
 	// background-color: white;
 	background-color: rgb(255, 255, 255, 0.9);
-	margin: 50px auto;
+	// margin: 20px 0px 0px 0px;
 	border-radius: 15px;
+}
+.form__buttonPosition {
+	padding-bottom: 20px;
 }
 .react-tel-input .form-control {
 	position: relative;
