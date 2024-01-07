@@ -1,0 +1,30 @@
+.wrapper__inputPanel {
+	//background: linear-gradient(135deg, #667eea, #764ba2);
+	background-color: cornflowerblue;
+	width: 70%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* Center content horizontally */
+	margin: 50px auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.inputPanel__first {
+	margin-bottom: 20px; /* Increase margin for better separation */
+}
+.input__All {
+	min-width: 180px;
+}
+// .input__searchCategory {
+// 	min-width: 215px;
+// }
+// .input__typeItem {
+// 	min-width: 215px;
+// }
+// .input__SortItem {
+// 	min-width: 210px;
+// }

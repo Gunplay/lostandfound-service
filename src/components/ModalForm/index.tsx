@@ -1,27 +1,27 @@
-import { Modal } from 'antd'
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { Modal } from 'antd';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 // import { FormResetData } from "../../redux/form/types";
-import { setClearFormData } from '../../redux/form/slice'
-import API from '../../utils/API'
+import { setClearFormData } from '../../redux/form/slice';
+import API from '../../utils/API';
 
 interface ModalFormProps {
-	openModal: boolean
-	setOpenModal: (open: boolean) => void
+	openModal: boolean;
+	setOpenModal: (open: boolean) => void;
 }
 export const ModalForm: React.FC<ModalFormProps> = ({
 	openModal,
 	setOpenModal,
 }) => {
 	//const [resetForm, setResetForm] = useState<FormResetData>(initialFormDataSend);
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	const initialStateEmptyForm = useSelector(
 		(store: RootState) => store.form.adData
-	)
+	);
 	// const [open, setOpen] = useState(false);
-	const [responseData, setResponseData] = useState<any>(null)
+	const [responseData, setResponseData] = useState<any>(null);
 
 	const {
 		// _id,
@@ -38,78 +38,78 @@ export const ModalForm: React.FC<ModalFormProps> = ({
 		secretQuestion,
 		secretAnswer,
 		switcherLostOrFound,
-	} = useSelector((store: RootState) => store.form.adData)
+	} = useSelector((store: RootState) => store.form.adData);
 
 	let photos = photosData.map(item => {
 		if (item.originFileObj) {
-			return item.originFileObj
+			return item.originFileObj;
 		}
-	})
+	});
 
-	const adFormData = new FormData()
-	adFormData.append('title', title)
-	adFormData.append('description', description)
+	const adFormData = new FormData();
+	adFormData.append('title', title);
+	adFormData.append('description', description);
 
-	adFormData.append('typeId', String(typeId))
+	adFormData.append('typeId', String(typeId));
 
-	adFormData.append('categoryId', categoryId)
+	adFormData.append('categoryId', categoryId);
 
-	adFormData.append('location[address]', address)
-	adFormData.append('location[lat]', lat)
-	adFormData.append('location[lng]', lng)
+	adFormData.append('location[address]', address);
+	adFormData.append('location[lat]', lat);
+	adFormData.append('location[lng]', lng);
 
-	adFormData.append('user[firstname]', firstname)
-	adFormData.append('user[lastname]', lastname)
-	adFormData.append('user[email]', email)
-	adFormData.append('user[phone]', phone)
+	adFormData.append('user[firstname]', firstname);
+	adFormData.append('user[lastname]', lastname);
+	adFormData.append('user[email]', email);
+	adFormData.append('user[phone]', phone);
 
-	adFormData.append('lostOrFoundAt', lostOrFoundAt)
+	adFormData.append('lostOrFoundAt', lostOrFoundAt);
 
 	photos.forEach(photo => {
-		adFormData.append('photos', photo as Blob)
-	})
+		adFormData.append('photos', photo as Blob);
+	});
 	if (
 		secretQuestion &&
 		secretQuestion.length &&
 		secretAnswer &&
 		secretAnswer.length
 	) {
-		adFormData.append('secretQuestion', secretQuestion)
-		adFormData.append('secretAnswer', secretAnswer)
+		adFormData.append('secretQuestion', secretQuestion);
+		adFormData.append('secretAnswer', secretAnswer);
 	}
 
-	const [confirmLoading, setConfirmLoading] = useState(false)
+	const [confirmLoading, setConfirmLoading] = useState(false);
 
 	const [modalText, setModalText] = useState(
-		"If you are sure that your completed data is correct, then press the 'OK' button and the form will go!!"
-	)
+		'Press on the button to confirm sending form'
+	);
 
 	// const showModal = () => {
 	//     setOpen && setOpen(true);
 	// };
 
 	const handleOk = () => {
-		setConfirmLoading(true)
-		setModalText('Your data was sent')
+		setConfirmLoading(true);
+		setModalText('Your data was sent');
 		setTimeout(() => {
-			setOpenModal(false)
-			setConfirmLoading(false)
-			dispatch(setClearFormData(initialStateEmptyForm))
-		}, 6000)
+			setOpenModal(false);
+			setConfirmLoading(false);
+			dispatch(setClearFormData(initialStateEmptyForm));
+		}, 6000);
 
 		API.post('/ads', adFormData)
 			.then(res => {
-				setResponseData(res)
+				setResponseData(res);
 			})
 			.catch(error => {
-				console.error('Error:', error)
-			})
-	}
+				console.error('Error:', error);
+			});
+	};
 
 	const handleCancel = () => {
-		console.log('Clicked cancel button')
-		setOpenModal(false)
-	}
+		console.log('Clicked cancel button');
+		setOpenModal(false);
+	};
 
 	return (
 		<>
@@ -142,5 +142,5 @@ export const ModalForm: React.FC<ModalFormProps> = ({
 					)}
 			</Modal>
 		</>
-	)
-}
+	);
+};

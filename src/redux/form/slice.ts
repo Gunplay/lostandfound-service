@@ -1,7 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import type { UploadFile } from 'antd/es/upload/interface'
-import { fetchFormCategories } from './asyncActions'
-import { FormData, Status, UserIdCategory } from './types'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import type { UploadFile } from 'antd/es/upload/interface';
+import { fetchFormCategories } from './asyncActions';
+import { FormData, Status, UserIdCategory } from './types';
 //const { ObjectId } = require("mongodb");
 
 const initialState: FormData = {
@@ -19,6 +19,7 @@ const initialState: FormData = {
 			address: 'Default',
 			lat: '46.6349450987773',
 			lng: '2.8480490000000103',
+			//draggerCity: '',
 		},
 		user: {
 			firstname: '',
@@ -35,27 +36,40 @@ const initialState: FormData = {
 		secretQuestion: '',
 		secretAnswer: '',
 		status: Status.LOADING,
+		checkMap: false,
 	},
-}
+};
 
 const formSlice = createSlice({
 	name: 'form', // type and payload
 	initialState,
 	reducers: {
+		// setDraggerMarkerForm: (state, action) => {
+		// 	state.adData.location.draggerCity = action.payload;
+		// },
+		setCheckMap: (state, action) => {
+			state.adData.checkMap = !action.payload;
+		},
+		setLocation: (state, action) => {
+			state.adData.location = action.payload;
+			// state.adData.location.address = action.payload;
+			// state.adData.location.lat = action.payload;
+			// state.adData.location.lng = action.payload;
+		},
 		setClearFormData: (state, action) => {
-			state.adData = initialState.adData
+			state.adData = initialState.adData;
 		},
 		setAdataTitle(state, action: PayloadAction<string>) {
-			state.adData.title = action.payload
+			state.adData.title = action.payload;
 		},
 		setAdataCategories(state, action: PayloadAction<UserIdCategory[]>) {
-			state.adData.categories = action.payload
+			state.adData.categories = action.payload;
 		},
 		setAdataCategoryId(state, action: PayloadAction<string>) {
-			state.adData.categoryId = action.payload
+			state.adData.categoryId = action.payload;
 		},
 		setAdataDescription(state, action: PayloadAction<string>) {
-			state.adData.description = action.payload
+			state.adData.description = action.payload;
 		},
 		//PayloadAction<Record<string, string>[]>
 		setAdataPhotos(state, action: PayloadAction<UploadFile[]>) {
@@ -63,58 +77,58 @@ const formSlice = createSlice({
 			//state.adData.photos = JSON.stringify(action.payload);
 			//tate.adData.photos.push(action.payload);
 			//  state.adData.photosData = [...action.payload];
-			var tempProps = Object.create(action.payload) // create copy - without link
+			var tempProps = Object.create(action.payload); // create copy - without link
 
 			// console.log("tempProps", tempProps);
-			state.adData.photosData = tempProps // new Array
+			state.adData.photosData = tempProps; // new Array
 		},
 		setAdataLocation(state, action: PayloadAction<string>) {
-			state.adData.location.address = action.payload
+			state.adData.location.address = action.payload;
 		},
 		setAdataDataLostOrFound(state, action: PayloadAction<string>) {
-			state.adData.lostOrFoundAt = action.payload
+			state.adData.lostOrFoundAt = action.payload;
 		},
 
 		setAdataFirstName(state, action: PayloadAction<string>) {
-			state.adData.user.firstname = action.payload
+			state.adData.user.firstname = action.payload;
 		},
 		setAdataLastName(state, action: PayloadAction<string>) {
-			state.adData.user.lastname = action.payload
+			state.adData.user.lastname = action.payload;
 		},
 		setAdataEmail(state, action: PayloadAction<string>) {
-			state.adData.user.email = action.payload
+			state.adData.user.email = action.payload;
 		},
 
 		setAdataPhonePrefix(state, action: PayloadAction<string>) {
-			state.adData.user.phonePrefix = action.payload
+			state.adData.user.phonePrefix = action.payload;
 		},
 		setAdataPhoneMain(state, action: PayloadAction<string>) {
-			state.adData.user.phoneMain = action.payload
+			state.adData.user.phoneMain = action.payload;
 		},
 		setAdataPhonePrefixUpdate(state, action: PayloadAction<string>) {
-			state.adData.user.phonePrefix = action.payload
-			state.adData.user.phone = state.adData.user.phoneMain + action.payload
+			state.adData.user.phonePrefix = action.payload;
+			state.adData.user.phone = state.adData.user.phoneMain + action.payload;
 		},
 		setAdataPhoneMainUpdate(state, action: PayloadAction<string>) {
-			state.adData.user.phoneMain = action.payload
-			state.adData.user.phone = state.adData.user.phonePrefix + action.payload
+			state.adData.user.phoneMain = action.payload;
+			state.adData.user.phone = state.adData.user.phonePrefix + action.payload;
 		},
 
 		setAdataChecked(state, action: PayloadAction<boolean>) {
-			state.adData.checked = action.payload
+			state.adData.checked = action.payload;
 		},
 
 		setAdataSwitcherLostOrFound(state, action: PayloadAction<number>) {
-			state.adData.typeId = action.payload
+			state.adData.typeId = action.payload;
 		},
 		setAdataSwitcherLostOrFoundText(state, action: PayloadAction<string>) {
-			state.adData.switcherLostOrFound = action.payload
+			state.adData.switcherLostOrFound = action.payload;
 		},
 		setAdataSecretAnswer(state, action: PayloadAction<string>) {
-			state.adData.secretAnswer = action.payload
+			state.adData.secretAnswer = action.payload;
 		},
 		setAdataSecretQuestion(state, action: PayloadAction<string>) {
-			state.adData.secretQuestion = action.payload
+			state.adData.secretQuestion = action.payload;
 		},
 		// setAdsCategories(state, action: PayloadAction<string>) {
 		//     state.adData.categoryId = action.payload;
@@ -122,23 +136,24 @@ const formSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder.addCase(fetchFormCategories.pending, (state, action) => {
-			state.adData.status = Status.LOADING
-			state.adData.categories = []
-		})
+			state.adData.status = Status.LOADING;
+			state.adData.categories = [];
+		});
 
 		builder.addCase(fetchFormCategories.fulfilled, (state, action) => {
-			state.adData.status = Status.SUCCESS
-			state.adData.categories = action.payload
-		})
+			state.adData.status = Status.SUCCESS;
+			state.adData.categories = action.payload;
+		});
 
 		builder.addCase(fetchFormCategories.rejected, (state, action) => {
-			state.adData.status = Status.ERROR
-			state.adData.categories = []
-		})
+			state.adData.status = Status.ERROR;
+			state.adData.categories = [];
+		});
 	},
-})
+});
 
 export const {
+	setCheckMap,
 	setClearFormData,
 	setAdataTitle,
 	setAdataCategories,
@@ -161,6 +176,7 @@ export const {
 	setAdataChecked,
 	setAdataSecretAnswer,
 	setAdataSecretQuestion,
-} = formSlice.actions
+	setLocation,
+} = formSlice.actions;
 
-export default formSlice.reducer // pass to store
+export default formSlice.reducer; // pass to store

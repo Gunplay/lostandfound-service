@@ -82,3 +82,15 @@ li {
 	/* width         : 300px; */
 	outline: none;
 }
+.ant-descriptions
+	.ant-descriptions-item-container
+	.ant-descriptions-item-label {
+	display: inline-flex;
+	align-items: baseline;
+	color: white;
+	font-weight: 600;
+}
+
+.ant-carousel img {
+	opacity: 1;
+}

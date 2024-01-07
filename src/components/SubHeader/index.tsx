@@ -1,11 +1,15 @@
-import { Button, Col, Input, Row, Typography } from 'antd'
-import { Link } from 'react-router-dom'
+import { Button, Col, Input, Row, Typography } from 'antd';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { RootState } from '../../redux/store';
+import styles from './SubHeader.module.scss';
+const { Search } = Input;
 
-import styles from './SubHeader.module.scss'
-const { Search } = Input
+const { Title } = Typography;
 
-const { Title } = Typography
 export const SubHeader = () => {
+	const { isOpenAuthModal } = useSelector((store: RootState) => store.register);
+
 	return (
 		<>
 			<div className={styles.SubHeader}>
@@ -29,6 +33,8 @@ export const SubHeader = () => {
 							</h1>
 						</Col>
 					</Row>
+
+					{/* {isOpenAuthModal && <Register />} */}
 					<Row justify='center'>
 						<Col>
 							<ul className={styles.sub__backgroundList}>
@@ -44,6 +50,7 @@ export const SubHeader = () => {
 							</ul>
 						</Col>
 					</Row>
+
 					<div className={styles.sub__control}>
 						<Row justify='center'>
 							<Col>
@@ -72,5 +79,5 @@ export const SubHeader = () => {
 				</div>
 			</div>
 		</>
-	)
-}
+	);
+};

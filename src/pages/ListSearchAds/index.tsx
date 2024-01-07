@@ -1,48 +1,17 @@
-import {
-	EditOutlined,
-	EllipsisOutlined,
-	SearchOutlined,
-	SettingOutlined,
-} from '@ant-design/icons'
-import {
-	Avatar,
-	Button,
-	Card,
-	Col,
-	Input,
-	Pagination,
-	Row,
-	Select,
-	Spin,
-	Typography,
-} from 'antd'
-
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router'
-import { Status } from '../../redux/card/types'
-import { fetchFormCategories } from '../../redux/form/asyncActions'
-import { fetchAds } from '../../redux/list/asyncAction'
-import { setCurrentPage, setTypeIdQ, setWorQ } from '../../redux/list/slice'
-import { RootState, useAppDispatch } from '../../redux/store'
-import styles from './ListSearchAds.module.scss'
-const { Option } = Select
-const { Title } = Typography
-const { Search } = Input
-const { Meta } = Card
-const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters']
+import { Avatar, Card, Col, Descriptions, Pagination, Row, Spin } from 'antd';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+import { SearchPanel } from '../../components/SearchPanel';
+import { Status } from '../../redux/cards/types';
+import { setCurrentPage } from '../../redux/list/slice';
+import { RootState, useAppDispatch } from '../../redux/store';
+import styles from './ListSearchAds.module.scss';
+const { Meta } = Card;
+// const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters']
 
 const ListSearchAds = () => {
-	const categories = useSelector(
-		(store: RootState) => store.form.adData.categories
-	)
-
-	const [selectedItems, setSelectedItems] = useState<string[]>([])
-	const dispatch = useAppDispatch()
-
-	const filteredOptions = categories
-		.map(item => item.category)
-		.filter(o => !selectedItems.includes(o))
+	const dispatch = useAppDispatch();
 
 	const {
 		foundAds,
@@ -51,195 +20,154 @@ const ListSearchAds = () => {
 		word,
 		noveltyOrder,
 		typeId,
-		categoryId,
+		//categoryId,
 		address,
 		isLoadResults,
 		status,
-	} = useSelector((store: RootState) => store.list)
+	} = useSelector((store: RootState) => store.list);
 
-	const navigate = useNavigate()
-	console.log('typeId', typeId)
-	const location = useLocation()
+	const navigate = useNavigate();
 
-	const queryParams = new URLSearchParams(location.search)
-	console.log('queryParams', queryParams.get('word'))
-	const wordQ = queryParams.get('word') || ''
-	const page = parseInt(queryParams.get('page') || '1', 10)
+	const location = useLocation();
 
-	const noveltyOrderQ = queryParams.get('noveltyOrder') || 'desc'
-	const typeIdQ = parseInt(queryParams.get('typeId') || '1', 10)
-	useEffect(() => {
-		// navigate(`/ads/find`);
-		dispatch(fetchAds({ wordQ, page, noveltyOrder, typeIdQ })) // Fetch data when the component mounts or when query parameters
-		dispatch(fetchFormCategories())
-		//dispatch(setTotalPage(totalPages))
-	}, [location])
+	const queryParams = new URLSearchParams(location.search);
+
+	const wordQ = queryParams.get('word') || '';
+	const page = parseInt(queryParams.get('page') || '1', 10);
+
+	const noveltyOrderQ = queryParams.get('noveltyOrder') || 'desc';
+	const typeIdQ = parseInt(queryParams.get('typeId') || '1', 10);
+
+	const categoryIdQ = queryParams.get('categoryId') || '';
+	const addressQ = queryParams.get('address') || '';
+
+	// useEffect(() => {
+	// 	// navigate(`/ads/find`);
+	// 	dispatch(
+	// 		fetchAds({ wordQ, page, noveltyOrderQ, addressQ, typeId, categoryIdQ })
+	// 	) // Fetch data when the component mounts or when query parameters
+	// 	dispatch(fetchFormCategories())
+	// 	//dispatch(setTotalPage(totalPages))
+	// }, [dispatch, wordQ, page, noveltyOrderQ, addressQ, typeId, categoryIdQ])
 
 	const handleNavigate = (
 		newPage: number,
 		newWordQ: string,
-		newTypeIdQ: any
+		newTypeIdQ: number,
+		newCategoryIdQ: any,
+		newNoveltyOrder: string,
+		newAddressQ: string
 	) => {
-		dispatch(setCurrentPage(newPage))
-		dispatch(setWorQ(newWordQ))
-		dispatch(setTypeIdQ(newTypeIdQ)) // Используйте setTypeIdQ вместо второго setWorQ
-		navigate(
-			`/list?word=${newWordQ}&page=${newPage}&noveltyOrder=${noveltyOrderQ}&typeId=${newTypeIdQ}`
-		)
-	}
+		dispatch(setCurrentPage(newPage));
+		// dispatch(setWorQ(newWordQ))
+		// dispatch(setTypeId(newTypeIdQ))
+		// // newTypeIdQ === 1
+		// // 	? dispatch(setTypeIdQ(AD_LOST_TYPE_ID))
+		// // 	: dispatch(setTypeIdQ(AD_FOUND_TYPE_ID))
 
-	const handleChangeWord = (wordQ: string) => {
-		handleNavigate(page, wordQ, typeIdQ)
-	}
+		// dispatch(setCategoryId(newCategoryIdQ))
+		// dispatch(setNoveltyOrder(newNoveltyOrder))
+		// dispatch(setAddress(newAddressQ))
+		navigate(
+			`/list?word=${newWordQ}&page=${newPage}&noveltyOrder=${newNoveltyOrder}&address=${newAddressQ}&typeId=${newTypeIdQ}&categoryId=${newCategoryIdQ}`
+		);
+	};
 
 	const handlePageChange = (newPage: any) => {
-		handleNavigate(newPage, wordQ, typeIdQ)
-	}
+		handleNavigate(
+			newPage,
+			wordQ,
+			typeIdQ,
+			[categoryIdQ],
+			noveltyOrder,
+			addressQ
+		);
+	};
 
-	const handleTypeIdChange = (newTypeId: string | number | null) => {
-		const typeIdValue =
-			newTypeId !== null
-				? newTypeId === 'FOUND'
-					? '1'
-					: newTypeId === 'LOST'
-					? '2'
-					: null
-				: null
-		handleNavigate(page, wordQ, typeIdValue)
-	}
-	// !TODO
-	//  dispatch(fetchAds({ page, noveltyOrder }));
-	// navigate(`list/ads/find?word=${wordQ}&page=${page}&noveltyOrder=${noveltyOrderQ}`);
-	// URL MUST BE AFTER ? WITH NAVIGATE, WITHOUT http://127.0.0.1:3001/ads/find
 	return (
 		<>
 			<div className={styles.wrapper}>
-				{status === Status.LOADING ? ( // Update this lines
+				<SearchPanel />
+				{status === Status.LOADING ? (
 					<Row align='middle'>
-						<Col xs={16} sm={16} md={16} lg={16} xl={16}>
-							{foundAds.map(spinner => (
-								<Spin size='large'></Spin>
-							))}
+						<Col xs={24} sm={24} md={24} lg={24} xl={24}>
+							<Spin size='large' />
 						</Col>
 					</Row>
 				) : (
-					<>
-						<div>
-							<div className={styles.wrapper__inputPanel}>
-								<Row justify='center'>
-									<Col xs={16} sm={16} md={16} lg={16} xl={16} flex='auto'>
-										<Title>SEARCH ADS</Title>
-									</Col>
-								</Row>
-								<div className={styles.inputPanel__first}>
-									<Row justify='space-around'>
-										<Col xs={10} sm={6} md={6} lg={6} xl={6} flex='auto'>
-											<Search
-												size='large'
-												placeholder='Search by word...'
-												loading={false}
-												//enterButton
-												value={word}
-												onChange={e => dispatch(setWorQ(e.target.value))}
-												onSearch={handleChangeWord}
-											/>
-										</Col>
-										<Col xs={4} sm={6} md={6} lg={6} xl={6} flex='auto'>
-											<Search
-												size='large'
-												placeholder='Search by place...'
-												loading={false}
-												enterButton
-											/>
-										</Col>
-										<Col xs={2} sm={6} md={6} lg={6} xl={6} flex='auto'>
-											<Button
-												size='large'
-												type='primary'
-												icon={<SearchOutlined />}
-											>
-												Search
-											</Button>
-										</Col>
-									</Row>
-								</div>
-
-								<Row justify='space-around'>
-									<Col xs={2} sm={6} md={6} lg={6} xl={6} flex='auto'>
-										<Select
-											className={styles.input__All}
-											size='large'
-											placeholder='Type item'
-											value={typeId}
-											onChange={value => handleTypeIdChange(value)}
-										>
-											<Option value='FOUND'>Found</Option>
-											<Option value='LOST'>Lost</Option>
-										</Select>
-									</Col>
-									<Col xs={2} sm={12} md={6} lg={6} xl={6} flex='auto'>
-										<Select
-											className={styles.input__All}
-											size='large'
-											// mode='tags'
-											placeholder='Category'
-											value={selectedItems}
-											onChange={setSelectedItems}
-											options={filteredOptions.map(item => ({
-												value: item,
-												label: item,
-											}))}
-										></Select>
-									</Col>
-									<Col xs={2} sm={6} md={6} lg={6} xl={6} flex='auto'>
-										<Select
-											className={styles.input__All}
-											size='large'
-											placeholder='Sort items by'
-										/>
-									</Col>
-								</Row>
-							</div>
-						</div>
-
+					<div className={styles.wrap__card}>
 						{foundAds &&
 							foundAds.map((item: any) => (
-								<Row justify='space-around' key={item['_id']}>
-									<Col xs={6} sm={6} md={8} lg={6} xl={6}>
-										<Card
-											className={styles.search__card}
-											cover={<img alt='example' src={item.photo} />}
-											hoverable
-											actions={[
-												<SettingOutlined key='setting' />,
-												<EditOutlined key='edit' />,
-												<EllipsisOutlined key='ellipsis' />,
-											]}
+								<Row justify='center' align='middle' key={item['_id']}>
+									<Col xs={14} sm={12} md={10} lg={8} xl={6}>
+										<Link to={`/ad?adId=${item._id}`}>
+											<Card
+												className={styles.search__card}
+												cover={
+													<img
+														alt='example'
+														src={item.photo}
+														className={styles.search__cardImg}
+													/>
+												}
+												hoverable
+												// actions={[
+												// 	<SettingOutlined key='setting' />,
+												// 	<EditOutlined key='edit' />,
+												// 	<EllipsisOutlined key='ellipsis' />,
+												// ]}
+											>
+												<Meta
+													avatar={
+														<Avatar src='https://xsgames.co/randomusers/avatar.php?g=pixel' />
+													}
+													title={item.title}
+													description={
+														typeId === 1 ? 'Type Lost' : 'Type Found'
+													}
+												/>
+											</Card>
+										</Link>
+									</Col>
+									<Col xs={10} sm={10} md={14} lg={12} xl={16}>
+										<Descriptions
+											title={item.categoryName}
+											className={styles.search__description}
 										>
-											<Meta
-												avatar={<Avatar src={item.photo} />}
-												title={item.title}
-												description={item.address}
-											/>
-											<Meta
-												title={item.categoryName}
-												description={item.createdAt.slice(0, -4)}
-											/>
-										</Card>
+											{/* address, categoryName, createdAt, photo, title, typeId, _id */}
+											<Descriptions.Item
+												label='Address'
+												className={styles.search__descriptionText}
+											>
+												{item.address}
+											</Descriptions.Item>
+											<Descriptions.Item
+												label='Date'
+												className={styles.search__descriptionText}
+											>
+												{item.createdAt.substring(0, 10)}
+											</Descriptions.Item>
+											<Descriptions.Item
+												label='Name'
+												className={styles.search__descriptionText}
+											>
+												{item.categoryName}
+											</Descriptions.Item>
+										</Descriptions>
 									</Col>
 								</Row>
 							))}
-					</>
+					</div>
 				)}
-				<Pagination
-					current={currentPage}
-					total={totalPages}
-					defaultPageSize={1}
-					onChange={handlePageChange}
-				/>
 			</div>
+			<Pagination
+				current={currentPage}
+				total={totalPages}
+				defaultPageSize={1}
+				onChange={handlePageChange}
+			/>
 		</>
-	)
-}
+	);
+};
 
-export default ListSearchAds
+export default ListSearchAds;

@@ -1,19 +1,20 @@
-import { Button, Col, Form, Row, Steps } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { ModalForm } from '../../components'
-import { RootState } from '../../redux/store'
-import ChooseTypeAd from './ChooseTypeAd'
-import FirstStepForm from './FirstStepForm'
-import SecondStepFrom from './SecondStepForm'
-import ThirdStepForm from './ThirdStepForm'
-import styles from './formLostFound.module.scss'
+import { Button, Col, Form, Row, Steps } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ModalForm } from '../../components';
+import { setCheckMap } from '../../redux/form/slice';
+import { RootState } from '../../redux/store';
+import ChooseTypeAd from './ChooseTypeAd';
+import FirstStepForm from './FirstStepForm';
+import SecondStepFrom from './SecondStepForm';
+import ThirdStepForm from './ThirdStepForm';
+import styles from './formLostFound.module.scss';
 import {
 	firstStepSchemaFound,
 	firstStepSchemaLost,
 	secondStepSchema,
 	thirdStepSchema,
-} from './validatorForm'
+} from './validatorForm';
 
 const formItemLayout = {
 	labelCol: {
@@ -24,17 +25,24 @@ const formItemLayout = {
 		xs: { span: 24 },
 		sm: { span: 16 },
 	},
-}
+};
 
 const FormLostFound: React.FC = () => {
-	const [form] = Form.useForm()
-	const dispatch = useDispatch()
+	const [form] = Form.useForm();
+	const dispatch = useDispatch();
 
-	const { title, categories, switcherLostOrFound } = useSelector(
+	const { title, categories, switcherLostOrFound, checkMap } = useSelector(
 		(store: RootState) => store.form.adData
-	)
-	const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([])
-	const [openModal, setOpenModal] = useState(false)
+	);
+	const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
+	const [openModal, setOpenModal] = useState(false);
+	const [formVisible, setFormVisible] = useState(true);
+	const [checkMapClick, setCheckMapClick] = useState(false);
+
+	const formHandleVisible = () => {
+		setCheckMapClick(!checkMapClick);
+		setFormVisible(!formVisible);
+	};
 
 	useEffect(() => {
 		function handleResize() {
@@ -45,14 +53,14 @@ const FormLostFound: React.FC = () => {
 			}
 		}
 
-		handleResize()
+		handleResize();
 
-		window.addEventListener('resize', handleResize)
+		window.addEventListener('resize', handleResize);
 
 		return () => {
-			window.removeEventListener('resize', handleResize)
-		}
-	}, [switcherLostOrFound])
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [switcherLostOrFound]);
 
 	const tailFormItemLayout = {
 		wrapperCol: {
@@ -65,7 +73,7 @@ const FormLostFound: React.FC = () => {
 				offset: 8,
 			},
 		},
-	}
+	};
 
 	const showModal = async () => {
 		try {
@@ -74,39 +82,39 @@ const FormLostFound: React.FC = () => {
 				firstStepSchemaFound,
 				secondStepSchema,
 				thirdStepSchema,
-			]
-			await form.validateFields()
+			];
+			await form.validateFields();
 			const allFieldsFilled = schemas.every(
 				schema => schema.fields && Object.keys(schema.fields).length > 0
-			)
+			);
 
 			if (allFieldsFilled) {
-				setOpenModal(true)
+				setOpenModal(true);
 			} else {
-				console.log('Please fill in all fields.')
+				console.log('Please fill in all fields.');
 			}
 		} catch (error) {
-			console.error('Error during validation:', error)
+			console.error('Error during validation:', error);
 		}
-	}
+	};
 
 	const onWebsiteChange = (value: string) => {
 		if (!value) {
-			setAutoCompleteResult([])
+			setAutoCompleteResult([]);
 		} else {
 			setAutoCompleteResult(
 				['.com', '.org', '.net'].map(domain => `${value}${domain}`)
-			)
+			);
 		}
-	}
+	};
 
 	const websiteOptions = autoCompleteResult.map(website => ({
 		label: website,
 		value: website,
-	}))
+	}));
 
 	// STEP
-	const [formState, setFormState] = useState(initialState)
+	const [formState, setFormState] = useState(initialState);
 
 	const next = async () => {
 		try {
@@ -115,107 +123,115 @@ const FormLostFound: React.FC = () => {
 				secondStepSchema,
 				thirdStepSchema,
 				firstStepSchemaFound,
-			]
-			const currentSchema = schemas[formState.current]
+			];
+			const currentSchema = schemas[formState.current];
 			if (currentSchema) {
-				const values = await form.validateFields()
-				await currentSchema.validate(values, { abortEarly: false })
-				setFormState({ ...formState, current: formState.current + 1 })
+				const values = await form.validateFields();
+				await currentSchema.validate(values, { abortEarly: false });
+				setFormState({ ...formState, current: formState.current + 1 });
 			}
 		} catch (errorInfo) {
-			console.error('Error during validation:', errorInfo)
+			console.error('Error during validation:', errorInfo);
 		}
-	}
+	};
 
 	const prev = () => {
-		setFormState({ ...formState, current: formState.current - 1 })
-	}
+		setFormState({ ...formState, current: formState.current - 1 });
+	};
 	const resetForm = () => {
-		setFormState(initialState)
-	}
+		setFormState(initialState);
+	};
 
-	const items = steps.map(item => ({ key: item.title, title: item.title }))
+	const items = steps.map(item => ({ key: item.title, title: item.title }));
 
 	const contentStyle: React.CSSProperties = {
 		lineHeight: '260px',
 		textAlign: 'center',
 		marginTop: 16,
-	}
+	};
 
 	return (
-		// <div className={styles.formWrap}>
-
 		<>
-			<Form
-				{...formItemLayout}
-				form={form}
-				name='register'
-				scrollToFirstError
-				// onMouseEnter={(e) => console.log(e)}
-				// onMouseLeave={(e) => console.log(e)}
-			>
-				<Row justify='center' className={styles.formWrap}>
-					<Col xs={13} sm={16} md={20} lg={20} xl={20}>
-						<Steps
-							current={formState.current}
-							items={items}
-							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								flexDirection: 'inherit',
-								maxWidth: '600px',
-								margin: '15px auto',
-							}}
-						/>
-					</Col>
+			{!checkMap ? (
+				<Form
+					{...formItemLayout}
+					form={form}
+					name='register'
+					scrollToFirstError
+	
+				>
+					<Row justify='center' className={styles.formWrap}>
+						<Col xs={13} sm={16} md={20} lg={20} xl={20}>
+							<Steps
+								current={formState.current}
+								items={items}
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									flexDirection: 'inherit',
+									maxWidth: '600px',
+									margin: '15px auto',
+								}}
+							/>
+						</Col>
 
-					<Col xs={20} sm={20} md={20} lg={20} xl={20}>
-						{formState.current >= 1 ? null : <ChooseTypeAd />}
-					</Col>
-					<Col xs={18} sm={18} md={20} lg={20} xl={20} flex='auto'>
-						<div>{steps[formState.current].content}</div>
-						<div>
-							<div className={styles.form__buttonPosition}>
-								{formState.current > 0 && (
-									<Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-										Previous
-									</Button>
-								)}
-								{formState.current < steps.length - 1 && (
-									<Button
-										type='primary'
-										onClick={e => {
-											next()
-										}}
-									>
-										Next
-									</Button>
-								)}
-								{formState.current === steps.length - 1 && (
-									<>
+						<Col xs={20} sm={20} md={20} lg={20} xl={20}>
+							{formState.current >= 1 ? null : <ChooseTypeAd />}
+						</Col>
+						<Col xs={18} sm={18} md={20} lg={20} xl={20} flex='auto'>
+							<div>{steps[formState.current].content}</div>
+							<div>
+								<div className={styles.form__buttonPosition}>
+									{formState.current > 0 && (
+										<Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+											Previous
+										</Button>
+									)}
+									{formState.current < steps.length - 1 && (
 										<Button
 											type='primary'
-											htmlType='submit'
-											onClick={showModal}
+											onClick={e => {
+												next();
+											}}
 										>
-											Register
+											Next
 										</Button>
-										<ModalForm
-											openModal={openModal}
-											setOpenModal={setOpenModal}
-										/>
-									</>
-								)}
+									)}
+									{formState.current === 1 && checkMapClick && (
+										<Button onClick={formHandleVisible} size='large'>
+											Come Back to Form
+										</Button>
+									)}
+									{formState.current === steps.length - 1 && (
+										<>
+											<Button
+												type='primary'
+												htmlType='submit'
+												onClick={showModal}
+											>
+												Register
+											</Button>
+											<ModalForm
+												openModal={openModal}
+												setOpenModal={setOpenModal}
+											/>
+										</>
+									)}
+								</div>
 							</div>
-						</div>
-					</Col>
-				</Row>
-			</Form>
+						</Col>
+					</Row>
+				</Form>
+			) : (
+				<Button onClick={() => dispatch(setCheckMap(checkMap))}>
+					Come back to Form
+				</Button>
+			)}
 		</>
 
 		// </div>
-	)
-}
+	);
+};
 
 const steps = [
 	{
@@ -230,10 +246,10 @@ const steps = [
 		title: 'Last',
 		content: <ThirdStepForm />,
 	},
-]
+];
 
 const initialState = {
 	current: 0,
-}
+};
 
-export default FormLostFound
+export default FormLostFound;

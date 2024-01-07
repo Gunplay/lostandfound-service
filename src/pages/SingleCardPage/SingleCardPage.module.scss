@@ -1,0 +1,51 @@
+.wrapper {
+}
+.leafletMap__singlePageWrap {
+	position: relative;
+	padding: 65px 0px 0px 0px;
+	z-index: 1;
+}
+.singleCard__wrapper {
+	position: absolute;
+	top: 200px;
+	left: 3%;
+	z-index: 2;
+	background: rgba(190, 203, 207, 0.7);
+	border-radius: 10px;
+	// border: 1px solid rgba(20, 133, 77, 0.9);
+	max-width: 550px;
+	max-height: 550px;
+	transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+	transition: transform 0.3s ease-in-out;
+	box-shadow: 0 2px 8px rgba(201, 195, 195, 0.7);
+}
+
+.singleCard__wrapper:hover {
+	transform: perspective(1000px) rotateX(0) rotateY(0);
+}
+
+.card {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.3s ease-in-out;
+}
+.singleCard__wrapperList {
+	padding: 0px 20px 20px 20px;
+}
+.singleCard__description {
+	background: white;
+	color: black;
+	padding: 8px 0;
+	border: 1px solid white;
+	border-radius: 5px;
+	margin: 5px;
+}
+.singleCard__type {
+	background-color: orange;
+}
+.singleCard__TextStyle {
+	font-weight: 600;
+}
+.card__img {
+	max-height: 200px;
+	max-width: 100%;
+}

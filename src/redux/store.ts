@@ -1,35 +1,49 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 // import filter from './filter/slice';
 // import cart from './cart/slice';
 // import pizza from './pizza/slice';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
-import cardReducer from "./card/slice";
-import formReducer from "./form/slice";
-import listReducer from "./list/slice";
-import formCategoriesReducer from "./form/slice";
+import accountReducer from './account/slice';
+import cardReducer from './cards/slice';
+import formReducer from './form/slice';
+import adsPoints from './leafletMap/slice';
+import listReducer from './list/slice';
+import miniInfo from './mapMiniInfoOfCard/slice';
+import registerUser from './register/slice';
+import singleCardReducer from './singleCard/slice';
 // import formCategoriesReducers from "./form/slice";
 
 export const store = configureStore({
-    reducer: {
-        card: cardReducer,
-        form: formReducer,
-        list: listReducer,
-        // categories: formCategoriesReducers,
+	reducer: {
+		card: cardReducer,
+		singleCard: singleCardReducer,
+		form: formReducer,
+		list: listReducer,
+		dataPoints: adsPoints,
+		dataMiniInfo: miniInfo,
+		register: registerUser,
+		account: accountReducer,
 
-        // cart,
-        // pizza,
-    },
+		// categories: formCategoriesReducers,
 
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                // Ignore these paths in the state
-                ignoredActions: ["form/setAdataPhotos", "form/setAdataDataLostOrFound"],
-                ignoredPaths: ["form.adData.photos", "form.adData.lostOrFoundAt", "form.adData.photosData"],
-                serializableCheck: false,
-            },
-        }),
+		// cart,
+		// pizza,
+	},
+
+	middleware: getDefaultMiddleware =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				// Ignore these paths in the state
+				ignoredActions: ['form/setAdataPhotos', 'form/setAdataDataLostOrFound'],
+				ignoredPaths: [
+					'form.adData.photos',
+					'form.adData.lostOrFoundAt',
+					'form.adData.photosData',
+				],
+				serializableCheck: false,
+			},
+		}),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

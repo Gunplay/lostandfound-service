@@ -7,16 +7,46 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	text-align: center;
-	padding: 20px; /* Добавьте отступы для текста, чтобы он был видимым на фоне */
+	padding: 20px;
 	color: black;
+	animation: 
+	//fadeInOutZoom 300s ease-in-out infinite,
+		changeBackground 50s linear infinite; /* Adjust the changeBackground duration to 30s */
 }
+
+// @keyframes fadeInOutZoom {
+// 	0%,
+// 	100% {
+// 		opacity: 0; /* Start and end with a transparent background */
+// 		transform: scale(1); /* Normal size */
+// 	}
+// 	50% {
+// 		opacity: 1; /* Middle of the animation, fully opaque */
+// 		transform: scale(1.2); /* Zoom in */
+// 	}
+// }
+
+@keyframes changeBackground {
+	0%,
+	25% {
+		background-image: url('../../../public/sam-mcnamara-p0ZvBVpW3KY-unsplash.jpg'); /* Start with the initial image */
+	}
+	50%,
+	75% {
+		background-image: url('../../../public/backgroundImg.jpg'); /* Change to the second image in the middle of the animation */
+	}
+	100% {
+		background-image: url('../../../public/sam-mcnamara-p0ZvBVpW3KY-unsplash.jpg'); /* Return to the initial image at the end */
+	}
+}
+
 .subheader__title {
 	margin-top: 60px;
 	font-size: 50px;
 	letter-spacing: 1px;
-	//line-height: 4rem;
 	color: white;
 }
+
 .SubHeader::before {
 	content: '';
 	position: absolute;
@@ -24,12 +54,11 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.2); /* Задайте цвет и прозрачность */
+	background: rgba(0, 0, 0, 0.4);
 }
 
 .sub__container {
 	padding: 130px 0px 0px 0px;
-	// background-color: cadetblue;
 }
 
 .ant-typography h1 {
