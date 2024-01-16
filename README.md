@@ -1,3 +1,34 @@
+About Lost and Found:
+
+A Web Application for Recovering Lost Items
+Lost and Found is a web application I am currently developing. Its purpose is simple: to help people find
+their lost items. For example, if someone loses their passport, they can visit the application and register.
+They will be prompted to fill out a form with important details such as the name of the item, photos, and
+the place where it was lost. After submitting the form, the data will be sent to the Mongo.DB server and
+reviewed by an administrator.
+
+If another person finds the lost passport, they can also register on the site and fill out their own form with
+important details. This data will also be sent to the server and reviewed by the same administrator. If the
+information matches and everything checks out, the data will be published in the form of lost or found
+advertisements.
+
+The final step involves the relationship between the two parties. If the person who lost the item is
+connected with the person who found it, they can arrange an exchange. To ensure security, they may set
+up a secret word or passcode to confirm the exchange.
+Currently, the form has been implemented to send and validate data using Yup. Our next steps involve
+developing a login system via Google authorization and creating a separate page with pagination of lost
+and found items. We are also working on the logic for exchanging items between two participants in the
+situation.
+
+Technologies used:
+
+Yup for sending and validating data
+Mongo.DB for data storage
+Google authorization for login system (in progress)
+React + Redux Toolkit + Type Script + Router
+Ant Design
+Node.js + Nest
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
