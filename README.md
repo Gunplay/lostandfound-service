@@ -29,6 +29,7 @@ React + Redux Toolkit + Type Script + Router
 Ant Design
 Node.js + Nest
 
+Unfortunately, the MongoDB database runs on the local computer and most of the queries that go to the database do not work. This project is under development and soon I will make it work on some free host!
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
