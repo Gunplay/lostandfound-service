@@ -20,6 +20,8 @@ developing a login system via Google authorization and creating a separate page 
 and found items. We are also working on the logic for exchanging items between two participants in the
 situation.
 
+LINK: https://lostandfound-service.vercel.app/
+
 Technologies used:
 
 Yup for sending and validating data
